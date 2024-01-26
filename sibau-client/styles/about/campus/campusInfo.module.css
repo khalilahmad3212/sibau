@@ -1,0 +1,43 @@
+.campus_info_links h5{
+    font-weight: 800;
+    font-size: 30p;
+    line-height: 1.5;
+}
+
+.campusTxt{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2em;
+    padding-bottom: 100px;
+}
+
+.campus_info_links ul{
+    padding-left: 0;
+    list-style: none;
+}
+
+.campus_info_links ul li a{
+    color: var(--iba-content-color);
+    padding: 10px 0px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-decoration: none;
+    display: block;
+}
+
+.campus_info_links ul li a:hover{
+    color: var(--iba-link-color);
+}
+
+.campus_info_links ul li a span{
+    margin-right: 5px;
+    color: var(--iba-link-color);
+}
+
+@media(max-width: 767px){
+    .campusTxt{
+        font-size: 26px;
+        padding-bottom: 50px;
+    }
+}

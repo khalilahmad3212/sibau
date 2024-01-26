@@ -1,0 +1,21 @@
+.content_container{
+    padding: 13% 18% 14% 12%;
+}
+.campus_icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+.tour_link {
+    margin: 20px 0 0;
+}
+.tour_link a{
+    color: #36348e;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-decoration: underline;
+    line-height: 1.3em;
+    background-color: #00000000;
+    border-radius: 0 0 0 0;
+    padding: 0;
+}

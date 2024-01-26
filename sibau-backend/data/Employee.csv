@@ -1,0 +1,2 @@
+"Id","FirstName","LastName","Designation","Email","CMS_id","EmployeeId","OfficeExtension","OfficeAddress","Type","Skills","Biography","Image","CurrentStatus","Message","BPS","DepartmentId"
+1,"Abdullah","Khan","Professor","ok@gmail.com","023-18-0000",1,"1122","AB 2 ","PERMANENT","skill","Biography","Image","CurrentStatus","Message",10,NULL

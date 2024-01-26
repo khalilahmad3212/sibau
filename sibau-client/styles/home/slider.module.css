@@ -1,0 +1,15 @@
+.carousel_caption {
+    text-align: left;
+    bottom: 30%;
+}
+
+.carousel_caption h5{
+    font-size: 55px;
+    line-height: 1.5;
+    font-weight: 800;
+    color: #fff;
+}
+.carousel_caption p{
+    font-size: 16px;
+    color: #fff;
+}

@@ -1,0 +1,26 @@
+.newDetail{
+    padding: 60px 30px 20px;
+    background-color: #fafafa;
+}
+.newDetail:hover{
+    background-color: #ffc53a;
+}
+.card_title{
+    color: #292929;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+}
+.news_date{
+    font-size: 13px;
+    margin-bottom: 13px;
+}
+.news_description{
+    margin-bottom: 10px;
+}
+.news_description p{
+    font-family: inter,Sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6em;
+}

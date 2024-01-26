@@ -1,0 +1,19 @@
+.frm_heading{
+    margin-top: -11%;
+}
+.app_frm_title{
+    font-size: 200px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-style: normal;
+    text-align: center;
+}
+.content_bx{
+    width: 80%;
+    margin: 0 auto;
+}
+.content_bx p{
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+}

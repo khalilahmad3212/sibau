@@ -1,0 +1,32 @@
+.step_container{
+    padding: 10px;
+}
+.step_cont{
+    padding-left: 10px;
+    padding-bottom: 40px;
+}
+.step_cont p{
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+}
+.step_heading{
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2em;
+    padding-bottom: 20px;
+}
+.step_container h5{
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.2em;
+    padding-bottom: 15px;
+}
+
+.step_container p{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
+
+}

@@ -1,0 +1,27 @@
+.card_body {
+    padding: 25px 50px 0 0;
+    border: 0;
+}
+
+.card {
+    border: 0;
+}   
+
+.card_body h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.card_image{
+    transform-origin: 50% 65%;
+    transition: transform 5s, filter 3s ease-in-out;
+    /* filter: brightness(150%); */
+}
+
+
+.card_image:hover{  
+    /* filter: brightness(100%); */
+    /* transition-duration: 1500ms;
+    transform: scale(1.2); */
+}

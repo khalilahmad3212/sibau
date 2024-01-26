@@ -1,0 +1,44 @@
+.content__detail h1{
+    font-size: 55px;
+    font-weight: 800;
+    line-height: 1.2em;
+    color: #292929;
+    margin-bottom: 50px;
+}
+
+.content__detail h5{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2em;
+    color: #292929;
+    margin-bottom: 50px;
+}
+
+.content__detail p{
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+
+.event__detail_info h5{
+    color: #36348e;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.event__detail_info p{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.event__detail_info a{
+    text-decoration: none;
+    color: #36348e;
+}
+
+.event__detail_info a:hover{
+    color: var(--iba-bg-yellow);
+    text-decoration: none;
+}

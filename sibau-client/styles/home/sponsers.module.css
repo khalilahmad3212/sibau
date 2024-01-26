@@ -1,0 +1,15 @@
+.sponsor_marquee {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 30px 0px
+}
+
+.sponsor_marquee marquee {
+  width: 100%;
+}
+
+.sponsor_marquee img {
+  height: 60px;
+  margin: 10px 20px; 
+  
+}

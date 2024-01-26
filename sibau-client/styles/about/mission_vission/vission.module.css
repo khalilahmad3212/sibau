@@ -1,0 +1,28 @@
+.vission_section{
+    z-index: -2;
+    padding: 100px 0;
+}
+.history_box_container{
+    padding-top: 20%;
+    /* padding-bottom: 40%; */
+}
+.vission_image_container{
+    position: relative;
+}
+.vission_image_container::before{
+    content: "";
+    position: absolute;
+    right: -5%;
+    width: 55%;
+    background-color: var(--iba-bg-yellow);
+    bottom: -5%;
+    height: 55%;
+    padding: 10px;
+    z-index: -1;
+}
+@media(max-width: 767px){
+    .history_box_container{
+        padding-top: 20%;
+        padding-bottom: 20%;
+    }  
+}

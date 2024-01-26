@@ -1,0 +1,42 @@
+.instHeading{
+    font-size: 200px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-style: normal;
+    line-height: 0.8em;
+    text-align: center;
+}
+
+.inst_container{
+    border-style: solid;
+    border-width: 0 0 1px;
+    transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+    margin-top: 0;
+    margin-bottom: 50px;
+    padding: 0 0 50px;
+}
+.inst_Bx h5{
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+    padding-bottom: 20px;
+}
+.instNum{
+    padding-right: 80px;
+}
+.instCont{
+    font-size: 18px;
+    line-height: 1.5em;
+}
+
+.linkBox{
+    width: 300px;
+    margin: 0 auto;
+}
+
+@media(max-width: 767px){
+    .instHeading{
+        font-size: 80px;
+        padding-top: 50px;
+    }
+}

@@ -1,0 +1,47 @@
+.testimonialIcon img{
+    max-width: 300px;
+    position: relative;
+    z-index: 99;
+    width: 100%;
+}
+
+.iconBox{
+    width: 350px;
+    height: 350px;
+    position: relative;
+    
+}
+.iconBox::before{
+    content: "";
+    position: absolute;
+    right: 8%;
+    width: 55%;
+    background-color: var(--iba-bg-yellow);
+    bottom: 8%;
+    height: 55%;
+    padding: 10px;
+    z-index: -1;
+}
+
+.testimonial_content h3{
+    font-size: 36px;
+    color: var(--iba-heading-color);
+    margin: 0;
+    line-height: 0;
+    margin-top: -20px;
+    font-weight: 700;
+}
+.testimonial_tagline{
+    line-height: 1.5;
+    margin-top: 20px;
+    display: block;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+.testimonial_content p{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2em;
+    padding-top: 15px;
+}

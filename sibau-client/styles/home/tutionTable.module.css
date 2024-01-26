@@ -1,0 +1,47 @@
+.tution_table{
+    padding: 50px;
+    background: #fafafa;
+}
+
+.tbl_heading{
+    color: #292929;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+}
+.tbl_detail ul{
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.tbl_detail ul li:last-child {
+    margin-top: 10px;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 10px;
+}
+.tbl_detail ul li:last-child span{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.tbl_list_item{
+    display: flex;
+    align-items: flex-start;
+}
+
+.item_content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    align-items: center;
+    flex-basis: 100%;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.item_content span{
+    max-width: 80%;
+    font-size: 16px;
+    font-weight: 500;
+}

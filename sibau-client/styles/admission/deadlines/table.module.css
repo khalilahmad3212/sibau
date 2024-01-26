@@ -1,0 +1,26 @@
+.tbl tr:nth-child(odd)  {
+    background-color: #fff;
+}
+
+.tbl tr:nth-child(odd)  {
+    background-color: var(--iba-tbl-even-row-color);
+}
+.tbl th {
+    background-color: var(--iba-tbl-head-color);
+
+}
+.tbl tr:first-child{
+    /* background-color: var(--iba-tbl-head-color); */
+}
+.tbl table{
+    width: 100%;
+}
+.tbl tr th{
+    padding: 20px 30px;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+.tbl tr td{
+    padding: 20px 30px;
+}

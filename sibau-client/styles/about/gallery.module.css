@@ -1,0 +1,38 @@
+.bx_1{
+    margin: 145px 0 0;
+    padding: 0 110px 0 0;
+}
+
+.bx_2{
+    padding: 395px 0 0;
+    transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+    margin: 0;
+}
+
+.bx_3{
+    margin: 0;
+    padding: 0 0 0 110px;
+}
+
+.image_bx{
+    display: block;
+}
+
+@media(max-width: 767px){
+    .bx_1{
+        margin: 0px 0 0;
+        padding: 0 0px 0 0;
+        display: none;
+    } 
+    .bx_2{
+        margin: 0px 0 0;
+        padding: 0 0px 0 0;
+        display: none;
+    } 
+
+    .bx_3{
+        margin: 0 auto;
+        display: block;
+        padding: 0;
+    }
+}

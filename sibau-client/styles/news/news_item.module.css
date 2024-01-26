@@ -1,0 +1,103 @@
+figure.news__item {
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    min-width: 220px;
+    max-width: 350px;
+    width: 100%;
+    background-color: #262626;
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  figure.news__item * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  figure.news__item .image {
+    max-height: 220px;
+    overflow: hidden;
+  }
+  figure.news__item img {
+    max-width: 100%;
+    vertical-align: top;
+    position: relative;
+  }
+  figure.news__item figcaption {
+    padding: 25px;
+    position: relative;
+  }
+  figure.news__item .date {
+    background-color: #c0392b;
+    top: 25px;
+    color: #fff;
+    left: 25px;
+    min-height: 48px;
+    min-width: 48px;
+    position: absolute;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  figure.news__item .date span {
+    display: block;
+    line-height: 24px;
+  }
+  figure.news__item .date .month {
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  figure.news__item h3,
+  figure.news__item p {
+    margin: 0;
+    padding: 0;
+  }
+  figure.news__item h3 {
+    min-height: 50px;
+    margin-bottom: 10px;
+    margin-left: 60px;
+    display: inline-block;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 1.5em;
+  }
+  figure.news__item p {
+    font-size: 0.8em;
+    margin-bottom: 20px;
+    line-height: 1.6em;
+  }
+  figure.news__item footer {
+    padding: 0 25px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #e6e6e6;
+    font-size: 0.8em;
+    line-height: 30px;
+    text-align: right;
+  }
+  figure.news__item footer > div {
+    display: inline-block;
+    margin-left: 10px;
+  }
+  figure.news__item footer i {
+    color: rgba(255, 255, 255, 0.2);
+    margin-right: 5px;
+  }
+  figure.news__item a {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+  }
+  figure.news__item:hover img,
+  figure.news__item.hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }

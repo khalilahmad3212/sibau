@@ -1,0 +1,41 @@
+.graduate_container{
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: -150px;
+    display: block;
+    background-color: #fff;
+    position: relative;
+    padding: 30px;
+}
+
+.graduateBx{
+    text-align: center;
+}
+.graduate_links {
+    padding-left: 0;
+    list-style: none;
+}
+.graduate_links li{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.graduate_links li a{
+    color: var(--iba-content-color);
+    padding: 10px 10px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.graduate_links li a:hover{
+    color: var(--iba-link-color);
+    background-color: #fafafa;
+}
+
+.graduate_links li a span{
+    margin-right: 5px;
+    color: var(--iba-link-color);
+}
+

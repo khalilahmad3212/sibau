@@ -1,0 +1,33 @@
+.sports_section_heading {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+.sport_links{
+    display: flex;
+}
+.sport_action{
+    width: 50%;
+    display: flex;
+    
+}
+.sport_action ul{
+    list-style: none;
+    padding: 0 15px;
+    margin-top: 10px;
+}
+.sport_action ul li a{
+    text-decoration: none;
+    fill: #292929;
+    color: #292929;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    background-color: #00000000;
+    border-radius: 0 0 0 0;
+    display: block;
+
+}
+.sport_action ul li a:hover{
+    background-color: #fafafa;
+}

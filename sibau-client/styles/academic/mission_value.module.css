@@ -1,0 +1,15 @@
+.mission_value_container{
+    margin: 110px 0 110px -190px;
+}
+.mission_value_container img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media(max-width: 767px){
+    .mission_value_container{
+        margin: 0;
+        padding: 15px 0;
+    }
+}

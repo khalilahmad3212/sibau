@@ -1,0 +1,59 @@
+.application_section{
+    background-color: #b7d8ef;
+    margin-top: 300px;
+}
+.content_container{
+    padding: 70px 0;
+    
+}
+.content_container h2{
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.app_img_container{
+    margin: -63.3% -17% 0% 0%;
+}
+
+.app_img_container img {
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
+
+.from_links{
+    padding: 50px 0;
+}
+.btn_1{
+    margin-bottom: 20px;
+}
+.btn_1 a{
+    text-decoration: none;
+    fill: #ffffff;
+    color: #ffffff;
+    background-color: #292929;
+    padding: 25px 25px 25px 40px;
+    display: block;
+}
+.links_container{
+    position: relative;
+    width: 100%;
+}
+
+.btn_2 ul{
+    list-style: none;
+}
+.btn_2 ul li{
+    display: inline-block;
+}
+.btn_2 ul li a{
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px;
+    display: block;
+    text-transform: capitalize;
+    line-height: 1.3em;
+    text-decoration: none;
+}

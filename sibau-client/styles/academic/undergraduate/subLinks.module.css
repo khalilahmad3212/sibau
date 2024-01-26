@@ -1,0 +1,38 @@
+.subjLinkBx{
+    padding: 15px 30px;
+}
+.subTitle{
+    padding: 0;
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+    color: #fff;
+}
+
+.sub_links{
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub_links li{
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.sub_links li a {
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #292929;
+}
+.sub_links li a span{
+    padding: 15px 40px;
+    cursor: pointer;
+}
+
+.sub_links li a span:hover {
+    background-color: #fafafa;
+}

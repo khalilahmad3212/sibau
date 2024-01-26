@@ -1,0 +1,43 @@
+.historySection{
+    padding-top: 100px;
+}
+
+.history_content h2{
+    font-size: 200px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-style: normal;
+    line-height: 0.8em;
+    letter-spacing: -20px;
+}
+
+.history_content p{
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.2em;
+    margin: 20px 0;
+}
+
+.uniHistory p{
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 10px 20px;
+    line-height: 1.5;
+    word-spacing: normal;
+    letter-spacing: normal;
+}
+
+@media(max-width: 767px){
+    .historySection{
+        padding-top: 50px;
+    }
+    
+    .history_content h2{
+        font-size: 120px;
+        font-weight: 800;
+    }
+    .history_content p{
+        font-size: 35px;
+    }
+}

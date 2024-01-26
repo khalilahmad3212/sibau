@@ -1,0 +1,47 @@
+.section_h1_heading{
+    font-size: 55px;
+    font-weight: 800;
+    line-height: 1.1em;
+}
+
+.news__thumbnail{
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+.news__thumbnail:hover{
+    color: #000;
+}
+
+.news__thumbnail:hover .news__caption{
+    background-color: var(--iba-bg-yellow);
+}
+
+.news__thumbnail img{
+    max-width: 100%;
+    height: auto;
+}
+
+.news__caption{
+    padding: 30px 20px;
+}
+.news__caption h4{
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.post__date{
+    color: #747474;
+    font-size: 13px;
+    line-height: 1.5em;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.news__caption p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5em;
+    color: #777;
+}

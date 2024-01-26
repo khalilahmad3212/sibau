@@ -1,0 +1,27 @@
+.reqBx h3{
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2em;
+    margin-bottom: 40px;
+    
+}
+.reqHeading{
+    padding: 130px 0 80px;
+}
+.reqBx p{
+    font-size: 18px;
+    margin-bottom: 1em;
+}
+
+.reqPR{
+    padding-right: 50px;
+}
+.reqPL{
+    padding-left: 50px;
+}
+
+@media(max-width: 767px){
+    .reqPL{
+        padding-left: 0px;
+    }
+}

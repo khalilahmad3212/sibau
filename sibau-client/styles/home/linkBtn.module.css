@@ -1,0 +1,23 @@
+.link_btn a {
+    background-color: #000;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: capitalize;
+    line-height: 1.3em;
+    padding: 25px 30px 25px 20px;
+    display: flex;
+    text-decoration: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.link_btn a span {
+    margin-left: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.link_btn a:hover {
+    background-color: #36348e;
+}

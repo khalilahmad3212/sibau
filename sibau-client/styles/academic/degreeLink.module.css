@@ -1,0 +1,37 @@
+.degreeLinkBox{
+    text-align: center;
+    color: #fff;
+}
+
+.degreeLinkBox a{
+    font-family: work sans,Sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    text-decoration: none;
+    line-height: 1.2em;
+    fill: #2929294d;
+    color: #2929294d;
+    border-radius: 0 0 0 0;
+    padding: 90px 40px;
+    display: block;
+    transition: 1s;
+}
+
+.Active a{
+    color: #000;
+}
+.degreeLinkBox a:hover{
+    color: #000;
+    background-color: #ddd;
+    transition: 1s;
+
+}
+
+@media(max-width: 767px){
+    .degreeLinkBox a{
+        padding: 45px 20px;
+    }
+    .pb-100 {
+        padding-bottom: 50px;
+    }
+}

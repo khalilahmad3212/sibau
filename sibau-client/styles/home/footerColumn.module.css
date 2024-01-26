@@ -1,0 +1,47 @@
+.footer_links h5{
+    font-family: inter,Sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.2em;
+}
+
+.footer_links ul{
+    padding: 0;
+    list-style: none;
+}
+
+
+.footer_links ul li a{
+    fill: #292929;
+    color: white;
+    padding: 5px 0;
+    text-decoration: none;
+    display: block;
+    font-family: inter,Sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 1.5em;
+}
+.footer_links ul li a:hover{
+    color: #a0a0a0;
+    fill: #aaaaaa;
+}
+
+.ftr_image_container{
+    margin-bottom: 20px;
+}
+.ftr_address{
+    font-family: inter,Sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.ftr_address p Link{
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+

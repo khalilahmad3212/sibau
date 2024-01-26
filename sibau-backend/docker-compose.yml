@@ -1,0 +1,32 @@
+        version: '3'
+        services:
+          pgadmin-client:
+            image: dpage/pgadmin4
+            restart: always
+            environment:
+              PGADMIN_DEFAULT_EMAIL: dev@sibau.com
+              PGADMIN_DEFAULT_PASSWORD: Pass@1212
+            ports:
+              - "8011:80"
+            volumes:
+              - ./pgadmin:/var/lib/pgadmin
+            networks:
+              - local_services_network
+          postgres:
+            image: postgres:15
+            restart: always
+            environment:
+              POSTGRES_USER: root
+              POSTGRES_PASSWORD: pass1212
+            volumes:
+              - postgres-data:/var/lib/postgresql/data
+            ports:
+              - "8010:5432"
+            networks:
+              - local_services_network
+
+        networks:
+          local_services_network:
+          
+        volumes:
+          postgres-data:

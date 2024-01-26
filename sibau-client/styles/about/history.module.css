@@ -1,0 +1,12 @@
+.history_box_container{
+    padding-top: 40%;
+    padding-bottom: 40%;
+}
+
+
+@media(max-width: 767px){
+    .history_box_container{
+        padding-top: 20%;
+        padding-bottom: 20%;
+    }  
+}

@@ -1,0 +1,12 @@
+.applyCard .card_icon{
+    display: flex;
+    vertical-align: middle;
+    margin-bottom: 30px;
+}
+
+.applyCard  .card_title {
+    font-family: work sans,Sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+}

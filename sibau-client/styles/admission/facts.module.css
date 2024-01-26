@@ -1,0 +1,38 @@
+.fact_img{
+    height: 53vh;
+    object-fit: cover;
+    width: 100%;
+}
+
+.fct_container{
+    padding-bottom: 150px;
+}
+.fact_content h2{
+    color: #ffffff;
+    font-size: 200px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-style: normal;
+    line-height: 0.8em;
+    letter-spacing: -20px;
+    margin-top: -90px;
+    text-align: center;
+    padding-bottom: 100px;
+}
+.infoBx span{
+    color: #ffffff;
+    font-family: work sans,Sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1em;
+}
+
+.infoBx p{
+    margin: 20px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.5em;
+    letter-spacing: .5px;
+    color: #ffffff;
+}

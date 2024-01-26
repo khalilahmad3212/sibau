@@ -1,0 +1,33 @@
+.table_container{
+    padding-bottom: 60px;
+}
+.tbl_heading{
+    color: #36348e;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2em;
+    padding-bottom: 20px;
+}
+
+.feetbl table{
+    width: 100%;
+}
+
+.feetbl table tr:first-child{
+    background-color: var(--iba-tbl-head-color);
+}
+
+.feetbl tr:nth-child(odd) {
+    background-color: var(--iba-tbl-even-row-color);
+}
+
+.feetbl table tr th{
+    padding: 20px 30px;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+
+.feetbl table tr td{
+    padding: 20px 30px;
+}

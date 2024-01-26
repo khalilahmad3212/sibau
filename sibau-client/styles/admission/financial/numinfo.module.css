@@ -1,0 +1,20 @@
+.infoBx{
+    padding-left: 30px;
+}
+.infoBx span{
+    color: #000000;
+    font-family: work sans,Sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1em;
+}
+
+.infoBx p{
+    margin: 20px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.5em;
+    letter-spacing: .5px;
+    color: #000000;
+}
