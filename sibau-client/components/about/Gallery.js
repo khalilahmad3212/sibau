@@ -5,8 +5,15 @@ import { useState, useEffect } from "react";
 import { GALLERY } from "../../utils/constants";
 import { getValueByKey } from "@/apis";
 
-const Gallery = () => {
-  const [gallery, setGallery] = useState({});
+const Gallery = ({ gallery }) => {
+  // const [gallery, setGallery] = useState({
+  //   image1: "./about-2.webp",
+  //   alt1: "About Image 1",
+  //   image2: "./about-2.webp",
+  //   alt2: "About Image 2",
+  //   image3: "./about-3.webp",
+  //   alt3: "About Image 3"
+  // });
   useEffect(() => {
     async function fetchData() {
       try {
@@ -23,40 +30,26 @@ const Gallery = () => {
 
   return (
     <>
-      {gallery && (
+      {gallery ? (
         <section className="st-1">
           <div className="container">
             <div className="row ">
-              <div className="col-md-4 col-sm-12 col-xs-12">
-                <div className={` ${styles.bx_1} ${styles.image_bx}`}>
-                  <img
-                    src={gallery?.image1}
-                    className="img-card"
-                    alt={gallery?.alt1}
-                  />
+              {gallery?.map((item, index) => (
+                <div className="col-md-4 col-sm-12 col-xs-12">
+                  <div className={` ${styles[`bx_${index + 1}`]} ${styles.image_bx}`}>
+                    <img
+                      src={`http://localhost:5001/gallery-images/${item?.Name}`}
+                      className="img-card"
+                      alt={item?.AltText}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-4 col-sm-12 col-xs-12">
-                <div className={` ${styles.bx_2} ${styles.image_bx}`}>
-                  <img
-                    src={gallery?.image2}
-                    className="img-card"
-                    alt={gallery?.alt2}
-                  />
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-12 col-xs-12">
-                <div className={` ${styles.bx_3} ${styles.image_bx}`}>
-                  <img
-                    src={gallery?.image3}
-                    className="img-card"
-                    alt={gallery?.alt3}
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </section>
+        </section >
+      ) : (
+        <h1>Gallery Is Here</h1>
       )}
     </>
   );

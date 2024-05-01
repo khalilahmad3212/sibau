@@ -10,7 +10,7 @@ const FooterColumn = (props) => {
         {props.linkData.map((item, index) => {
           return (
             <li key={index}>
-              <Link href={`${item.link}`}>{item.label}</Link>
+              <Link href={`${item.link}`}>{item.text}</Link>
             </li>
           );
         })}

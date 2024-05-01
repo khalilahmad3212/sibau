@@ -3,12 +3,15 @@ const { default: DescriptionAndImageContainer } = require("./Campus");
 const { getValueByKey } = require("@/apis");
 
 const CampusInfo = () => {
-  const [para, setPara] = useState();
+  const [data, setData] = useState();
+
   useEffect(() => {
     async function fetchData() {
       try {
         const result = await getValueByKey("home-campus-info");
-        setPara(JSON.parse(result.value));
+        result.value = JSON.parse(result.value)
+        console.log('data: ', result);
+        setData(result)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -18,8 +21,9 @@ const CampusInfo = () => {
   return (
     <DescriptionAndImageContainer
       heading={"Campus Info"}
-      description={para}
+      description={data?.value.para}
       link={"/campus"}
+      imageUrl={`http://localhost:5001/file-data-images/${data?.value.Image}`}
       linkText={"About Campus"}
     />
   );

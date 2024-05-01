@@ -17,6 +17,7 @@ export class UpdateSliderDto extends PartialType(CreateSliderDto) {
   LinkTitle: string;
 
   @IsString()
+  @IsOptional()
   Image: string;
 
   @IsOptional()

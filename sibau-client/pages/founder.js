@@ -1,3 +1,4 @@
+import { getValueByKey } from "@/apis";
 import FounderData from "@/components/Founder/FounderData";
 import PageBanner from "@/components/PageBanner";
 import HeaderFooter from "@/components/global/HeaderFooter";
@@ -47,17 +48,14 @@ Today, as Sukkur IBA continues to build upon his legacy, the spirit and vision o
 </p>
 `;
 
-  let bannerData = {
-    title: "Founder",
-    image: "./about-banner.webp",
-    description: " of Sukkur IBA University ",
-  };
+  let bannerData = await getValueByKey("FOUNDER_BANNER");
+  bannerData = JSON.parse(bannerData.value);
 
   return {
     props: {
       description,
       bannerData,
-    },
+    }
   };
 }
 

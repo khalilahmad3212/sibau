@@ -35,7 +35,7 @@ const DesignedPictureTextContainer = ({
           </div>
           <div className="col-md-4 col-sm-6 col-xs-12 pr-0">
             <div className={styles.mission_value_container}>
-              <img src={image} className="" />
+              <img src={`http://localhost:5001/file-data-images/${image}`} className="" />
             </div>
           </div>
         </div>

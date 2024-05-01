@@ -10,7 +10,7 @@ export class DynamicPageService {
   constructor(
     @InjectRepository(DynamicPage)
     private pageRepo: Repository<DynamicPage>,
-  ) {}
+  ) { }
   create(createDynamicPageDto: CreateDynamicPageDto) {
     return this.pageRepo.save(createDynamicPageDto);
   }
@@ -19,12 +19,29 @@ export class DynamicPageService {
     return this.pageRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dynamicPage`;
+  async findOne(id: number) {
+    return await this.pageRepo.findOne({
+      where: { Id: id }
+    });
   }
 
-  update(id: number, updateDynamicPageDto: UpdateDynamicPageDto) {
-    return `This action updates a #${id} dynamicPage`;
+  async getPageData(link: string) {
+    return await this.pageRepo.findOne({
+      where: { link }
+    });
+  }
+
+  async update(id: number, updateDynamicPageDto: any) {
+
+    const page = await this.findOne(id);
+    if (!page) {
+      throw new Error('Page not found');
+    }
+
+    return this.pageRepo.save({
+      ...page,
+      ...updateDynamicPageDto
+    });
   }
 
   remove(id: number) {

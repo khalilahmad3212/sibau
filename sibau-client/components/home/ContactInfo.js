@@ -4,20 +4,28 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FOOTER_CONTACT_INFO } from "../../utils/constants";
 import { getValueByKey } from "@/apis";
-const ContactInfo = () => {
-  const [contactInfo, setContactInfo] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await getValueByKey(FOOTER_CONTACT_INFO);
-        // debugger
-        setContactInfo(JSON.parse(result.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
+const ContactInfo = ({ address, phone }) => {
+  const [contactInfo, setContactInfo] = useState({
+    footerLogo: "./logo_only.webp",
+    footerLogoAlt: "Footer Logo",
+    address: address ?? "Sukkur IBA University Airport Road, Sukkur",
+    contact: {
+      telephone: phone ?? "071-5644159",
+      telephoneText: phone ?? "071-5644159",
+    },
+  });
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const result = await getValueByKey(FOOTER_CONTACT_INFO);
+  //       // debugger
+  //       setContactInfo(JSON.parse(result.value));
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
   return (
     <>
       {contactInfo && (

@@ -22,5 +22,5 @@ export class UpdatePublicationDto extends PartialType(CreatePublicationDto) {
   Type: string;
 
   @IsNumber()
-  EmployeeId: number;
+  EmployeeId?: number;
 }

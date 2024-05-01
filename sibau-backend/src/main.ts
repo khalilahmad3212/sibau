@@ -2,8 +2,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cors from 'cors';
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'log'], // Adjust log levels as needed
+  });
   app.use(
     cors({
       origin: '*',
@@ -13,11 +16,24 @@ async function bootstrap() {
     }),
   );
 
+
+
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true
+  //   }),
+  // );
+
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-    }),
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+      validationError: { target: false, value: false },
+    })
   );
+
   await app.listen(5001);
 }
 bootstrap();

@@ -19,14 +19,22 @@ const Mission = ({ data }) => {
             <MissionCard
               name="History"
               redirect="/history"
-              description={data.History?.substr(0, 185)}
+              description={
+                data.History?.substr(0, 185)
+                || `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum`
+              }
             />
           </div>
           <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4 mb-4">
             <MissionCard
               name="Mission"
               redirect="/mission"
-              description={data.Mission?.substr(0, 180)}
+              description={
+                data.Mission?.substr(0, 180)
+                || `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum`
+              }
             />
           </div>
         </div>

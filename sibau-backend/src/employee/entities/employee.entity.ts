@@ -29,6 +29,9 @@ export class Employee {
   @Column({ length: 100, unique: true })
   Email: string;
 
+  // @Column({ length: 500, nullable: true })
+  // Password: string;
+
   @Column({ length: 50, unique: true, nullable: true })
   CMS_id: string;
 

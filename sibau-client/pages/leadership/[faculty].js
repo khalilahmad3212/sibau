@@ -38,6 +38,13 @@ export async function getServerSideProps(context) {
       .toUpperCase();
 
     try {
+      let bannerResult = await getValueByKey("LEADERSHIP_BANNER");
+      bannerData = JSON.parse(bannerResult.value);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+    try {
       let facultyResult;
       let departmentResult;
 
@@ -48,14 +55,15 @@ export async function getServerSideProps(context) {
         departmentResult = await getDepartmentById(departmentId);
       }
 
-      const [bannerResult] = await Promise.all([
-        getValueByKey("LEADERSHIP_BANNER"),
-      ]);
-      bannerData = JSON.parse(bannerResult.value);
+      // TODO: Does we need this section?
+      /*
+      - image is need to change
+      - other stuff is changing on the basis of query
+      */
       departmentData = departmentResult;
       facultyList = facultyResult;
       bannerData.title = faculty;
-      bannerData.description = departmentData?.Mission || "";
+      bannerData.description = departmentData?.Mission || bannerData.description;
     } catch (error) {
       console.error("Error fetching data:", error);
     }

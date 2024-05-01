@@ -38,9 +38,10 @@ export class Program {
   @Column({ length: 100 })
   Link: string;
 
+  /*  TODO: Add two fields at dashboard frontend for the below two attributes */
   @OneToOne(() => Employee)
   @JoinColumn({ name: 'FocalPersonEmployeeId' })
-  FocalPerson: Employee;
+  FocalPerson?: Employee;
 
   @OneToMany(
     () => Deptwiseprogramspecilization,
@@ -49,5 +50,5 @@ export class Program {
       nullable: true,
     },
   )
-  Deptwiseprogramspecilizations: Deptwiseprogramspecilization[];
+  Deptwiseprogramspecilizations?: Deptwiseprogramspecilization[];
 }

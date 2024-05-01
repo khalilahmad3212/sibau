@@ -15,29 +15,20 @@ import { useState, useEffect } from "react";
 import { getValueByKey } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 
-const FinancialAid = () => {
-  const [banner, setBanner] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const bannerResult = await getValueByKey("FINANCIAL_AID");
-        setBanner(JSON.parse(bannerResult.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
-  const missionData = {
-    Description: "Desc of mission",
-  };
+const FinancialAid = ({
+  bannerData,
+  financialStepsData,
+  financialFactsData,
+  aidCardData
+}) => {
+
   return (
     <main>
       <HeaderFooter>
-        <PageBanner {...banner} />
-        <FinancialAidFacts />
-        <Process />
-        <AidTypes />
+        <PageBanner {...bannerData} />
+        <FinancialAidFacts data={financialFactsData} />
+        <Process data={financialStepsData} />
+        <AidTypes data={aidCardData} />
         <ApplicationFormCTA />
       </HeaderFooter>
     </main>
@@ -47,9 +38,38 @@ const FinancialAid = () => {
 export default FinancialAid;
 
 export async function getStaticProps(context) {
-  // Footer Section
+  let bannerData = {};
+  let financialStepsData = {};
+  let financialFactsData = {};
+  let aidCardData = {};
+
+  try {
+    const [
+      bannerResult,
+      financialStepsResult,
+      financialFactsResult,
+      aidCardResult
+    ] = await Promise.all([
+      getValueByKey("FINANCIAL_AID_BANNER"),
+      getValueByKey("FINANCIAL_STEPS"),
+      getValueByKey("FINANCIAL_FACTS"),
+      getValueByKey("FINANCIAL_AID_TYPE")
+    ]);
+
+    bannerData = JSON.parse(bannerResult.value);
+    financialStepsData = JSON.parse(financialStepsResult.value);
+    financialFactsData = JSON.parse(financialFactsResult.value);
+    aidCardData = JSON.parse(aidCardResult.value);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 
   return {
-    props: { footerData: "" }, // will be passed to the page component as props
+    props: {
+      bannerData,
+      financialStepsData,
+      financialFactsData,
+      aidCardData
+    }, // will be passed to the page component as props
   };
 }

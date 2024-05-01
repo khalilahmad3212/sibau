@@ -20,13 +20,13 @@ const Instruction = ({ admissionProcess }) => {
                     <h5>{index + 1}</h5>
                   </div>
                   <div className={styles.instCont}>
-                    <h5>{item.heading}</h5>
-                    <p>{item.paragraph}</p>
-                    <Link href={item?.link || "#"} className="">
+                    <h5>{item.title}</h5>
+                    <p>{item.description}</p>
+                    {/* <Link href={item?.link || "#"} className="">
                       <span className="bg-[#36348a] hover:bg-[#36348e] mt-3 text-white font-bold py-1 px-4 rounded inline-block">
                         {item?.linkText || "View"}
                       </span>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>

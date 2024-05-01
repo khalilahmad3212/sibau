@@ -32,12 +32,48 @@ const Leadership = ({ footerData }) => {
   const missionData = {
     Description: "Desc of mission",
   };
+
+  const employees = [
+    {
+      EmployeeId: 1,
+      FirstName: "John",
+      Image: "staff-1.jpg",
+      LastName: "Doe",
+      Designation: "Professor",
+      Biography: "Aenean turpis consectetur at. Donec tincidunt sem non eros dignissim, a facilisis arcu interdum. Quisque nec mauris non elit tincidunt pharetra. Nunc posuere elit at commodo facilisis.",
+      OfficeExtension: "071-5644159",
+      Email: "john@gmail.com"
+    },
+    {
+      EmployeeId: 2,
+      FirstName: "John",
+      LastName: "Doe",
+      Image: "staff-2.webp",
+      Designation: "Professor",
+      Biography: "Aenean turpis consectetur at. Donec tincidunt sem non eros dignissim, a facilisis arcu interdum. Quisque nec mauris non elit tincidunt pharetra. Nunc posuere elit at commodo facilisis.",
+      OfficeExtension: "071-5644159",
+      Email: "john2@gmail.com"
+    },
+    {
+      EmployeeId: 3,
+      FirstName: "John",
+      LastName: "Doe",
+      Image: "staff-3.jpg",
+      Designation: "Professor",
+      Biography: "Aenean turpis consectetur at. Donec tincidunt sem non eros dignissim, a facilisis arcu interdum. Quisque nec mauris non elit tincidunt pharetra. Nunc posuere elit at commodo facilisis.",
+      OfficeExtension: "071-5644159",
+      Email: "john3@gmail.com"
+    }
+  ];
   return (
     <main>
       <NavigationBar />
       <PageBanner {...banner} />
       <President />
-      <Staff title="Senior Staff" />
+      <Staff
+        title="Senior Staff"
+        employees={employees}
+      />
       <ApplicationFormCTA />
     </main>
   );

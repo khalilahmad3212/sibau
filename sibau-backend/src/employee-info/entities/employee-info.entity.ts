@@ -3,8 +3,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
+  OneToOne
 } from 'typeorm';
 
 @Entity()

@@ -3,15 +3,7 @@ import Link from "next/link";
 import styles from "../../styles/home/admissionContent.module.css";
 import { getValueByKey } from "@/apis";
 
-const AdmissionContent = () => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getValueByKey("home-admission-aid");
-      setData(JSON.parse(result.value));
-    }
-    fetchData();
-  }, []);
+const AdmissionContent = ({ data }) => {
 
   return (
     <div className={styles.admission_container}>
@@ -23,7 +15,7 @@ const AdmissionContent = () => {
       </div>
       <div className="tour-link">
         <Link className="simple-link underline" href={`${data?.link}`}>
-          {data?.linktext}
+          {data?.linkText}
         </Link>
       </div>
     </div>

@@ -3,13 +3,13 @@ import styles from "../../styles/home/aboutHome.module.css";
 import { getValueByKey } from "@/apis";
 import Aos from "aos";
 
-const About = ({}) => {
+const About = ({ }) => {
   const [about, setAbout] = useState();
   useEffect(() => {
     async function fetchData() {
       try {
         const result = await getValueByKey("About-the-University");
-        setAbout(JSON.parse(result.value));
+        setAbout(result.value);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,7 +40,9 @@ const About = ({}) => {
             data-aos-duration="1500"
           >
             <div className="about-content pr-8">
-              <p className="text-lg text-black">{about}</p>
+              <p className="text-lg text-black">{about}
+
+              </p>
             </div>
           </div>
         </div>

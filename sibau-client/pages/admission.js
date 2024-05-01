@@ -20,6 +20,7 @@ const Admission = ({
   applyData,
   aidCard,
 }) => {
+
   return (
     <main>
       <HeaderFooter>
@@ -41,18 +42,19 @@ export async function getServerSideProps() {
   let factsData = {};
   let applyData = {};
   let aidCard = {};
-  try {
-    const aidCardResult = await getValueByKey("admission-aid-card");
-    const bannerResult = await getValueByKey("ADMISSION_BANNER");
-    const overviewParas = await getValueByKey("admission-overview-paras");
-    const factsDataResult = await getValueByKey("facts-admission");
-    const applyDataResult = await getValueByKey("admission-apply-card");
 
-    aidCard = JSON.parse(aidCardResult.value);
-    applyData = JSON.parse(applyDataResult.value);
-    factsData = JSON.parse(factsDataResult.value);
-    admissionParas = JSON.parse(overviewParas.value);
+  try {
+    const bannerResult = await getValueByKey("ADMISSION_BANNER");
+    const factsDataResult = await getValueByKey("ADMISSION_FACTS");
+    const applyDataResult = await getValueByKey("ADMISSION_FIRST");
+    const aidCardResult = await getValueByKey("ADMISSION_SECOND");
+    const overviewParas = await getValueByKey("admission-overview-paras");
+
     bannerData = JSON.parse(bannerResult.value);
+    admissionParas = JSON.parse(overviewParas.value);
+    factsData = JSON.parse(factsDataResult.value);
+    applyData = JSON.parse(applyDataResult.value);
+    aidCard = JSON.parse(aidCardResult.value);
   } catch (error) {
     console.error("Error fetching banner data:", error);
   }

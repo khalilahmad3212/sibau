@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import styles from "../../../styles/about/campus/direction.module.css";
 
-const Direction = () => {
+const Direction = ({ data }) => {
   return (
     <section className={` st-1 ${styles.direction_section} `}>
       <div className="container sm:px-0 md:px-48 lg:px-52">
@@ -10,9 +10,9 @@ const Direction = () => {
           <div className="col-md-7">
             <div className={` bg-blue pg-sec-pd ${styles.clr_white} `}>
               <div className="heading-container">
-                <h2 className="sec_h2_heading">Mission & Value</h2>
+                <h2 className="sec_h2_heading">{data.heading}</h2>
               </div>
-              <div className="sec_content">
+              {/* <div className="sec_content">
                 <p>
                   We prepare you to launch your career by providing a
                   supportive, creative, and professional. Our mission is to
@@ -20,7 +20,8 @@ const Direction = () => {
                   a rapidly changing society, thus making the world a better and
                   more just place
                 </p>
-              </div>
+              </div> */}
+              <div dangerouslySetInnerHTML={{ __html: data.content }} />
             </div>
           </div>
           <div className="col-md-5 pl0 pr0">

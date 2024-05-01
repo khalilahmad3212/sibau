@@ -2,16 +2,10 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "../../../styles/about/mission_vission/vission.module.css";
 import { getValueByKey } from "@/apis";
+import { SERVER } from "@/utils/constants";
 
-const Vission = () => {
-  const [vision, setVision] = useState();
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getValueByKey("about-vision");
-      setVision(JSON.parse(result.value));
-    }
-    fetchData();
-  }, []);
+const Vission = ({ data }) => {
+
   return (
     <section className={` bg-gray ${styles.vission_section} `}>
       <div className="container sm:px-0 md:px-32 lg:px-40">
@@ -20,10 +14,10 @@ const Vission = () => {
             <div className={` ${styles.history_box_container} pl-30`}>
               <div className="vission_icon"></div>
               <div className="heading-container">
-                <h2 className="sec_h2_heading">Vission</h2>
+                <h2 className="sec_h2_heading">{data.title}</h2>
               </div>
               <div className="sec_content">
-                <p>{vision?.vision}</p>
+                <p>{data.description}</p>
               </div>
             </div>
           </div>
@@ -32,7 +26,7 @@ const Vission = () => {
               <img
                 alt="vission"
                 className="card-img-top"
-                src={`./${vision?.image}`}
+                src={`${SERVER}/file-data-images/${data?.Image}`}
               />
             </div>
           </div>

@@ -3,7 +3,7 @@ import ApplyColumn from "./ApplyColumn";
 import { getValueByKey } from "@/apis";
 import Link from "next/link";
 
-const Apply = ({}) => {
+const Apply = ({ }) => {
   const [paragraphs, setPara] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +38,7 @@ const Apply = ({}) => {
                 index={index}
                 name={item.name}
                 description={item.desc}
-                icon={item.icon}
+                icon={`http://localhost:5001/file-data-images/${item?.Image}`}
               />
               {paragraphs.length - 1 > index && (
                 <div className="hidden lg:block md:block  border-l-2 h-30 border-[#D4D4D4] border-[0.1px] mx-10"></div>

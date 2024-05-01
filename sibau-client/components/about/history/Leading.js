@@ -42,7 +42,6 @@ const Leading = () => {
     },
     {
       index: 5,
-
       image: "/history-1.webp",
       year: 1996,
       desc: "Hundreds of students successfully graduate first master’s programs",
@@ -94,9 +93,8 @@ const Leading = () => {
           {fewImages.map((item, index) => (
             <div
               key={index}
-              className={`col-span-1 transition-transform duration-300 ${
-                currentSlide === index ? "scale-105" : ""
-              }`}
+              className={`col-span-1 transition-transform duration-300 ${currentSlide === index ? "scale-105" : ""
+                }`}
             >
               <div className="border border-gray-200 rounded-lg shadow-md p-4">
                 <div className="relative aspect-w-4 aspect-h-1 min-h-[100px]:">
@@ -106,8 +104,8 @@ const Leading = () => {
                     alt={item.image}
                     height={500}
                     width={500}
-                    // layout="fill"
-                    // objectFit="cover"
+                  // layout="fill"
+                  // objectFit="cover"
                   />
                 </div>
                 <div className="mt-2">

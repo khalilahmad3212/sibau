@@ -12,23 +12,34 @@ export const getTenderData = async () => {
   return json;
 };
 
-export const getGallery = async () => {
-  const result = await fetch(`${SERVER}/gallery`, {
-    next: {
-      revalidate: 30,
-    },
-  });
-  const json = await result.json();
-  return json;
+export const getGallery = async (page) => {
+  try {
+    const result = await axios.get(`${SERVER}/gallery`, {
+      params: {
+        page
+      }
+    });
+    console.log("Gallery Result", result.data);
+    return result;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return false;
+  }
 };
+
 export const getValueByKey = async (key) => {
   const result = await fetch(`${SERVER}/map-resources/key/${key}`, {
     next: {
       revalidate: 30,
     },
   });
-  const json = await result.json();
-  return json;
+  try {
+
+    const json = await result.json();
+    return json;
+  } catch (error) {
+    return false
+  }
 };
 
 export const getNews = async () => {

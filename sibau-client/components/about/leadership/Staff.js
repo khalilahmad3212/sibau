@@ -8,8 +8,10 @@ import Link from "next/link";
 import AsideFaculty from "./AsideFaculty";
 import QuickLinks from "@/components/Founder/QuickLinks";
 import { NoData } from "@/components/animated/noData";
+import { SERVER } from "@/utils/constants";
 const Staff = (props) => {
   useEffect(() => {
+    console.log('PHDS: ', props.employees);
     async function fetchData() {
       // const result = await getEmployees(props?.limit);
       // setAbout(result);
@@ -24,7 +26,7 @@ const Staff = (props) => {
             <div className="col-lg-10 col-md-10 col-xs-12">
               <div className="">
                 {props.employees === undefined ||
-                props.employees.length === 0 ? (
+                  props.employees.length === 0 ? (
                   <div className="flex justify-center items-center ">
                     <div className="text-center">
                       <NoData />
@@ -36,14 +38,14 @@ const Staff = (props) => {
                       <div
                         key={index}
                         className=" w-1/4 mx-2"
-                        onClick={() => {}}
+                        onClick={() => { }}
                       >
                         <div className={styles.flip_box_container}>
                           <div className={styles.staf_flip_box}>
                             <div className={styles.staf_flip_layer}>
                               <img
                                 className={`${styles.staff_flip_img} rounded-md`}
-                                src={item.Image}
+                                src={`${SERVER}/employee-images/${item.Image}`}
                               />
                             </div>
 

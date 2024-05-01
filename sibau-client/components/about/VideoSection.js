@@ -1,3 +1,4 @@
+import { SERVER } from "@/utils/constants";
 import React, { useState } from "react";
 
 const VideoPlayer = ({ videoUrl, setShowVideo }) => {
@@ -18,12 +19,12 @@ const VideoPlayer = ({ videoUrl, setShowVideo }) => {
   );
 };
 
-const VideoSection = ({ image = "./video-cover-home.webp" }) => {
+const VideoSection = ({ data }) => {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
     <section className="relative">
-      <img src={image} className="video-cover" alt="Video Cover" />
+      <img src={`${SERVER}/file-data-images/${data?.Image}`} className="video-cover" alt="Video Cover" />
 
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <button
@@ -57,7 +58,7 @@ const VideoSection = ({ image = "./video-cover-home.webp" }) => {
       {showVideo && (
         <VideoPlayer
           setShowVideo={setShowVideo}
-          videoUrl="https://www.youtube.com/embed/Tm9nLdEJvfc" // Replace with your actual YouTube video URL
+          videoUrl={data?.videoLink} // Replace with your actual YouTube video URL
         />
       )}
     </section>

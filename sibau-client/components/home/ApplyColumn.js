@@ -19,7 +19,7 @@ const ApplyColumn = (props) => {
     <div className="my-2">
       <div className="bg-white  rounded-lg p-6 px-8 min-h-[230px] ">
         <div className="flex items-center">
-          <span className="px-2">
+          {/* <span className="px-2">
             {props.icon === "home" && (
               <HiOutlineClipboardDocument className="text-[50px] text-gray-800" />
             )}
@@ -29,7 +29,8 @@ const ApplyColumn = (props) => {
             {props.icon === "book" && (
               <BsCalendarCheck className="text-[50px] text-gray-800" />
             )}
-          </span>
+          </span> */}
+          <img src={props?.icon} width={50} height={50} className="mr-2 p-1" />
           <h3 className="text-2xl font-extrabold ">{props.name}</h3>
         </div>
         <div className="mt-4">

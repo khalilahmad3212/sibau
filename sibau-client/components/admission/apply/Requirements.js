@@ -14,9 +14,10 @@ const Requirements = ({ requirements }) => {
             <div key={index} className={` col-md-6 ${styles.reqBx} `}>
               <h3>{item.title}:</h3>
               <div className={styles.reqPR}>
-                {item.requirements.map((para, index) => (
+                <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                {/* {item.requirements.map((para, index) => (
                   <p key={index}>– {para}</p>
-                ))}
+                ))} */}
               </div>
             </div>
           ))}

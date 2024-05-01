@@ -6,7 +6,7 @@ const DepartmentItem = (props) => {
     <Link href={`/${props.url}`} className="text-transparent">
       <div className="card hover:bg-gray-100">
         <div className={style.cardImage}>
-          <img className="card-img-top" src={`/${props.sr}`} alt="" />
+          <img className="card-img-top" src={`  ${props.sr}`} alt="" />
         </div>
         <div className="card-body">
           <h5 className="card-title text-gray-600 hover:peer-hover:text-red-500">

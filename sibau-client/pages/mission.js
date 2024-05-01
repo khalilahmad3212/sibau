@@ -15,33 +15,17 @@ import { useState, useEffect } from "react";
 
 import { getValueByKey } from "@/apis";
 
-const Mission = ({ bannerData, admissionParas }) => {
-  const [banner, setBanner] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const bannerResult = await getValueByKey("MISSION_BANNER");
-        setBanner(JSON.parse(bannerResult.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
-
-  const missionData = {
-    Description: "Desc of mission",
-  };
+const Mission = ({ bannerData, admissionParas, missionFactData,
+  missionVissionData }) => {
 
   return (
     <main>
       <NavigationBar />
       <PageBanner {...bannerData} />
       <About about={admissionParas} />
-      <NumberInfo />
-      <Vission />
+      <NumberInfo data={missionFactData[0]} />
+      <Vission data={missionVissionData}/>
       <StepsContainer />
-
       <ApplicationFormCTA />
       <Footer />
     </main>
@@ -53,14 +37,24 @@ export default Mission;
 export async function getServerSideProps() {
   let bannerData = {};
   let admissionParas = {};
-
+  let missionFactData = {};
+  let missionVissionData = {};
   try {
-    const [bannerResult, admissionParasResult] = await Promise.all([
+    const [
+      bannerResult,
+      admissionParasResult,
+      missionFactResult,
+      missionVissionResult,
+    ] = await Promise.all([
       getValueByKey("MISSION_BANNER"),
       getValueByKey("admission-overview-paras"),
+      getValueByKey("MISSION_FACT"),
+      getValueByKey("MISSION_VISION"),
     ]);
     admissionParas = JSON.parse(admissionParasResult.value);
     bannerData = JSON.parse(bannerResult.value);
+    missionFactData = JSON.parse(missionFactResult.value);
+    missionVissionData = JSON.parse(missionVissionResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -68,6 +62,8 @@ export async function getServerSideProps() {
     props: {
       bannerData,
       admissionParas,
+      missionFactData,
+      missionVissionData
     },
   };
 }

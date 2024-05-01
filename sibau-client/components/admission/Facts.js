@@ -19,10 +19,10 @@ const Facts = ({ factsData }) => {
           </div>
         </div>
         {/* <History/> */}
-        <div className={` row ${styles.fct_container} `}>
-          {factsData?.facts?.map((item, index) => (
-            <div key={index} className="col-md-4 col-sm-6 col-xs-12">
-              <div className={styles.infoBx} style={{ textAlign: "center" }}>
+        <div className={` row justify-evenly ${styles.fct_container} `}>
+          {factsData?.map((item, index) => (
+            <div key={index} className="col-md-4 md:max-w-xs col-sm-6 col-xs-12">
+              <div className={styles.infoBx}>
                 <span>{item?.title}</span>
                 <p>{item?.description}</p>
               </div>

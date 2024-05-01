@@ -18,6 +18,7 @@ const HowToApply = ({
   admissionProcess,
   requirements,
 }) => {
+
   return (
     <main>
       <NavigationBar />
@@ -37,15 +38,15 @@ export async function getServerSideProps() {
   let admissionProcess = {};
   let requirements = {};
   try {
-    const overviewParasResult = await getValueByKey("admission-overview-paras");
-    const admissionProcessResult = await getValueByKey("admission-process");
-    const requirementsResult = await getValueByKey("admission-req");
-
+    const overviewParasResult = await getValueByKey("admission-apply-paras");
     const bannerResult = await getValueByKey("HOW_TO_BANNER");
-    requirements = JSON.parse(requirementsResult.value);
-    admissionProcess = JSON.parse(admissionProcessResult.value);
-    bannerData = JSON.parse(bannerResult.value);
+    const admissionProcessResult = await getValueByKey("APPLY_PROCESS");
+    const requirementsResult = await getValueByKey("APPLY_REQUIREMENTS");
+
     overviewParas = JSON.parse(overviewParasResult.value);
+    bannerData = JSON.parse(bannerResult.value);
+    admissionProcess = JSON.parse(admissionProcessResult.value);
+    requirements = JSON.parse(requirementsResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }

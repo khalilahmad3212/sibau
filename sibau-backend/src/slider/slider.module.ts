@@ -5,8 +5,10 @@ import { SliderController } from './slider.controller';
 import { Slider } from "./entities/slider.entity";
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Slider])],
+  imports: [
+    TypeOrmModule.forFeature([Slider])
+  ],
   controllers: [SliderController],
   providers: [SliderService]
 })
-export class SliderModule {}
+export class SliderModule { }

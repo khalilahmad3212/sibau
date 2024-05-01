@@ -43,7 +43,9 @@ const TrippleMenu = () => {
       try {
         const result = await getValueByKey("tripple-menu");
         // debugger
-        setData(JSON.parse(result.value));
+        if (result) {
+          setData(JSON.parse(result.value));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }

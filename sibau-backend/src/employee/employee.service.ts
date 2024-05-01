@@ -7,6 +7,7 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee } from './entities/employee.entity';
 import { GetPhdsDto } from './dto/get-phds-dto';
 import { Department } from 'src/department/entities/department.entity';
+import { UpdateEmployeeProfileDto } from './dto/update-employee-profile.dto';
 
 @Injectable()
 export class EmployeeService {
@@ -19,6 +20,7 @@ export class EmployeeService {
       .getMany();
     return employees;
   }
+
   findByEmployeeID(id: string) {
     return this.employeeRepository.findOne({
       where: { EmployeeId: id },
@@ -51,7 +53,7 @@ export class EmployeeService {
   constructor(
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
-  ) {}
+  ) { }
 
   async create(dto: CreateEmployeeDto, departmentFound: Department) {
     const employee = new Employee();
@@ -101,6 +103,7 @@ export class EmployeeService {
   async findOne(id: number) {
     return await this.employeeRepository.findOne({
       where: { Id: id },
+      relations: ['Department']
     });
   }
 
@@ -137,6 +140,43 @@ export class EmployeeService {
     return await this.employeeRepository.save(employee);
   }
 
+  // async changePassword(
+  //   id: number,
+  //   changePassword: any
+  // ) {
+  //   const employee = await this.findOne(id);
+
+  //   if (!employee) {
+  //     throw new NotFoundException(`Employee with ID ${id} not found.`);
+  //   }
+
+  //   employee.Password = changePassword.newPassword
+  //   return await this.employeeRepository.save(employee);
+  // }
+
+  async updateProfile(
+    id: number,
+    updateEmployeeDto: UpdateEmployeeProfileDto
+  ) {
+    const employee = await this.findOne(id);
+
+    if (!employee) {
+      throw new NotFoundException(`Employee with ID ${id} not found.`);
+    }
+
+    console.log('update: ', updateEmployeeDto);
+
+    employee.FirstName = updateEmployeeDto.FirstName;
+    employee.LastName = updateEmployeeDto.LastName;
+    employee.Email = updateEmployeeDto.Email;
+    employee.Skills = updateEmployeeDto.Skills;
+    employee.Image = updateEmployeeDto.Image;
+    employee.Message = updateEmployeeDto.Message;
+    employee.Biography = updateEmployeeDto.Biography;
+    employee.Phd = updateEmployeeDto.Phd;
+
+    return await this.employeeRepository.save(employee);
+  }
   async remove(id: number) {
     return await this.employeeRepository.delete(id);
   }

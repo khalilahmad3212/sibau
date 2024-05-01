@@ -7,7 +7,10 @@ export class CreateGalleryDto {
   Type: string;
 
   @IsString()
-  event?: string;
+  AltText?: string;
+
+  @IsString()
+  Page?: string;
 
   @IsNumber()
   DepartmentId?: number;

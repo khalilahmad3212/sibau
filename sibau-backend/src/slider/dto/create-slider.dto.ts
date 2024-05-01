@@ -16,6 +16,7 @@ export class CreateSliderDto implements SliderQuery {
   LinkTitle: string;
 
   @IsString()
+  @IsOptional()
   Image: string;
 
   @IsOptional()

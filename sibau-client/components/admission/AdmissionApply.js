@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/admission/admission_apply.module.css";
 import { getValueByKey } from "@/apis";
+import { SERVER } from "@/utils/constants";
 
 const AdmissionApply = ({ applyData }) => {
   return (
@@ -15,7 +16,7 @@ const AdmissionApply = ({ applyData }) => {
                 </h2>
               </div>
               <div className={`sec_content ${styles.apply_content} `}>
-                <p>{applyData?.paragraph}</p>
+                <p>{applyData?.para}</p>
                 <a href={`${applyData?.link}`}>{applyData?.linkText}</a>
               </div>
             </div>
@@ -25,7 +26,7 @@ const AdmissionApply = ({ applyData }) => {
               <img
                 alt="apply"
                 className="card-img-top"
-                src="./apply-section.webp"
+                src={`${SERVER}/file-data-images/${applyData?.Image}`}
               />
             </div>
           </div>

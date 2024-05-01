@@ -3,7 +3,17 @@ import styles from "../../styles/about/aboutTestimonial.module.css";
 import { TESTIMONIALS } from "../../utils/constants";
 import { getValueByKey } from "@/apis";
 const AboutTestimonial = ({ index }) => {
-  const [testimonial, setTestimonial] = useState([]);
+  const [testimonial, setTestimonial] = useState([{
+    name: "John Doe",
+    image: "./about-2.webp",
+    alt: "About Image 2"
+  },
+  {
+    name: "John Doe",
+    image: "./about-2.webp",
+    alt: "About Image 2"
+  }
+  ]);
   useEffect(() => {
     async function fetchData() {
       try {

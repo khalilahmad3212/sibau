@@ -6,10 +6,13 @@ import { UpdateExperienceDto } from './dto/update-experience.dto';
 
 @Controller('experience')
 export class ExperienceController {
-  constructor(private readonly experienceService: ExperienceService) {}
+  constructor(private readonly experienceService: ExperienceService) { }
 
   @Post()
-  create(@Body() createExperienceDto: CreateExperienceDto) {
+  create(@Body() createExperienceDto: any) {
+    // TODO: Dynamic the User ID
+    console.log(createExperienceDto);
+    createExperienceDto.EmployeeId = 1;
     return this.experienceService.create(createExperienceDto);
   }
 

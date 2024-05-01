@@ -4,8 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import { getValueByKey } from "@/apis";
 
-const CampusInfo = () => {
-  const [campusAbout, setAbout] = useState([]);
+const CampusInfo = ({ data }) => {
   useEffect(() => {
     async function fetchData() {
       try {
@@ -22,11 +21,11 @@ const CampusInfo = () => {
       <div className="container sm:px-0 md:px-48 lg:px-52">
         <div className="row">
           <div className="col-md-12">
-            <p className={styles.campusTxt}>{campusAbout?.heading}</p>
+            <p className={styles.campusTxt}>{data?.heading}</p>
           </div>
         </div>
         <div className="row">
-          {campusAbout?.sections?.map((item, index) => (
+          {data?.sections?.map((item, index) => (
             <div
               key={index}
               className="col-md-4 col-sm-6 col-xs-12 py-3 lg:p-0"
@@ -35,12 +34,11 @@ const CampusInfo = () => {
                 <h5 className="font-extrabold text-[26px]">{item.title}</h5>
 
                 <ul>
-                  {item.subsections.map((subItem, subIndex) => (
+                  {item?.links.map((subItem, subIndex) => (
                     <li key={subIndex} className="">
-                      <Link href="#" className="">
+                      <Link href={subItem.link} className="">
                         <span className="flex items-center">
-                          {subItem}
-
+                          {subItem.text}
                           <span className="mx-1">
                             <FaArrowRight />
                           </span>

@@ -1,4 +1,4 @@
-import { IsString, IsPhoneNumber, IsNumber } from 'class-validator';
+import { IsString, IsPhoneNumber, IsNumber, IsOptional } from 'class-validator';
 export class CreateDepartmentDto {
   @IsString()
   Name: string;
@@ -31,7 +31,8 @@ export class CreateDepartmentDto {
   Phone: string;
 
   @IsString()
-  Logo: string;
+  @IsOptional()
+  Logo?: string;
 
   // @IsNumber()
   // OrganizationId: number;

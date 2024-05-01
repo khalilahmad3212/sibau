@@ -5,6 +5,10 @@ export interface FilterColumns {
 
   Date?: Date;
 
+  Type?: string;
+
+  Page?: string;
+
   DepartmentId?: number;
 
 }

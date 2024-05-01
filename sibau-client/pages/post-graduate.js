@@ -11,30 +11,23 @@ import { useState, useEffect } from "react";
 import { getValueByKey } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 
-const Graduate = () => {
-  const [banner, setBanner] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const bannerResult = await getValueByKey("POST_GRADUATE_BANNER");
-        setBanner(JSON.parse(bannerResult.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
+const Graduate = ({
+  bannerData,
+  historyData,
+  departmentsData
+}) => {
 
   return (
     <main>
       <HeaderFooter>
-        <PageBanner {...banner} />
+        <PageBanner {...bannerData} />
 
         <HistoryContent
-          heading="28"
-          tagline="nationally ranked graduate programs"
+          heading={historyData?.heading}
+          tagline={historyData?.tagLine}
+          content={historyData?.content}
         />
-        <InfoPrograms key={"academics-u-graduate"} />
+        <InfoPrograms data={departmentsData} />
 
         <div className="pb-20">
           <Apply />
@@ -46,3 +39,27 @@ const Graduate = () => {
 };
 
 export default Graduate;
+
+export async function getServerSideProps() {
+  let bannerData = {};
+  let historyData = {};
+  let departmentsData = {};
+  try {
+    const bannerResult = await getValueByKey("POST_GRADUATE_BANNER");
+    const historyResult = await getValueByKey("POST_GRADUATE_HISTORY");
+    const departmentsResult = await getValueByKey("POST_GRADUATE_DEPARTMENTS");
+
+    bannerData = JSON.parse(bannerResult.value);
+    historyData = JSON.parse(historyResult.value);
+    departmentsData = JSON.parse(departmentsResult.value);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+  return {
+    props: {
+      bannerData,
+      historyData,
+      departmentsData,
+    },
+  };
+}

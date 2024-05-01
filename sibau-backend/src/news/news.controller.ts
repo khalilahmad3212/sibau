@@ -7,20 +7,36 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
+  NotFoundException,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { uploadFile } from '../utils/common.util';
 
+const docsPath = 'news';
 @Controller('news')
 export class NewsController {
-  constructor(private readonly newsService: NewsService) {}
+  constructor(private readonly newsService: NewsService) { }
 
   @Post()
-  create(@Body() createNewsDto: CreateNewsDto) {
+  @UseInterceptors(FileInterceptor('file'))
+  async create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createNewsDto: any
+  ) {
+
+    if (file) {
+      const fileName = uploadFile(file, docsPath)
+      createNewsDto.Image = fileName;
+    }
     const updatedDto = { ...createNewsDto, Date: new Date() };
-    console.log(createNewsDto, 'createDto');
-    console.log(updatedDto, 'updated');
+
+    // TODO: Remove hardcoded department id
+    updatedDto.DepartmentId = 1;
 
     return this.newsService.create(updatedDto);
   }
@@ -35,8 +51,27 @@ export class NewsController {
     return this.newsService.findOne(+id);
   }
 
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
+  @UseInterceptors(FileInterceptor('file'))
+  async update(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateNewsDto: any) {
+
+    const existingResource = await this.newsService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Employee not found');
+    }
+
+    if (file) {
+      const fileName = uploadFile(file, docsPath)
+      updateNewsDto.Image = fileName;
+    } else {
+      updateNewsDto.Image = existingResource.Image;
+    }
+
+    updateNewsDto.DepartmentId = existingResource.Department;
     return this.newsService.update(+id, updateNewsDto);
   }
 

@@ -16,6 +16,12 @@ export class DynamicPage {
   @Column({ length: 50 })
   name: string;
 
+  @Column()
+  image: string;
+
+  @Column()
+  description: string;
+
   @Column({ length: 50 })
   link: string;
 

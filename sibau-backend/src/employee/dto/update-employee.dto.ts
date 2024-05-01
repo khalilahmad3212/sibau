@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 import { CreateEmployeeDto } from './create-employee.dto';
+import { Transform } from 'class-transformer';
 
 export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
   @IsString()
@@ -18,7 +19,7 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
   @IsString()
   CMS_id: string;
 
-  @IsNumber()
+  @IsString()
   EmployeeId: string;
 
   @IsString()
@@ -37,6 +38,7 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
   Biography: string;
 
   @IsString()
+  @IsOptional()
   Image: string;
 
   @IsString()
@@ -47,6 +49,12 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
 
   @IsNumber()
   BPS: number;
+
+  @Transform(({ obj, key }) => {
+    return obj[key] === 'true' ? true : obj[key] === 'false' ? false : obj[key];
+  })
+  @IsBoolean()
+  Phd?: boolean;
 
   @IsNumber()
   Department: number;

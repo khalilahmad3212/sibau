@@ -6,18 +6,40 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { DynamicPageService } from './dynamic-page.service';
 import { CreateDynamicPageDto } from './dto/create-dynamic-page.dto';
 import { UpdateDynamicPageDto } from './dto/update-dynamic-page.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { deleteFile, uploadFile } from '../utils/common.util';
+
+const docsPath = 'dynamic-page'
 
 @Controller('dynamic-page')
 export class DynamicPageController {
-  constructor(private readonly dynamicPageService: DynamicPageService) {}
+  constructor(private readonly dynamicPageService: DynamicPageService) { }
 
   @Post()
-  create(@Body() createDynamicPageDto: CreateDynamicPageDto) {
-    return this.dynamicPageService.create(createDynamicPageDto);
+  @UseInterceptors(FileInterceptor('file'))
+  async create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createDynamicPageDto: any
+  ) {
+
+    try {
+      let fileName;
+      if (file) {
+        fileName = uploadFile(file, docsPath)
+        createDynamicPageDto.image = fileName;
+      }
+      return this.dynamicPageService.create(createDynamicPageDto);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error While Creating Employee');
+    }
   }
 
   @Get()
@@ -30,12 +52,46 @@ export class DynamicPageController {
     return this.dynamicPageService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateDynamicPageDto: UpdateDynamicPageDto,
+  @Get('get-page-data/:page')
+  async getPageData(
+    @Param('page') page: string
   ) {
-    return this.dynamicPageService.update(+id, updateDynamicPageDto);
+    console.log('page: ', page);
+
+    return this.dynamicPageService.getPageData(`/${page}`);
+  }
+
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('file'))
+  async update(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateDynamicPageDto: any,
+  ) {
+
+    console.log('id: ', id);
+    console.log('file: ', file);
+    console.log('updateDynamicPageDto: ', updateDynamicPageDto);
+
+
+    const existingResource = await this.dynamicPageService.findOne(+id)
+    if (!existingResource) {
+      throw new Error('Page not found')
+    }
+
+
+    try {
+      if (file) {
+        deleteFile(existingResource.image, docsPath)
+        const fileName = uploadFile(file, docsPath)
+        updateDynamicPageDto.image = fileName;
+      }
+
+      return this.dynamicPageService.update(+id, updateDynamicPageDto);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error While Updating Employee');
+    }
   }
 
   @Delete(':id')

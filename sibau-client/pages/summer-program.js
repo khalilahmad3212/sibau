@@ -21,7 +21,7 @@ const SummerProgram = ({ footerData }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const bannerResult = await getValueByKey("SUMMER_BANNER");
+        const bannerResult = await getValueByKey("SUMMER_PROGRAMS_BANNER");
         setBanner(JSON.parse(bannerResult.value));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -62,9 +62,11 @@ export async function getStaticProps(context) {
 
   try {
     const [bannerResult, admissionParasResult] = await Promise.all([
+      getValueByKey("SUMMER_PROGRAMS_BANNER"),
       getValueByKey("admission-overview-paras"),
     ]);
     admissionParas = JSON.parse(admissionParasResult.value);
+    bannerData = JSON.parse(bannerResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }

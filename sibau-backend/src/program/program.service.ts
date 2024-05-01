@@ -10,7 +10,7 @@ import { Program } from './entities/program.entity';
 export class ProgramService {
   constructor(
     @InjectRepository(Program) private programRepository: Repository<Program>,
-  ) {}
+  ) { }
   async create(createProgramDto: CreateProgramDto) {
     return await this.programRepository.save(createProgramDto);
   }

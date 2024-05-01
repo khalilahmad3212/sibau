@@ -5,10 +5,10 @@ import { UpdateRecognitionDto } from './dto/update-recognition.dto';
 
 @Controller('recognition')
 export class RecognitionController {
-  constructor(private readonly recognitionService: RecognitionService) {}
+  constructor(private readonly recognitionService: RecognitionService) { }
 
   @Post()
-  create(@Body() createRecognitionDto: CreateRecognitionDto) {
+  create(@Body() createRecognitionDto: any) {
     return this.recognitionService.create(createRecognitionDto);
   }
 

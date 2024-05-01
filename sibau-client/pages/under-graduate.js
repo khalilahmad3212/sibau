@@ -9,14 +9,18 @@ import { useState, useEffect } from "react";
 import { getValueByKey } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 
-const UnderGraduate = ({ bannerData }) => {
+const UnderGraduate = ({
+  bannerData,
+  historyData
+}) => {
   return (
     <main>
       <HeaderFooter>
         <PageBanner {...bannerData} />
         <HistoryContent
-          heading="28"
-          tagline="nationally ranked graduate programs"
+          heading={historyData?.heading}
+          tagline={historyData?.tagLine}
+          content={historyData?.content}
         />
         <InfoPrograms key={"academics-p-graduate"} />
         <div className="pb-20">
@@ -31,18 +35,24 @@ export default UnderGraduate;
 
 export async function getServerSideProps() {
   let bannerData = {};
-
+  let historyData = {};
   try {
-    const [bannerResult] = await Promise.all([
+    const [
+      bannerResult,
+      historyResult
+    ] = await Promise.all([
       getValueByKey("UNDER_GRADUATE_BANNER"),
+      getValueByKey("UNDER_GRADUATE_HISTORY")
     ]);
     bannerData = JSON.parse(bannerResult.value);
+    historyData = JSON.parse(historyResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
   return {
     props: {
       bannerData,
+      historyData,
     },
   };
 }

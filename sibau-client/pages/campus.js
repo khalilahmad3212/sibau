@@ -10,25 +10,22 @@ import Direction from "@/components/about/campus/Direction";
 import UnInfo from "@/components/about/campus/UnInfo";
 import VideoSection from "@/components/about/VideoSection";
 
-import { AboutContent, Gallery } from "../components/about/layout";
-import { getValueByKey } from "@/apis";
+import { AboutContent, ApplicationFormCTA, Gallery } from "../components/about/layout";
+import { getGallery, getValueByKey } from "@/apis";
 
-const Campus = ({ admissionParas, bannerData }) => {
+const Campus = ({ admissionParas, bannerData, gallaryData, campusVideoData, campusInfoData, campusHoursData,
+  mapData }) => {
   return (
     <main>
       <NavigationBar />
       <PageBanner {...bannerData} />
       <AboutContent about={admissionParas} key={"about-campus"} />
-      <Gallery
-        img1="./ab-campus-1.webp"
-        img2="./ab-campus-2.webp"
-        img3="./ab-campus-3.webp"
-      />
-      <CampusInfo />
-      <VideoSection />
-      <UnInfo />
-      <Direction />
-      {/* <ApplicationFormCTA /> */}
+      <Gallery gallery={gallaryData} />
+      <CampusInfo data={campusInfoData} />
+      <VideoSection data={campusVideoData} />
+      <UnInfo data={campusHoursData} />
+      <Direction data={mapData} />
+      <ApplicationFormCTA />
       <Footer />
     </main>
   );
@@ -36,14 +33,36 @@ const Campus = ({ admissionParas, bannerData }) => {
 export async function getServerSideProps() {
   let bannerData = {};
   let admissionParas = {};
-
+  let gallaryData = {};
+  let campusVideoData = {};
+  let campusInfoData = {};
+  let campusHoursData = {};
+  let mapData = {};
   try {
-    const [bannerResult, admissionParasResult] = await Promise.all([
+    const [
+      bannerResult,
+      admissionParasResult,
+      gallaryResult,
+      campusVideoResult,
+      campusInfoResult,
+      campusHoursResult,
+      mapResult
+    ] = await Promise.all([
       getValueByKey("CAMPUS_BANNER"),
-      getValueByKey("admission-overview-paras"),
+      getValueByKey("about-campus-paras"),
+      getGallery("campus"),
+      getValueByKey("CAMPUS_VIDEO"),
+      getValueByKey("CAMPUS_INFO"),
+      getValueByKey("CAMPUS_HOURS"),
+      getValueByKey("CAMPUS_MAP_CONTENT")
     ]);
     admissionParas = JSON.parse(admissionParasResult.value);
     bannerData = JSON.parse(bannerResult.value);
+    gallaryData = gallaryResult.data;
+    campusVideoData = JSON.parse(campusVideoResult.value);
+    campusInfoData = JSON.parse(campusInfoResult.value);
+    campusHoursData = JSON.parse(campusHoursResult.value);
+    mapData = JSON.parse(mapResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -51,6 +70,11 @@ export async function getServerSideProps() {
     props: {
       bannerData,
       admissionParas,
+      gallaryData,
+      campusVideoData,
+      campusInfoData,
+      campusHoursData,
+      mapData
     },
   };
 }

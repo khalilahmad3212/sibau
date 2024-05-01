@@ -17,7 +17,7 @@ export class UpdateProgramDto extends PartialType(CreateProgramDto) {
 
   @IsString()
   Link: string;
-  
+
   @IsNumber()
   FocalPersonEmployeeId: number;
 }

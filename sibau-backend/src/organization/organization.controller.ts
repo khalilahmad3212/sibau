@@ -6,19 +6,41 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
+  NotFoundException,
 } from '@nestjs/common';
 import { OrganizationService } from './organization.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
 import { UpdateOrganizationDto } from './dto/update-organization.dto';
 import { GetOrganizationDto } from './dto/get-organization-.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { deleteFile, uploadFile } from '../utils/common.util';
 
+const docsPath = "orgonization";
 @Controller('organization')
 export class OrganizationController {
-  constructor(private readonly organizationService: OrganizationService) {}
+  constructor(private readonly organizationService: OrganizationService) { }
 
+  @UseInterceptors(FileInterceptor('file'))
   @Post()
-  create(@Body() createOrganizationDto: CreateOrganizationDto) {
-    return this.organizationService.create(createOrganizationDto);
+  create(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createOrganizationDto: any) {
+
+    try {
+      if (file) {
+        const filename = uploadFile(file, docsPath);
+        createOrganizationDto.Logo = filename;
+      } else {
+        createOrganizationDto.Logo = '';
+      }
+
+      return this.organizationService.create(createOrganizationDto);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to upload file');
+    }
   }
 
   @Get()
@@ -31,12 +53,33 @@ export class OrganizationController {
     return this.organizationService.findOne(+id);
   }
 
+  @UseInterceptors(FileInterceptor('file'))
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateOrganizationDto: UpdateOrganizationDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateOrganizationDto: any,
   ) {
-    return this.organizationService.update(+id, updateOrganizationDto);
+
+    const existingResource = await this.organizationService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Organization not Found');
+    }
+
+    try {
+      if (file) {
+        deleteFile(existingResource.Logo, docsPath);
+        const filename = uploadFile(file, docsPath);
+        updateOrganizationDto.Logo = filename;
+      } else {
+        updateOrganizationDto.Logo = existingResource.Logo;
+      }
+      return this.organizationService.update(+id, updateOrganizationDto);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to Update Department');
+    }
+
   }
 
   @Delete(':id')

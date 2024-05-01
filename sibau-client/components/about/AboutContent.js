@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/about/aboutPageContent.module.css";
-import { getValueByKey } from "@/apis";
 const AboutContent = ({ about }) => {
+
   return (
     <section className="st-1">
       <div className="container sm:px-0 md:px-40 lg:px-48">

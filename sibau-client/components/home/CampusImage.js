@@ -5,7 +5,7 @@ const ImageContainer = ({ imageUrl }) => {
   return (
     <div className={style.image_container}>
       <div className={style.image_column}>
-        <img src="/university-image.webp" className="card-img-top" />
+        <img src={imageUrl || "/university-image.webp"} className="card-img-top" />
       </div>
     </div>
   );

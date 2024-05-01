@@ -1,4 +1,5 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 export class CreateEventDto {
   @IsString()
   Title: string;
@@ -16,18 +17,22 @@ export class CreateEventDto {
   OrganizorEmail: string;
 
   @IsDate()
+  @Transform(({ value }) => new Date(value))
   EndDate: Date;
 
   @IsDate()
+  @Transform(({ value }) => new Date(value))
   StartDate: Date;
 
   @IsString()
   EventType: string;
 
   @IsString()
+  @IsOptional()
   Image: string;
 
   @IsString()
+  @IsOptional()
   PosterImage: string;
 
   @IsString()
@@ -40,5 +45,6 @@ export class CreateEventDto {
   EmbededCode: string;
 
   @IsNumber()
+  @IsOptional()
   DepartmentId: number;
 }

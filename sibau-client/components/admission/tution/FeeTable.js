@@ -14,8 +14,8 @@ const FeeTable = (props) => {
             </tr>
             {props?.programs?.map((program, index) => (
               <tr key={index}>
-                <td>{program?.name} </td>
-                <td>{program?.fees}</td>
+                <td>{program?.text} </td>
+                <td>{program?.link}</td>
               </tr>
             ))}
           </tbody>

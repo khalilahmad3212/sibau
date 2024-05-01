@@ -31,39 +31,119 @@ import { DynamicPageModule } from './dynamic-page/dynamic-page.module';
 import { SemesterDataModule } from './semester-data/semester-data.module';
 import { EmployeeInfoModule } from './employee-info/employee-info.module';
 
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join, resolve } from 'path';
+
 @Module({
   imports: [
+    ServeStaticModule.forRoot(
+      { rootPath: './uploads/slider-images', serveRoot: '/slider-images' },
+      (() => {
+        const publicDir = resolve('./uploads/document/');
+
+        const servePath = '/file-data-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/profile/');
+
+        const servePath = '/employee-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/publication/');
+
+        const servePath = '/publication-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/department/');
+
+        const servePath = '/department-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/orgonization/');
+
+        const servePath = '/organization-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/news/');
+
+        const servePath = '/news-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/announcement/');
+
+        const servePath = '/announcement-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/gallery/');
+
+        const servePath = '/gallery-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/resource/');
+
+        const servePath = '/resource-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/dynamic-page/');
+
+        const servePath = '/dynamic-page-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
+      })()
+    ),
     TypeOrmModule.forRoot(dataSourceOptions),
+
+    EmployeeModule,
+    EventModule,
+    PublicationModule,
     DepartmentModule,
     OrganizationModule,
-    EmployeeModule,
     ProgramModule,
-    PublicationModule,
     ExperienceModule,
     RecognitionModule,
     EducationModule,
-    NewsModule,
-    EducationModule,
-    AnnouncementModule,
     SliderModule,
-    EventModule,
-    GalleryModule,
-    ResourceTypeModule,
-    ResourceModule,
-    SkillModule,
-    SpecializationModule,
-    DeptwiseProgramSpecailzationModule,
+    ResourceTypeModule, // ask from sir, what to do with it?
     FileDataModule,
     MapResourceModule,
+    NewsModule,
+    AnnouncementModule,
+    GalleryModule,
+    ResourceModule,
+    SkillModule,
+
+    SemesterDataModule,
+
+    SpecializationModule,
+    DeptwiseProgramSpecailzationModule,
     RfqsModule,
     TenderModule,
     CareersModule,
     DepartSpecializationModule,
+
     DynamicPageModule,
-    SemesterDataModule,
+
     EmployeeInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

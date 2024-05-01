@@ -23,7 +23,7 @@ import { Response } from 'express';
 
 @Controller('file-data')
 export class FileDataController {
-  constructor(private readonly fileDataService: FileDataService) {}
+  constructor(private readonly fileDataService: FileDataService) { }
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
@@ -32,8 +32,8 @@ export class FileDataController {
     @Body('page') page: string,
     @Body('deadline') deadline?: string,
   ) {
-    console.log(file); // Example: log the file details
-    console.log(description);
+    console.log('here is file: ', file);
+
     const fileExtension = path.extname(file.originalname);
 
     // Remove the original file extension
@@ -68,13 +68,14 @@ export class FileDataController {
         deadline: deadline,
         page: page,
       };
-      this.fileDataService.create(createFileDto);
+      return this.fileDataService.create(createFileDto);
       // Return the file details or any other response as needed
-      return {
-        filename: newFileName,
-        filepath: filePath,
-        description: description,
-      };
+      // TODO: modify the response for id
+      // return {
+      //   filename: newFileName,
+      //   filepath: filePath,
+      //   description: description,
+      // };
     } catch (error) {
       console.error(error);
       throw new Error('Failed to upload file');
@@ -104,21 +105,22 @@ export class FileDataController {
     @Res() res: Response,
   ) {
     const filePath = path.join('./uploads', 'document', filename); // Specify the upload directory path
+    console.log(filePath);
+
     // this.fileDataService.remove(id);
     if (fs.existsSync(filePath)) {
-      fs.unlink(filePath, (err) => {
+      fs.unlink(filePath, async (err) => {
         if (err) {
           console.error('Error deleting file:', err);
         } else {
-          this.fileDataService.remove(id);
-          console.log('File deleted successfully');
-          return true;
+          const old = await this.fileDataService.remove(id);
+          console.log('File deleted successfully: ', old);
+          res.status(200).json(old);
         }
       });
     } else {
       throw new NotFoundException('File Not Found');
     }
-    return true;
   }
 
   @Get()

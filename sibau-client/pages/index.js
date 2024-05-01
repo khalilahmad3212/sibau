@@ -21,6 +21,7 @@ import Sponsors from "@/components/home/Sponser";
 import { getValueByKey } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 import Events from "@/components/home/Events";
+import { ABOUT_BANNER, HOME_STATISTIC } from "@/utils/constants";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({
@@ -28,6 +29,8 @@ export default function Home({
   historyData,
   sportsData,
   overview,
+  tuitionData,
+  programsData
 }) {
   return (
     <>
@@ -45,14 +48,18 @@ export default function Home({
             <Mission data={overview} />
             <History data={historyData} />
             <CampusInfo />
-            <GraduateProgram />
+
+            <GraduateProgram data={programsData} />
 
             <Department />
             <Admission />
             <Apply />
             <Scholarship />
-            <Tution />
-            <SportsActivities />
+
+            {/* How to do it? */}
+            <Tution data={tuitionData} />
+
+            <SportsActivities data={sportsData} />
             <News />
             {/* <Events /> */}
 
@@ -69,20 +76,26 @@ export async function getServerSideProps() {
   let historyData = {};
   let admissionParas = {};
   let overview = {};
-
+  let tuitionData = {};
+  let programsData = {};
   try {
     const [sportsResult, historyResult, admissionParasResult, overviewResult] =
       await Promise.all([
-        getValueByKey("home-sport-activity"),
-        getValueByKey("home-history-data"),
+        getValueByKey("HOME_SPORTS"),
+        getValueByKey(HOME_STATISTIC),
         getValueByKey("admission-overview-paras"),
         getValueByKey("home-overview"),
       ]);
 
+    const tuitionResult = await getValueByKey("HOME_TUITION_FEE");
+    const programsResult = await getValueByKey("HOME_PROGRAMS_PARA");
+
+    historyData = JSON.parse(historyResult.value);
     overview = JSON.parse(overviewResult.value);
     admissionParas = JSON.parse(admissionParasResult.value);
     sportsData = JSON.parse(sportsResult.value);
-    historyData = JSON.parse(historyResult.value);
+    tuitionData = JSON.parse(tuitionResult.value);
+    programsData = JSON.parse(programsResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -92,6 +105,8 @@ export async function getServerSideProps() {
       historyData,
       sportsData,
       overview,
+      tuitionData,
+      programsData,
     },
   };
 }

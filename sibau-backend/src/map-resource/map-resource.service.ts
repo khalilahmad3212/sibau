@@ -10,7 +10,7 @@ export class MapResourceService {
   constructor(
     @InjectRepository(MapResource)
     private readonly mapResourceRepository: Repository<MapResource>,
-  ) {}
+  ) { }
 
   async create(
     createMapResourceDto: CreateMapResourceDto,
@@ -41,6 +41,7 @@ export class MapResourceService {
       id,
       ...updateMapResourceDto,
     });
+
     if (!mapResource) {
       return undefined;
     }

@@ -10,6 +10,7 @@ import {
   UploadedFile,
   NotFoundException,
   Res,
+  Query,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { GalleryService } from './gallery.service';
@@ -20,38 +21,26 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import * as fs from 'fs';
 import * as path from 'path';
+import { deleteFile, uploadFile } from '../utils/common.util';
 
 const galleryPath = 'gallery';
 @Controller('gallery')
 export class GalleryController {
-  constructor(private readonly galleryService: GalleryService) {}
+  constructor(private readonly galleryService: GalleryService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   create(
     @UploadedFile() file: Express.Multer.File,
-    @Body('category') category: string,
-    @Body('departmentId') departmentId?: number,
+    @Body() createGalleryDto: any
   ) {
-    const fileExtension = path.extname(file.originalname);
 
-    const currentDateTime = new Date().toISOString().replace(/[:\-T.]/g, '');
-    const newFileName = `${currentDateTime}${fileExtension}`;
-
-    const uploadPath = path.join('./uploads', 'images', galleryPath); // Specify the upload directory path
-    const filePath = path.join(uploadPath, newFileName);
     try {
-      // Create the directory if it doesn't exist
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
+      if (file) {
+        const fileName = uploadFile(file, galleryPath)
+        createGalleryDto.Name = fileName;
       }
-      fs.writeFileSync(filePath, file.buffer);
-      const rfqDto: CreateGalleryDto = {
-        Name: newFileName,
-        Type: 'IMAGE',
-        DepartmentId: departmentId,
-      };
-      return this.galleryService.create(rfqDto);
+      return this.galleryService.create(createGalleryDto);
     } catch (error) {
       console.error(error);
       throw new Error('Failed to upload file');
@@ -59,15 +48,17 @@ export class GalleryController {
   }
 
   @Get()
-  findAll(@Body() getGalleryDto: GetGalleryDto) {
+  findAll(@Query() query: any) {
+    console.log('query: ', query);
+    const getGalleryDto = { Filter: { Page: query.page } };
+    console.log('check: ', getGalleryDto);
     return this.galleryService.findAll(getGalleryDto);
   }
 
-  @Get(':filename')
+  @Get('file/:filename')
   getFile(@Param('filename') filename: string, @Res() res: Response) {
     const downloadPath = path.join(
       './uploads',
-      'images',
       galleryPath,
       filename,
     ); // Specify the upload directory path
@@ -85,12 +76,40 @@ export class GalleryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGalleryDto: UpdateGalleryDto) {
+  @UseInterceptors(FileInterceptor('file'))
+  async update(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateGalleryDto: UpdateGalleryDto
+  ) {
+    const existingResource = await this.galleryService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Gallery not found');
+    }
+
+    if (file) {
+      deleteFile(existingResource.Name, galleryPath);
+      const fileName = uploadFile(file, galleryPath);
+      updateGalleryDto.Name = fileName;
+    } else {
+      updateGalleryDto.Name = existingResource.Name;
+    }
+
     return this.galleryService.update(+id, updateGalleryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    const existingResource = await this.galleryService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Gallery not found');
+    }
+    try {
+      deleteFile(existingResource.Name, galleryPath);
+    } catch {
+      console.log('Error while deleting file');
+    }
+
     return this.galleryService.remove(+id);
   }
 }

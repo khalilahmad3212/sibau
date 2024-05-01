@@ -18,8 +18,15 @@ export class Gallery {
   @Column({ type: 'enum', enum: ['IMAGE', 'VIDEO'] })
   Type: string;
 
+  // TODO: Check it Later
+  // @Column({ nullable: true })
+  // event: string;
+
   @Column({ nullable: true })
-  event: string;
+  AltText: string;
+
+  @Column({ nullable: true })
+  Page: string;
 
   @OneToOne(() => Department, { nullable: true })
   @JoinColumn({ name: 'DepartmentId' })

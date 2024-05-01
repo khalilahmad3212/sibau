@@ -13,7 +13,7 @@ import { UpdateMapResourceDto } from './dto/update-map-resource.dto';
 
 @Controller('map-resources')
 export class MapResourceController {
-  constructor(private readonly mapResourceService: MapResourceService) {}
+  constructor(private readonly mapResourceService: MapResourceService) { }
 
   @Post()
   create(@Body() createMapResourceDto: CreateMapResourceDto) {
@@ -45,6 +45,7 @@ export class MapResourceController {
     @Param('id') id: string,
     @Body() updateMapResourceDto: UpdateMapResourceDto,
   ) {
+    console.log('the data is received ', updateMapResourceDto);
     return this.mapResourceService.update(+id, updateMapResourceDto);
   }
 

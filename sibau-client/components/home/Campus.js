@@ -41,7 +41,7 @@ const DescriptionAndImageContainer = ({
                 data-aos-delay="900"
                 data-aos-duration="1500"
               >
-                <ImageContainer />
+                <ImageContainer imageUrl={imageUrl}/>
               </div>
             </>
           ) : (

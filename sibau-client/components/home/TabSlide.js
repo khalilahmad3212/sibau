@@ -26,17 +26,17 @@ const TabSlide = () => {
           <div
             key={index}
             id={`slide${index + 1}`}
-            className={`tab-pane fade ${style.slide__imgContainer} ${
-              index === activeSlider ? "in show active " : ""
-            }`}
+            className={`tab-pane fade ${style.slide__imgContainer} ${index === activeSlider ? "in show active " : ""
+              }`}
           >
             <img
               src={
-                index == 0
-                  ? "./student-1.jpg"
-                  : index === 1
-                  ? "./book-1.jpg"
-                  : item.Image
+                // index == 0
+                //   ? "./student-1.jpg"
+                //   : index === 1
+                //   ? "./book-1.jpg"
+                //   : item.Image
+                `http://localhost:5001/slider-images/${item.Image}`
               }
               className={style.slide__img}
               alt={`slide ${index + 1}`}

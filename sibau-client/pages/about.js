@@ -2,8 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useState, useEffect } from "react";
-import { getValueByKey } from "@/apis";
-import { ABOUT_BANNER, HISTORY_DETAILS } from ".././utils/constants";
+import { getGallery, getValueByKey } from "@/apis";
+import { ABOUT_BANNER, ABOUT_HISTORY, ABOUT_MISSION, ABOUT_STATISTIC, ABOUT_VIDEO, HISTORY_DETAILS } from ".././utils/constants";
 import {
   AboutContent,
   History,
@@ -20,58 +20,39 @@ import PageBanner from "@/components/PageBanner";
 import DesignedPictureTextContainer from "@/components/academic/DesignedPictureTextConatiner";
 import VideoSection from "@/components/about/VideoSection";
 
-const About = ({ bannerData, admissionParas }) => {
-  const historyData = {
-    banner: {
-      title: "About",
-      image: "./about-banner.webp",
-      description: "Sukkur IBA University is....",
-    },
-    descHeadings: "",
-    description: "",
-    history: [
-      {
-        year: 2011,
-        shortDesc:
-          "Started offering undergraduate programs in business administration.",
-        image: "",
-        alt: "",
-      },
-      {
-        year: 2012,
-        shortDesc:
-          "Introduced new courses in computer science and information technology.",
-        image: "",
-        alt: "",
-      },
-      {
-        year: 2013,
-        shortDesc:
-          "Established research centers in collaboration with international universities.",
-        image: "",
-        alt: "",
-      },
-    ],
-  };
-
+const About = ({
+  bannerData,
+  admissionParas,
+  aboutGallery,
+  factsData,
+  historyData,
+  missionData,
+  aboutVideoData
+}) => {
   return (
     <main>
       <NavigationBar />
       <PageBanner {...bannerData} />
       <AboutContent about={admissionParas} />
-      <Gallery />
-      <InformativeNumber />
+      <Gallery gallery={aboutGallery} />
+      <InformativeNumber statistics={factsData} />
       <History
-        title="History"
-        description={
-          "The history of IBA is rooted in excellence and innovation, dating back to its establishment in 1955. Over the years, IBA has evolved into a leading business school, providing quality education and producing visionary leaders. Its commitment to academic excellence, industry-focused curriculum, and strong alumni network have made it a symbol of educational brilliance in Pakistan."
-        }
-        image={"./about-history.webp"}
+        title={historyData.heading}
+        description={historyData.para}
+        image={historyData.Image}
+        link={historyData.link}
+        linkText={historyData.linkText}
         alt={"History Picture"}
       />
       {/* <MissionValue /> */}
-      <DesignedPictureTextContainer link="/mission" />
-      <VideoSection />
+      <DesignedPictureTextContainer
+        heading={missionData.heading}
+        content={missionData.para}
+        image={missionData.Image}
+        linkText={missionData.linkText}
+        link={missionData.link}
+      />
+      <VideoSection data={aboutVideoData} />
       <AboutTestimonial index="1" />
       <ApplicationFormCTA />
       <Footer />
@@ -83,26 +64,55 @@ export async function getServerSideProps() {
   let bannerData = {};
   let historyData = {};
   let admissionParas = {};
+  let aboutGallery = [];
+  let factsData = [];
+  let missionData = {};
+  let aboutVideoData = {};
 
   try {
-    const [bannerResult, historyResult, admissionParasResult] =
+    const [
+      bannerResult,
+      historyResult,
+      admissionParasResult,
+      factsResult,
+      missionResult,
+      aboutVideoResult
+    ] =
       await Promise.all([
         getValueByKey(ABOUT_BANNER),
-        getValueByKey(HISTORY_DETAILS),
-        getValueByKey("admission-overview-paras"),
+        getValueByKey(ABOUT_HISTORY),
+        getValueByKey("about-overview-paras"),
+        getValueByKey(ABOUT_STATISTIC),
+        getValueByKey(ABOUT_MISSION),
+        getValueByKey(ABOUT_VIDEO)
       ]);
+
     admissionParas = JSON.parse(admissionParasResult.value);
     bannerData = JSON.parse(bannerResult.value);
+    factsData = JSON.parse(factsResult.value);
     historyData = JSON.parse(historyResult.value);
-    // console.log(historyData);
+    missionData = JSON.parse(missionResult.value);
+    aboutVideoData = JSON.parse(aboutVideoResult.value);
   } catch (error) {
     console.error("Error fetching data:", error);
+  }
+
+  try {
+    let res = await getGallery("about");
+    aboutGallery = res.data;
+    console.log('khalil: ', res.data);
+  } catch (error) {
+    console.error("Error fetching gallery: ", error);
   }
   return {
     props: {
       bannerData,
       historyData,
+      aboutGallery,
       admissionParas,
+      factsData,
+      missionData,
+      aboutVideoData
     },
   };
 }

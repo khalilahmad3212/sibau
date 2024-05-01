@@ -15,27 +15,14 @@ const History = ({ data }) => {
           data-aos-easing="ease-in-back"
           data-aos-duration="1500"
         >
-          <div className="col-md-4 col-sm-6 col-xs-12">
-            <HistoryNumbers
-              percentage={data.percentage}
-              describe={data.describe}
-              job={data.job}
-            />
-          </div>
-          <div className="col-md-4 col-sm-6 col-xs-12">
-            <HistoryNumbers
-              percentage={data.percentageGraduate}
-              describe={data.describeGraduate}
-              job={data.jobGraduate}
-            />
-          </div>
-          <div className="col-md-4 col-sm-6 col-xs-12">
-            <HistoryNumbers
-              percentage={data.percentageUnderGraduate}
-              describe={data.describeUnderGraduate}
-              job={data.jobUnderGraduate}
-            />
-          </div>
+          {data?.map((item, index) => (
+            <div className="col-md-4 col-sm-6 col-xs-12" key={index}>
+              <HistoryNumbers
+                title={item.title}
+                description={item.description}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

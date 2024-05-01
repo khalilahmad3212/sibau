@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateFileDatumDto {
   @IsString()
@@ -7,14 +7,19 @@ export class CreateFileDatumDto {
   filename: string;
   @IsString()
   fileType: string;
+
   @IsString()
+  @IsOptional()
   page: string;
+  
   @IsString()
+  @IsOptional()
   deadline?: string;
 
   @IsNumber()
   fileSize: number;
   @IsString()
+  @IsOptional()
   description: string;
   @IsDate()
   uploadAt: Date;

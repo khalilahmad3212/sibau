@@ -1,4 +1,5 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 export class CreateEmployeeDto {
   @IsString()
   FirstName: string;
@@ -14,6 +15,7 @@ export class CreateEmployeeDto {
 
   @IsString()
   CMS_id: string;
+
   @IsString()
   EmployeeId: string;
 
@@ -35,6 +37,9 @@ export class CreateEmployeeDto {
   @IsString()
   Image: string;
 
+  @Transform(({ obj, key }) => {
+    return obj[key] === 'true' ? true : obj[key] === 'false' ? false : obj[key];
+  })
   @IsBoolean()
   Phd?: boolean;
 
@@ -45,8 +50,10 @@ export class CreateEmployeeDto {
   Message: string;
 
   @IsNumber()
+  @IsOptional()
   BPS: number;
 
   @IsNumber()
+  @IsOptional()
   Department: number;
 }

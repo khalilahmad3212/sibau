@@ -3,18 +3,24 @@ import { EducationService } from './education.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
 import { GetEducationDto } from './dto/get-education.dto';
+import { EmployeeService } from 'src/employee/employee.service';
 
 @Controller('education')
 export class EducationController {
-  constructor(private readonly educationService: EducationService) {}
+  constructor(
+    private readonly educationService: EducationService,
+    private readonly employeeService: EmployeeService
+  ) { }
 
   @Post()
-  create(@Body() createEducationDto: CreateEducationDto) {
+  async create(@Body() createEducationDto: any) {
+    // TODO: Dynamic it
+    createEducationDto.Employee = await this.employeeService.findOne(1);
     return this.educationService.create(createEducationDto);
   }
 
   @Get()
-  findAll(@Body() getEducationDto: GetEducationDto ) {
+  findAll(@Body() getEducationDto: GetEducationDto) {
     return this.educationService.findAll(getEducationDto);
   }
 
@@ -24,7 +30,9 @@ export class EducationController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEducationDto: UpdateEducationDto) {
+  async update(@Param('id') id: string, @Body() updateEducationDto: any) {
+    // TODO: Dynamic it
+    updateEducationDto.Employee = await this.employeeService.findOne(1);
     return this.educationService.update(+id, updateEducationDto);
   }
 

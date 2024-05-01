@@ -6,10 +6,11 @@ import { GetProgramDto } from './dto/get-program-.dto';
 
 @Controller('program')
 export class ProgramController {
-  constructor(private readonly programService: ProgramService) {}
+  constructor(private readonly programService: ProgramService) { }
 
   @Post()
-  create(@Body() createProgramDto: CreateProgramDto) {
+  create(@Body() createProgramDto: any) {
+
     return this.programService.create(createProgramDto);
   }
 
@@ -24,7 +25,10 @@ export class ProgramController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto) {
+  update(@Param('id') id: string, @Body() updateProgramDto: any) {
+    console.log("hello: ", updateProgramDto);
+    console.log("id: ", id);
+
     return this.programService.update(+id, updateProgramDto);
   }
 

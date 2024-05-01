@@ -11,11 +11,11 @@ export class PublicationService {
   constructor(
     @InjectRepository(Publication)
     private publicationRepository: Repository<Publication>,
-  ) {}
+  ) { }
   async create(createPublicationDto: CreatePublicationDto) {
     return await this.publicationRepository.save(createPublicationDto);
   }
-
+  
   async findAll(getPublicationDto: GetPublicationDto): Promise<Publication[]> {
     const options: FindManyOptions<Publication> = {};
 

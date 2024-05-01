@@ -18,7 +18,7 @@ const HistoryContent = (props) => {
         </div>
         <div className="row">
           <div className={`col-md-12 ${styles.uniHistory}`}>
-            <p className="text-base">
+            {/* <p className="text-base">
               Sukkur IBA University is a renowned educational institution
               located in Sukkur, Sindh, Pakistan. It is one of the leading
               business schools in the country and has a rich history and legacy.
@@ -79,7 +79,8 @@ const HistoryContent = (props) => {
               continues to make significant contributions to the academic and
               socio-economic development of the region and the country as a
               whole.
-            </p>
+            </p> */}
+            <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
           </div>
         </div>
       </div>

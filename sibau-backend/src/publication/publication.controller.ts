@@ -21,12 +21,13 @@ import * as fs from 'fs';
 import { Response } from 'express';
 
 import * as path from 'path';
+import { deleteFile, uploadFile } from '../utils/common.util';
 
 const docsPath = 'publication';
 
 @Controller('publication')
 export class PublicationController {
-  constructor(private readonly publicationService: PublicationService) {}
+  constructor(private readonly publicationService: PublicationService) { }
 
   @UseInterceptors(FileInterceptor('file'))
   @Post()
@@ -36,26 +37,18 @@ export class PublicationController {
     @Body('type') type: string,
     @Body('title') title: string,
   ) {
-    const fileExtension = path.extname(file.originalname);
-    const fileNameWithoutExtension = path.basename(
-      file.originalname,
-      fileExtension,
-    );
-    const currentDateTime = new Date().toISOString().replace(/[:\-T.]/g, '');
-    const newFileName = `${fileNameWithoutExtension}_${currentDateTime}${fileExtension}`;
-    const uploadPath = path.join('./uploads', 'document', docsPath); // Specify the upload directory path
-    const filePath = path.join(uploadPath, newFileName);
+
+    let fileName;
+    if (file) {
+      fileName = uploadFile(file, docsPath)
+    }
     try {
-      // Create the directory if it doesn't exist
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
-      }
-      fs.writeFileSync(filePath, file.buffer);
+
       const careerObject: CreatePublicationDto = {
         Title: title,
         Authors: 'Sukkur IBA',
         Year: new Date(year),
-        Link: newFileName,
+        Link: fileName,
         JounalName: title,
         Type: type,
       };
@@ -70,29 +63,85 @@ export class PublicationController {
   findAll(@Body() getPublicationDto: GetPublicationDto) {
     return this.publicationService.findAll(getPublicationDto);
   }
-  @Get(':filename')
-  getFile(@Param('filename') filename: string, @Res() res: Response) {
-    const downloadPath = path.join('./uploads', 'document', docsPath, filename); // Specify the upload directory path
-    console.log(downloadPath);
-    if (fs.existsSync(downloadPath)) {
-      const readStream = fs.createReadStream(downloadPath);
-      return readStream.pipe(res);
-    } else {
-      throw new NotFoundException('File Not Found');
+
+  // @Get(':filename')
+  // getFile(@Param('filename') filename: string, @Res() res: Response) {
+  //   const downloadPath = path.join('./uploads', 'document', docsPath, filename); // Specify the upload directory path
+  //   console.log(downloadPath);
+  //   if (fs.existsSync(downloadPath)) {
+  //     const readStream = fs.createReadStream(downloadPath);
+  //     return readStream.pipe(res);
+  //   } else {
+  //     throw new NotFoundException('File Not Found');
+  //   }
+  // }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.publicationService.findOne(+id);
+  }
+
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updatePublicationDto: UpdatePublicationDto,
+  // ) {
+  //   return this.publicationService.update(+id, updatePublicationDto);
+  // }
+
+  @UseInterceptors(FileInterceptor('file'))
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body('year') year: string,
+    @Body('type') type: string,
+    @Body('title') title: string,
+  ) {
+
+    const existingResource = await this.publicationService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Publication not Found');
+    }
+
+    const careerObject: UpdatePublicationDto = {
+      Title: title,
+      Authors: 'Sukkur IBA',
+      Year: new Date(year),
+      Link: null,
+      JounalName: title,
+      Type: type,
+    };
+
+    try {
+      if (file) {
+        deleteFile(existingResource.Link, docsPath);
+        const filename = uploadFile(file, docsPath);
+        careerObject.Link = filename;
+      } else {
+        careerObject.Link = existingResource.Link;
+      }
+      return this.publicationService.update(+id, careerObject);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to upload file');
     }
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.publicationService.findOne(+id);
-  // }
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    const existingResource = await this.publicationService.findOne(+id);
+    if (!existingResource) {
+      throw new NotFoundException('Publication not Found');
+    }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updatePublicationDto: UpdatePublicationDto,
-  ) {
-    return this.publicationService.update(+id, updatePublicationDto);
+    try {
+      deleteFile(existingResource.Link, docsPath);
+      return this.publicationService.remove(+id);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to delete publication');
+    }
   }
 
   @Delete(':filename/:id')

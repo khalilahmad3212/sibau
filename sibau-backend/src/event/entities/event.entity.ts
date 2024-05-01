@@ -28,6 +28,9 @@ export class Event {
   OrganizorEmail: string;
 
   @Column('date')
+  StartDate: Date;
+
+  @Column('date')
   EndDate: Date;
 
   @Column({
@@ -43,9 +46,6 @@ export class Event {
   @Column({ length: 200, nullable: true })
   PosterImage: string;
 
-  @Column('date')
-  StartDate: Date;
-
   @Column({ length: 100 })
   Venue: string;
 
@@ -54,6 +54,12 @@ export class Event {
 
   @Column()
   EmbededCode: string;
+
+  @Column()
+  AllDay: boolean;
+
+  @Column()
+  TextColor: string;
 
   @ManyToOne(() => Department, (department) => department.Events, {
     nullable: true,

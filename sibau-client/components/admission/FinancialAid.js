@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/admission/financial_aid.module.css";
 import Link from "next/link";
 import { getValueByKey } from "@/apis";
+import { SERVER } from "@/utils/constants";
 
 const FinancialAid = ({ aidCard }) => {
   return (
@@ -11,7 +12,7 @@ const FinancialAid = ({ aidCard }) => {
           <div className="col-md-6 col-xs-12">
             <div className="adm-image-container">
               <img
-                src="./university-image.webp"
+                src={`${SERVER}/file-data-images/${aidCard?.Image}`}
                 className="card-img-top"
                 alt="Admission"
               />
@@ -25,7 +26,7 @@ const FinancialAid = ({ aidCard }) => {
                 <h2 className={styles.adm_heading}> {aidCard?.heading} </h2>
               </div>
               <div className={styles.adm_content}>
-                <p>{aidCard?.paragraph}</p>
+                <p>{aidCard?.para}</p>
               </div>
               <div className={styles.adm_link}>
                 <Link href={`${aidCard?.link}`}>{aidCard?.linkText}</Link>

@@ -5,12 +5,11 @@ const HistoryNumbers = (props) => {
   return (
     <div className={style.history_container}>
       <div className={style.history_heading}>
-        <span>{props.percentage}</span>
+        <span>{props.title}</span>
       </div>
       <div className={style.history_text}>
         <p>
-          {" "}
-          {props.describe} <br /> {props.job}{" "}
+          {props.description}
         </p>
       </div>
     </div>

@@ -23,6 +23,7 @@ const TutionFees = ({ fee }) => {
     fetchData();
   }, []);
 
+
   return (
     <main>
       <HeaderFooter>
@@ -38,16 +39,26 @@ const TutionFees = ({ fee }) => {
 export default TutionFees;
 
 export async function getStaticProps(context) {
-  // Footer Section
+  let bannerData = {};
   let fee = {};
-  const graduate = await getValueByKey("fees-graduate");
-  const pGrad = await getValueByKey("fees-p-graduate");
-  const uGrad = await getValueByKey("fees-u-graduate");
-  fee.graduate = JSON.parse(graduate.value);
-  fee.uGrad = JSON.parse(uGrad.value);
-  fee.pGrad = JSON.parse(pGrad.value);
+  try {
+    const bannerResult = await getValueByKey("TUTION_FEES_BANNER");
+    const graduate = await getValueByKey("TUITION_GRADUATE_FEE");
+    const pGrad = await getValueByKey("TUITION_POSTGRADUATE_FEE");
+    const uGrad = await getValueByKey("TUITION_UNDERGRADUATE_FEE");
+
+    bannerData = JSON.parse(bannerResult.value);
+    fee.graduate = JSON.parse(graduate.value);
+    fee.uGrad = JSON.parse(uGrad.value);
+    fee.pGrad = JSON.parse(pGrad.value);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 
   return {
-    props: { fee }, // will be passed to the page component as props
+    props: {
+      bannerData,
+      fee
+    }, // will be passed to the page component as props
   };
 }

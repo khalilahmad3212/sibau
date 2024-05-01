@@ -25,7 +25,7 @@ const Department = ({ data }) => {
               <DepartmentItem
                 url={item.url}
                 title={item.Name}
-                sr={item.Link}
+                sr={`http://localhost:5001/file-data-images/${item.Image}`}
                 description={item.Description}
               />
             </div>

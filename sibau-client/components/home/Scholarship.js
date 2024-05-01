@@ -4,13 +4,15 @@ import LinkBtn from "./LinkBtn";
 import { getValueByKey } from "@/apis";
 
 const Scholarship = () => {
-  const [paragraph, setPara] = useState();
+  const [paragraph, setPara] = useState(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus ut libero tincidunt aliquam. In hac habitasse platea dictumst. Curabitur nec orci ac nisi ultrices fermentum. Sed nec mi ut elit luctus luctus. Nullam ac metus at turpis lacinia tincidunt. In hac habitasse platea dictumst. Curabitur nec orci ac nisi ultrices fermentum. Sed nec mi ut elit luctus luctus."
+  );
   useState(() => {
     async function fetchData() {
       try {
         const result = await getValueByKey("Scholarship-home-heading");
         // console.log("called the api");
-        setPara(JSON.parse(result.value));
+        setPara(result.value);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

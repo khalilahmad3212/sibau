@@ -3,35 +3,20 @@ import styles from "../../../styles/admission/financial/process.module.css";
 import Steps from "@/components/about/missionVission/Steps";
 import { getValueByKey } from "@/apis";
 
-const Process = () => {
+const Process = ({ data }) => {
   // financial-process
   const [processData, setData] = useState();
   useEffect(() => {
     async function fetchData() {
-      const result = await getValueByKey("financial-process");
-      setData(JSON.parse(result.value));
+      try {
+        const result = await getValueByKey("financial-process");
+        setData(JSON.parse(result.value));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
     fetchData();
   }, []);
-
-  const StepObject = {
-    // Heading
-    StepHeading: "The Financial Aid Process",
-    // Card1 Data
-    StepCardOneTitle: "01. Apply for Aid",
-    StepCardOneDescription:
-      "Creativity and innovation to challenge the status quo will affect what and how we teach and the intellectual ambitions of the university itself..",
-
-    // Card2 Data
-    StepCardTwoTitle: "02. Review",
-    StepCardTwoDescription:
-      "Social engagement should orient students’ academic experiences to help them become critically engaged citizens, dedicated to solving problems.",
-
-    // Card3 Data
-    StepCardThreeTitle: "03. Make Your Deposit",
-    StepCardThreeDescription:
-      "Estudiar’s commitment to student success, important scholarship and creative activity, and public service sets it apart from other colleges.",
-  };
 
   return (
     <section className="st-1 bg-yellow pb-100">
@@ -43,7 +28,7 @@ const Process = () => {
             Process
           </h2>
         </div>
-        <Steps data={processData?.steps} />
+        <Steps data={data} />
       </div>
     </section>
   );

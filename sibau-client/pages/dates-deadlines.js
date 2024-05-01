@@ -15,27 +15,18 @@ import { getValueByKey } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 
 // DATE_DEADLINES_BANNER
-const DateDeadlines = () => {
-  const [banner, setBanner] = useState({});
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const bannerResult = await getValueByKey("FINANCIAL_AID");
-        setBanner(JSON.parse(bannerResult.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
+const DateDeadlines = ({
+  bannerData,
+  deadlineDates
+}) => {
   const missionData = {
     Description: "Desc of mission",
   };
   return (
     <main>
       <HeaderFooter>
-        <PageBanner {...banner} />
-        <DateTables />
+        <PageBanner {...bannerData} />
+        <DateTables data={deadlineDates} />
         <ApplicationFormCTA />
       </HeaderFooter>
     </main>
@@ -45,6 +36,8 @@ const DateDeadlines = () => {
 export default DateDeadlines;
 
 export async function getStaticProps(context) {
+  let bannerData = {};
+  let deadlineDates = {};
   // Footer Section
   const footerData = {
     // FooterColumn One Data
@@ -131,7 +124,20 @@ export async function getStaticProps(context) {
     CallToText: "+1 (772) 290-2999",
     CallToLink: "callto: +1 (772) 290-2999",
   };
+  try {
+    const bannerResult = await getValueByKey("DATES_DEADLINES_BANNER");
+    const deadlineDatesResult = await getValueByKey("DEADLINE_DATES");
+
+    bannerData = JSON.parse(bannerResult.value);
+    deadlineDates = JSON.parse(deadlineDatesResult.value);
+  } catch (error) {
+
+  }
   return {
-    props: { footerData }, // will be passed to the page component as props
+    props: {
+      bannerData,
+      deadlineDates,
+      footerData
+    }, // will be passed to the page component as props
   };
 }
