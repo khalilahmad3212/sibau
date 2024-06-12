@@ -5,7 +5,7 @@ import { FindManyOptions, Repository } from 'typeorm';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { Publication } from './entities/publication.entity';
-import { Employee } from "src/employee/entities/employee.entity";
+import { Employee } from "../employee/entities/employee.entity";
 
 @Injectable()
 export class PublicationService {

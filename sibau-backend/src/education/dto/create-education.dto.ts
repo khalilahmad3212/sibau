@@ -1,5 +1,5 @@
 import { IsDate, IsString } from "class-validator";
-import { Employee } from "src/employee/entities/employee.entity";
+import { Employee } from "../../employee/entities/employee.entity";
 export class CreateEducationDto {
 
     @IsString()

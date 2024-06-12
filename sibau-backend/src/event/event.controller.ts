@@ -5,7 +5,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { uploadFile } from "../utils/common.util";
-import { DepartmentService } from "src/department/department.service";
+import { DepartmentService } from "../department/department.service";
 
 const docPath = 'event';
 @Controller('event')
