@@ -15,9 +15,9 @@ export function uploadFile(file, docsPath) {
   const filePath = path.join(uploadPath, newFileName);
 
   // Create the directory if it doesn't exist
-  if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath, { recursive: true });
-  }
+  // if (!fs.existsSync(uploadPath)) {
+  //   fs.mkdirSync(uploadPath, { recursive: true });
+  // }
 
   // Write the file to the specified path
   fs.writeFileSync(filePath, file.buffer);

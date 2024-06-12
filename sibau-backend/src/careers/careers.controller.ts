@@ -46,9 +46,9 @@ export class CareersController {
     const filePath = path.join(uploadPath, newFileName);
     try {
       // Create the directory if it doesn't exist
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
-      }
+      // if (!fs.existsSync(uploadPath)) {
+      //   fs.mkdirSync(uploadPath, { recursive: true });
+      // }
       fs.writeFileSync(filePath, file.buffer);
       const careerObject: CreateCareerDto = {
         title: title,

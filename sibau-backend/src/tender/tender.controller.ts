@@ -25,7 +25,7 @@ import * as path from 'path';
 const docsPath = 'tender';
 @Controller('tender')
 export class TenderController {
-  constructor(private readonly tenderService: TenderService) {}
+  constructor(private readonly tenderService: TenderService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
@@ -49,9 +49,9 @@ export class TenderController {
     const filePath = path.join(uploadPath, newFileName);
     try {
       // Create the directory if it doesn't exist
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
-      }
+      // if (!fs.existsSync(uploadPath)) {
+      //   fs.mkdirSync(uploadPath, { recursive: true });
+      // }
       fs.writeFileSync(filePath, file.buffer);
       const rfqDto: CreateTenderDto = {
         title: title,

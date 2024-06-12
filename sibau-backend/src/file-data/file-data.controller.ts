@@ -52,9 +52,9 @@ export class FileDataController {
     const filePath = path.join(uploadPath, newFileName);
     try {
       // Create the directory if it doesn't exist
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath, { recursive: true });
-      }
+      // if (!fs.existsSync(uploadPath)) {
+      //   fs.mkdirSync(uploadPath, { recursive: true });
+      // }
       // Save the file to the specified path
       fs.writeFileSync(filePath, file.buffer);
 
