@@ -1,5 +1,4 @@
 import { IsString, IsOptional, IsNumber } from 'class-validator';
-import { Department } from 'src/department/entities/department.entity';
 
 export class CreateDepartSpecializationDto {
   @IsString()

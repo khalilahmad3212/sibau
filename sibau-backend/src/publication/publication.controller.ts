@@ -24,8 +24,8 @@ import { Response } from 'express';
 
 import * as path from 'path';
 import { deleteFile, uploadFile } from '../utils/common.util';
-import { EmployeeService } from 'src/employee/employee.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { EmployeeService } from '../employee/employee.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 const docsPath = 'publication';
 

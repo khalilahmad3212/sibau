@@ -1,10 +1,9 @@
-import { Announcement } from 'src/announcement/entities/announcement.entity';
-import { DeptwiseProgramSpecailzationController } from 'src/deptwise-program-specailzation/deptwise-program-specailzation.controller';
-import { Deptwiseprogramspecilization } from 'src/deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
-import { Event } from 'src/event/entities/event.entity';
-import { News } from 'src/news/entities/news.entity';
-import { ResourceType } from 'src/resource-type/entities/resource-type.entity';
-import { Resource } from 'src/resource/entities/resource.entity';
+import { Announcement } from '../../announcement/entities/announcement.entity';
+import { Deptwiseprogramspecilization } from '../../deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
+import { Event } from '../../event/entities/event.entity';
+import { News } from '../../news/entities/news.entity';
+import { ResourceType } from '../../resource-type/entities/resource-type.entity';
+import { Resource } from '../../resource/entities/resource.entity';
 import {
   Column,
   Entity,

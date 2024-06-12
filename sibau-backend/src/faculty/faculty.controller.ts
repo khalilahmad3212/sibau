@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { FacultyService } from './faculty.service';
 import { Faculty } from './faculty.entity';
-import { Employee } from 'src/employee/entities/employee.entity';
-import { EmployeeService } from 'src/employee/employee.service';
+import { Employee } from '../employee/entities/employee.entity';
+import { EmployeeService } from '../employee/employee.service';
 
 @Controller('faculty')
 export class FacultyController {

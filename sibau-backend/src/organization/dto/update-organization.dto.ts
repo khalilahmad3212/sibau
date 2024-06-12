@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNumber, IsString } from 'class-validator';
-import { Employee } from 'src/employee/entities/employee.entity';
+import { Employee } from '../../employee/entities/employee.entity';
 import { CreateOrganizationDto } from './create-organization.dto';
 
 export class UpdateOrganizationDto extends PartialType(CreateOrganizationDto) {

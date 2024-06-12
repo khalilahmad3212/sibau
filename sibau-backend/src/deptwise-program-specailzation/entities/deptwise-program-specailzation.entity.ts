@@ -1,6 +1,6 @@
-import { Department } from 'src/department/entities/department.entity';
-import { Program } from 'src/program/entities/program.entity';
-import { Specialization } from 'src/specialization/entities/specialization.entity';
+import { Department } from '../../department/entities/department.entity';
+import { Program } from '../../program/entities/program.entity';
+import { Specialization } from '../../specialization/entities/specialization.entity';
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'DeptwiseProgramSpecailzation' })

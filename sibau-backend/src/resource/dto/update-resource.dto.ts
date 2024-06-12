@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsString } from 'class-validator';
-import { Department } from 'src/department/entities/department.entity';
+import { Department } from '../../department/entities/department.entity';
 import { CreateResourceDto } from './create-resource.dto';
 
 export class UpdateResourceDto extends PartialType(CreateResourceDto) {

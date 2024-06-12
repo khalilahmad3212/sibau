@@ -1,6 +1,6 @@
-import { Experience } from 'src/experience/entities/experience.entity';
-import { Education } from 'src/education/entities/education.entity';
-import { Publication } from 'src/publication/entities/publication.entity';
+import { Experience } from '../../experience/entities/experience.entity';
+import { Education } from '../../education/entities/education.entity';
+import { Publication } from '../../publication/entities/publication.entity';
 import {
   Column,
   Entity,

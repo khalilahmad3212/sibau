@@ -17,8 +17,8 @@ import { GetResourceDto } from './dto/get-resource.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { uploadFile } from '../utils/common.util';
 import { isInstance } from 'class-validator';
-import { DepartmentService } from 'src/department/department.service';
-import { UpdateDepartmentDto } from 'src/department/dto/update-department.dto';
+import { DepartmentService } from '../department/department.service';
+import { UpdateDepartmentDto } from '../department/dto/update-department.dto';
 
 const docsPath = 'resource';
 @Controller('resource')

@@ -1,4 +1,4 @@
-import { Deptwiseprogramspecilization } from 'src/deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
+import { Deptwiseprogramspecilization } from '../../deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
 import {
   Column,
   Entity,

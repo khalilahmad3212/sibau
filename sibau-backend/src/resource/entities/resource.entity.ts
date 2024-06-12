@@ -1,5 +1,5 @@
-import { Department } from 'src/department/entities/department.entity';
-import { Specialization } from 'src/specialization/entities/specialization.entity';
+import { Department } from '../../department/entities/department.entity';
+import { Specialization } from '../../specialization/entities/specialization.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

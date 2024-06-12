@@ -1,5 +1,5 @@
-import { Deptwiseprogramspecilization } from 'src/deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
-import { Resource } from 'src/resource/entities/resource.entity';
+import { Deptwiseprogramspecilization } from '../../deptwise-program-specailzation/entities/deptwise-program-specailzation.entity';
+import { Resource } from '../../resource/entities/resource.entity';
 import {
   Column,
   Entity,

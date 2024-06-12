@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { Department } from 'src/department/entities/department.entity';
+import { Department } from '../../department/entities/department.entity';
 
 export class CreateResourceDto {
   @IsString()

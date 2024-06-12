@@ -6,9 +6,9 @@ import { GetEmployeetDto } from './dto/get-employee-.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee } from './entities/employee.entity';
 import { GetPhdsDto } from './dto/get-phds-dto';
-import { Department } from 'src/department/entities/department.entity';
+import { Department } from '../department/entities/department.entity';
 import { UpdateEmployeeProfileDto } from './dto/update-employee-profile.dto';
-import { Campus } from 'src/campus/campus.entity';
+import { Campus } from '../campus/campus.entity';
 
 @Injectable()
 export class EmployeeService {

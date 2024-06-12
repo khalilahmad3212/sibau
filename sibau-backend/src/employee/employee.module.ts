@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { EmployeeController } from './employee.controller';
 import { Employee } from './entities/employee.entity';
-import { DepartmentModule } from 'src/department/department.module';
+import { DepartmentModule } from '../department/department.module';
 import { CampusModule } from '../campus/campus.module';
 
 @Module({

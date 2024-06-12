@@ -11,7 +11,7 @@ import {
 import { EmployeeInfoService } from './employee-info.service';
 import { CreateEmployeeInfoDto } from './dto/create-employee-info.dto';
 import { UpdateEmployeeInfoDto } from './dto/update-employee-info.dto';
-import { EmployeeService } from 'src/employee/employee.service';
+import { EmployeeService } from '../employee/employee.service';
 
 @Controller('employee-info')
 export class EmployeeInfoController {

@@ -3,8 +3,8 @@ import { EducationService } from './education.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
 import { GetEducationDto } from './dto/get-education.dto';
-import { EmployeeService } from 'src/employee/employee.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { EmployeeService } from '../employee/employee.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('education')
 export class EducationController {
