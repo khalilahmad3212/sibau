@@ -11,6 +11,9 @@ export class CreateEmployeeDto {
   Designation: string;
 
   @IsString()
+  Role: string;
+
+  @IsString()
   Email: string;
 
   @IsString()

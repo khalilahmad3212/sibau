@@ -9,19 +9,20 @@ import {
 } from "@/apis";
 import HeaderFooter from "@/components/global/HeaderFooter";
 import FacultyDetails from "@/components/faculty/FacultyInfo";
+import axios from "axios";
+import { SERVER } from "@/utils/constants";
 
-const FacultyInfo = ({ bannerData, facultyData, basicInfo }) => {
-  const missionData = {
-    Description: "Desc of mission",
-  };
+const FacultyInfo = ({
+  bannerData,
+  facultyData
+}) => {
+
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <FacultyDetails facultyData={facultyData} basicInfo={basicInfo} />
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      {facultyData && <FacultyDetails facultyData={facultyData} />}
+      {!facultyData && <h1>Faculty not found</h1>}
+    </>
   );
 };
 
@@ -32,19 +33,18 @@ export async function getServerSideProps(context) {
   let basicInfo = null;
   let facultyData = null;
 
-  try {
-    const [bannerResult, employeeInfo, facultyBasicInfo] = await Promise.all([
-      getValueByKey("LEADERSHIP_BANNER"),
-      infoByEmployeeId(faculty),
-      getEmployeeByEmployeeId(faculty),
-    ]);
-    basicInfo = facultyBasicInfo;
-    facultyData = employeeInfo;
-    // bannerData = JSON.parse(bannerResult.value);
+  let publications = null;
+  let education = null;
 
-    bannerData.title = faculty;
-    bannerData.title = "Faculty Profile";
-    bannerData.image = "./about-banner.webp";
+  try {
+    let bannerResult = await getValueByKey("LEADERSHIP_BANNER");
+    let employeeResult = await getEmployeeByEmployeeId(faculty);
+
+    bannerData = JSON.parse(bannerResult.value);
+    facultyData = employeeResult;
+
+    console.log('employeeReslt: ', employeeResult);
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -52,7 +52,6 @@ export async function getServerSideProps(context) {
     props: {
       facultyData,
       bannerData,
-      basicInfo,
     },
   };
 }

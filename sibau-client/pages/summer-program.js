@@ -34,17 +34,14 @@ const SummerProgram = ({ footerData }) => {
     Description: "Desc of mission",
   };
   return (
-    <main>
-      <HeaderFooter>
-        <NavigationBar />
-        <PageBanner {...banner} />
-        <About data={missionData} />
-        {/* <NumberInfo /> */}
-        <SummerCourses />
-        {/* <Steps /> */}
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...banner} />
+      <About data={missionData} />
+      {/* <NumberInfo /> */}
+      <SummerCourses />
+      {/* <Steps /> */}
+      {/* <ApplicationFormCTA /> */}
+    </>
   );
 };
 

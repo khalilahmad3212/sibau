@@ -1,112 +1,113 @@
 .newsItem {
-    background-color: #000000;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    color: #ffffff;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6em;
-    margin: 10px;
-    max-width: 350px;
-    min-width: 250px;
-    overflow: hidden;
-    position: relative;
-    text-align: left;
-    width: 100%;
-  }
-  
-  .newsItem * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition: all 0.25s ease;
-    transition: all 0.25s ease;
-  }
-  
-  .newsItem img {
-    max-width: 100%;
-    vertical-align: top;
-    position: relative;
-    opacity: 0.75;
-  }
-  
-  .newsItem figcaption {
-    padding: 25px 20px 25px;
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-  }
-  
-  .newsItem .date {
-    background-color: #fff;
-    color: #333;
-    font-size: 18px;
-    font-weight: 800;
-    min-height: 48px;
-    min-width: 48px;
-    padding: 10px 0;
-    position: absolute;
-    right: 15px;
-    text-align: center;
-    text-transform: uppercase;
-    top: 0;
-  }
-  
-  .newsItem .date span {
-    display: block;
-    line-height: 14px;
-  }
-  
-  .newsItem .date .month {
-    font-size: 11px;
-  }
-  
-  .newsItem h3,
-  .newsItem p {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .newsItem h3 {
-    font-weight: 800;
-    letter-spacing: -0.4px;
-  }
-  
-  .newsItem .hover {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    align-items: center;
-    background-color: rgba(236, 188, 46, 0.75);
-    display: flex;
-    font-size: 65px;
-    justify-content: center;
-    opacity: 0;
-  }
-  
-  .newsItem a {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .newsItem:hover .hover,
-  .newsItem.hover .hover {
-    -webkit-transition-delay: 0.1s;
-    transition-delay: 0.1s;
-    opacity: 1;
-  }
-  
-  .newsItem:hover figcaption,
-  .newsItem.hover figcaption {
-    opacity: 0;
-  }
-  
-  .newsItem:hover .date,
-  .newsItem.hover .date {
-    -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
+  background-color: #000000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 10px;
+  max-width: 350px;
+  min-width: 250px;
+  min-height: 380px;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.newsItem * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.newsItem img {
+  max-width: 100%;
+  vertical-align: top;
+  position: relative;
+  opacity: 0.75;
+}
+
+.newsItem figcaption {
+  padding: 25px 20px 25px;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+
+.newsItem .date {
+  background-color: #fff;
+  color: #333;
+  font-size: 18px;
+  font-weight: 800;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 10px 0;
+  position: absolute;
+  right: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+}
+
+.newsItem .date span {
+  display: block;
+  line-height: 14px;
+}
+
+.newsItem .date .month {
+  font-size: 11px;
+}
+
+.newsItem h3,
+.newsItem p {
+  margin: 0;
+  padding: 0;
+}
+
+.newsItem h3 {
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.newsItem .hover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  background-color: rgba(236, 188, 46, 0.75);
+  display: flex;
+  font-size: 65px;
+  justify-content: center;
+  opacity: 0;
+}
+
+.newsItem a {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.newsItem:hover .hover,
+.newsItem.hover .hover {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  opacity: 1;
+}
+
+.newsItem:hover figcaption,
+.newsItem.hover figcaption {
+  opacity: 0;
+}
+
+.newsItem:hover .date,
+.newsItem.hover .date {
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}

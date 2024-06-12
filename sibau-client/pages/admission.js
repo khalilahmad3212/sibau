@@ -22,17 +22,15 @@ const Admission = ({
 }) => {
 
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <AboutContent about={admissionParas} />
-        <Facts factsData={factsData} />
-        <AdmissionApply applyData={applyData} />
-        <FinancialAid aidCard={aidCard} />
-        <Tuition />
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      <AboutContent about={admissionParas} />
+      <Facts factsData={factsData} />
+      <AdmissionApply applyData={applyData} />
+      <FinancialAid aidCard={aidCard} />
+      {/* <Tuition /> */}
+      {/* <ApplicationFormCTA /> */}
+    </>
   );
 };
 

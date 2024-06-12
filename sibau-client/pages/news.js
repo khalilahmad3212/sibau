@@ -9,13 +9,13 @@ import { getNews } from "@/apis";
 
 const faculty = ({ news }) => {
   return (
-    <main>
+    <main style={{ overflowX: "hidden" }}>
       <HeaderFooter>
         <PageBanner title="News" />
         <AboutContent />
         <NewsItem news={news} />
         {/* <NewsItemV /> */}
-        <ApplicationFormCTA />
+        {/* <ApplicationFormCTA /> */}
       </HeaderFooter>
     </main>
   );

@@ -19,6 +19,8 @@ import Footer from "@/components/home/Footer";
 import PageBanner from "@/components/PageBanner";
 import DesignedPictureTextContainer from "@/components/academic/DesignedPictureTextConatiner";
 import VideoSection from "@/components/about/VideoSection";
+import HeaderFooter from "@/components/global/HeaderFooter";
+import MainLayout from "@/components/layouts/MainLayout";
 
 const About = ({
   bannerData,
@@ -30,8 +32,7 @@ const About = ({
   aboutVideoData
 }) => {
   return (
-    <main>
-      <NavigationBar />
+    <>
       <PageBanner {...bannerData} />
       <AboutContent about={admissionParas} />
       <Gallery gallery={aboutGallery} />
@@ -54,9 +55,7 @@ const About = ({
       />
       <VideoSection data={aboutVideoData} />
       <AboutTestimonial index="1" />
-      <ApplicationFormCTA />
-      <Footer />
-    </main>
+    </>
   );
 };
 

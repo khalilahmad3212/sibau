@@ -4,12 +4,17 @@ import { EmployeeService } from './employee.service';
 import { EmployeeController } from './employee.controller';
 import { Employee } from './entities/employee.entity';
 import { DepartmentModule } from 'src/department/department.module';
+import { CampusModule } from '../campus/campus.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Employee]), DepartmentModule],
+  imports: [
+    TypeOrmModule.forFeature([Employee]),
+    DepartmentModule,
+    CampusModule
+  ],
 
   controllers: [EmployeeController],
   providers: [EmployeeService],
-  exports: [EmployeeService],
+  exports: [EmployeeService, TypeOrmModule.forFeature([Employee])],
 })
-export class EmployeeModule {}
+export class EmployeeModule { }

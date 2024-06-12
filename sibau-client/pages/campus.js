@@ -12,12 +12,12 @@ import VideoSection from "@/components/about/VideoSection";
 
 import { AboutContent, ApplicationFormCTA, Gallery } from "../components/about/layout";
 import { getGallery, getValueByKey } from "@/apis";
+import HeaderFooter from "@/components/global/HeaderFooter";
 
 const Campus = ({ admissionParas, bannerData, gallaryData, campusVideoData, campusInfoData, campusHoursData,
   mapData }) => {
   return (
-    <main>
-      <NavigationBar />
+    <>
       <PageBanner {...bannerData} />
       <AboutContent about={admissionParas} key={"about-campus"} />
       <Gallery gallery={gallaryData} />
@@ -25,9 +25,7 @@ const Campus = ({ admissionParas, bannerData, gallaryData, campusVideoData, camp
       <VideoSection data={campusVideoData} />
       <UnInfo data={campusHoursData} />
       <Direction data={mapData} />
-      <ApplicationFormCTA />
-      <Footer />
-    </main>
+    </>
   );
 };
 export async function getServerSideProps() {

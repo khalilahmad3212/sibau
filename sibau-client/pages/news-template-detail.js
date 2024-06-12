@@ -33,7 +33,7 @@ const NewsTemplateDetail = ({ footerData }) => {
       <PageBanner {...banner} />
 
       <NewsDetail />
-      <ApplicationFormCTA />
+      {/* <ApplicationFormCTA /> */}
       <Footer />
     </main>
   );

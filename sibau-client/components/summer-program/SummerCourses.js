@@ -50,7 +50,7 @@ const SummerCourses = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await getValueByKey("summer-courses-offered");
+        const result = await getValueByKey("SUMMER_COURSES");
         setAbout(JSON.parse(result.value));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -65,15 +65,15 @@ const SummerCourses = () => {
         <div className="container sm:px-0 md:px-48 lg:px-52">
           <div className="row">
             <Accordion>
-              {about.map((item, index) => (
+              {about?.sections?.map((item, index) => (
                 <Accordion.Item key={index} eventKey={index}>
-                  <Accordion.Header>{item.department}</Accordion.Header>
+                  <Accordion.Header>{item.title}</Accordion.Header>
                   <Accordion.Body>
                     <div className={styles.table_container}>
                       <div className={styles.feetbl}>
                         <table>
                           <tbody>
-                            {item.coursesOffered.map((subItem, index) => (
+                            {item.links.map((subItem, index) => (
                               <tr
                                 style={{
                                   wordSpacing: "5px",
@@ -85,7 +85,7 @@ const SummerCourses = () => {
                                 key={index}
                               >
                                 <td style={{ width: "100vh", padding: "20px" }}>
-                                  {subItem}
+                                  {subItem.text}
                                 </td>
                               </tr>
                             ))}

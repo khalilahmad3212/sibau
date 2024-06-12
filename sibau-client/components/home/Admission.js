@@ -3,15 +3,9 @@ import AdmissionContent from "./AdmissionContent";
 import AdmissionColumn from "./AdmissionColumn";
 import Aos from "aos";
 import { getValueByKey } from "@/apis";
-const Admission = () => {
-  const [data, setData] = useState();
+const Admission = ({ data }) => {
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await getValueByKey("HOME_ADMISSION_DATA");
-      setData(JSON.parse(result.value));
-    }
-    fetchData();
     Aos.init();
   }, []);
   return (
@@ -24,7 +18,7 @@ const Admission = () => {
             data-aos-delay="400"
             data-aos-duration="1500"
           >
-            <AdmissionColumn imageUrl={`http://localhost:5001/file-data-images/${data?.Image}`} />
+            <AdmissionColumn imageUrl={data?.imageUrl ? data?.imageUrl : `http://localhost:5001/file-data-images/${data?.Image}`} />
           </div>
           <div
             className="col-md-6"

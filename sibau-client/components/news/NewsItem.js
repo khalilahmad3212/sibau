@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../styles/news/newsItem.module.css";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
+import { SERVER } from "@/utils/constants";
 const NewsItemCard = ({
   Id = 2,
   Title = "this is title",
@@ -14,7 +15,7 @@ const NewsItemCard = ({
   return (
     <div className="col-md-4 col-sm-6 col-xs-12">
       <figure className={styles.newsItem}>
-        <img src={Image} alt="news card" />
+        <img src={`${SERVER}/news-images/${Image}`} alt="news card" className=" h-full object-cover" />
         <div className={styles.date}>
           <span className={styles.day}>{new Date(date).getDay()}</span>
           <span className={styles.month}>
@@ -25,15 +26,14 @@ const NewsItemCard = ({
           <h3>{Heading}</h3>
           <p>
             {Descripiton}
-            {Descripiton}
           </p>
         </figcaption>
         <div className={styles.hover}>
           <FaExternalLinkAlt />
         </div>
-        <Link href="#"></Link>
+        <Link href={`/news-template/${Id}`}></Link>
       </figure>
-    </div>
+    </div >
   );
 };
 
@@ -44,7 +44,10 @@ const NewsItem = ({ news }) => {
         <div className="row">
           {/* <h2 className="sec_h2_heading pb-50"> News </h2> */}
           {news.map((newsItem, index) => (
-            <NewsItemCard key={index} {...newsItem} />
+            <NewsItemCard
+              key={index}
+              {...newsItem}
+            />
           ))}
         </div>
       </div>

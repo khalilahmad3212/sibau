@@ -23,15 +23,12 @@ const FinancialAid = ({
 }) => {
 
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <FinancialAidFacts data={financialFactsData} />
-        <Process data={financialStepsData} />
-        <AidTypes data={aidCardData} />
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      <FinancialAidFacts data={financialFactsData} />
+      <Process data={financialStepsData} />
+      <AidTypes data={aidCardData} />
+    </>
   );
 };
 

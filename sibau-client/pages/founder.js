@@ -6,10 +6,8 @@ import HeaderFooter from "@/components/global/HeaderFooter";
 const Founder = ({ bannerData, description }) => {
   return (
     <>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <FounderData description={description} />
-      </HeaderFooter>
+      <PageBanner {...bannerData} />
+      <FounderData description={description} />
     </>
   );
 };

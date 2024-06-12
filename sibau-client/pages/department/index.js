@@ -23,7 +23,7 @@ const Departments = () => {
           tagline="nationally ranked graduate programs"
         />
         <Staff title="Faculty Directory" />
-        <ApplicationFormCTA />
+        {/* <ApplicationFormCTA /> */}
       </main>
       <div>
         <h1>Departments</h1>

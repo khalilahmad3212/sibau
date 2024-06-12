@@ -1,6 +1,6 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../styles/home/navigationBar.module.css";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, ListGroup } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router"; // Import the useRouter hook from Next.js
 import { FaSearch, FaGripLines } from "react-icons/fa";
@@ -8,10 +8,13 @@ import TrippleMenu from "./TrippleMenu";
 import { BsSearch } from "react-icons/bs";
 import MobileNavigation, { capitalizeWords } from "./MobileNavigtion";
 import { getValueByKey } from "@/apis";
+import axios from "axios";
+import { SERVER } from "@/utils/constants";
 
 const CustomFacultyDropDown = ({
   isLinkActive,
   isSubLinkActive,
+  pre,
   leadership,
   items,
   name,
@@ -24,14 +27,14 @@ const CustomFacultyDropDown = ({
         ? style.active
         : ""
       }`}
-    title="Faculty"
+    title={name == "leadership" ? "Departments" : "SubCampus"}
     id="collasible-nav-dropdown"
   >
     {items?.map((menuItem) => (
       <NavDropdown.Item
         className={`${isLinkActive(`${menuItem?.name}`, "faculty") ? style.subActive : ""
           }`}
-        href={`/leadership/${menuItem.id}-${menuItem?.name}`}
+        href={`/${pre}/${menuItem.id}-${menuItem?.name}`}
         key={menuItem.id}
       >
         {menuItem?.name
@@ -57,37 +60,173 @@ const CustomNavDropDown = ({ isLinkActive, isSubLinkActive, items, name }) => (
     {items.map((menuItem, index) => (
       <NavDropdown.Item
         key={index}
-        className={` ${index === 0 && isLinkActive(`${menuItem.link}`)
+        className={` ${index === 0 && isLinkActive(`/${menuItem}`)
           ? style.subActive
-          : isLinkActive(`${menuItem.link}`)
+          : isLinkActive(`/${menuItem}`)
             ? style.subActive
             : ""
           }`}
-        href={`${menuItem.link}`}
+        href={index === 0 ? `/${name}` : `/${menuItem}`}
       >
-        {capitalizeWords(menuItem.text)}
+        {capitalizeWords(menuItem === name ? "overview" : menuItem)}
       </NavDropdown.Item>
     ))}
   </NavDropdown>
 );
 
+const MyCustomNavDropDown = ({ isLinkActive, isSubLinkActive, items, name, pre }) => (
+  <NavDropdown
+    style={{ borderRadius: "0px" }}
+    className={`${style.dropdown_menu} ${style.nav__item}`}
+    // ${
+    //   isLinkActive(`/${name}`)
+    //   ? style.active
+    //   : isSubLinkActive(name)
+    //     ? style.active
+    //     : ""
+    //   }
+    title={capitalizeWords(name)}
+    id="collasible-nav-dropdown"
+  >
+    {items.map((menuItem, index) => (
+      <MyCustomNavItem key={index} menuItem={menuItem} />
+    ))}
+  </NavDropdown>
+);
+const MyCustomNavItem = ({ menuItem }) => {
+  const [show, setShow] = useState(false);
+
+  const [departments, setDepartments] = useState([]);
+  const getDepartmentsByFaculty = async () => {
+    try {
+      const { data } = await axios.get(`${SERVER}/department/faculty/${menuItem.text.replace(/\s/g, '-').toLowerCase()}`);
+      setDepartments(data);
+      console.log('data: ', data);
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
+
+  useEffect(() => {
+    getDepartmentsByFaculty();
+  }, []);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <NavDropdown.Item
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+        href={menuItem.link}
+      >
+        {capitalizeWords(menuItem.text)}
+      </NavDropdown.Item>
+      {
+        show && (
+          <ul
+            style={{
+              position: 'absolute',
+              top: '0', left: '100%',
+              zIndex: '1000',
+              backgroundColor: 'white',
+              padding: '0px', boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={() => setShow(true)}
+            onMouseLeave={() => setShow(false)}
+          >
+            {departments?.map((item, index) => (
+              <NavDropdown.Item
+                key={index}
+                href={`/leadership/${item.Id}-${item.Name}`}
+              >
+                {capitalizeWords(item.Name)}
+              </NavDropdown.Item>
+            ))}
+          </ul>
+        )
+      }
+    </div >
+  );
+}
 const NavigationBar = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(false);
+  const [dynamicRoutes, setDynamicRoutes] = useState([]);
 
-  const [subRoutes, setSubRoutes] = useState(null);
+  const [subRoutes, setSubRoutes] = useState({
+    about: {
+      name: "about",
+      routes: ["about", "campus", "mission", "vision", "founder", "history", "vc"],
+    },
+    academics: {
+      name: "academics",
+      routes: [
+        "academics",
+        "under-graduate",
+        "graduate",
+        "post-graduate",
+        "summer-program",
+      ],
+    },
+    admission: {
+      name: "admission",
+      routes: [
+        "admission",
+        "how-to-apply",
+        "tuition-fees",
+        "financial-aid",
+        "dates-deadlines",
+      ],
+    },
+    leadership: {
+      name: "leadership",
+      routes: [],
+    },
+    subcampus: {
+      name: "subcampus",
+      routes: []
+    }
+  });
+
+  const fetchDepartmentsNames = async () => {
+    try {
+      const departments = await axios.get(`${SERVER}/department/list`);
+      // console.log("Departments fetched successfully:", departments.data);
+      setSubRoutes((prev) => ({ ...prev, leadership: { ...prev.leadership, routes: departments.data.map(e => ({ id: e.Id, name: e.Name })) } }));
+    } catch (error) {
+      console.log("Error fetching departments:", error);
+    }
+  };
+
+  const fetchSubCampusData = async () => {
+    try {
+      const campuses = await axios.get(`${SERVER}/campus/list`);
+      // console.log("Campuses fetched successfully:", campuses.data);
+      setSubRoutes((prev) => ({ ...prev, subcampus: { ...prev.subcampus, routes: campuses.data.map(e => ({ id: e.Id, name: e.Name })) } }));
+    } catch (error) {
+      console.log("Error fetching campuses:", error);
+    }
+  };
+
 
   const fetchHeaderData = async () => {
-    const routesResult = await getValueByKey("PAGE_HEADER");
-    setSubRoutes(JSON.parse(routesResult.value));
+    try {
+      const routesResult = await getValueByKey("PAGE_HEADER");
+      // console.log("Data fetched successfully:", routesResult);
+      setDynamicRoutes(JSON.parse(routesResult.value));
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
     fetchHeaderData();
+    fetchDepartmentsNames();
+    fetchSubCampusData();
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+      // console.log(scrollPosition);
       if (scrollPosition > 0.3) {
         setIsScrollingUp(scrollPosition < window.previousScrollPosition);
       } else setIsScrollingUp(false);
@@ -100,79 +239,6 @@ const NavigationBar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // const subRoutes = {
-  //   about: {
-  //     name: "about",
-  //     routes: ["about", "campus", "mission", "founder", "history"],
-  //   },
-  //   academics: {
-  //     name: "academics",
-  //     routes: [
-  //       "academics",
-  //       "under-graduate",
-  //       "graduate",
-  //       "post-graduate",
-  //       "summer-program",
-  //     ],
-  //   },
-  //   admission: {
-  //     name: "admission",
-  //     routes: [
-  //       "admission",
-  //       "how-to-apply",
-  //       "tuition-fees",
-  //       "financial-aid",
-  //       "dates-deadlines",
-  //     ],
-  //   },
-  //   leadership: {
-  //     name: "leadership",
-  //     routes: [
-  //       {
-  //         id: 20,
-  //         name: "phd",
-  //       },
-  //       {
-  //         id: 1,
-  //         name: "computer-science ",
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "electrical-engineering",
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "computer-system Engineering",
-  //       },
-  //       {
-  //         id: 4,
-  //         name: "management-science",
-  //       },
-  //       {
-  //         id: 5,
-  //         name: "education",
-  //       },
-  //       {
-  //         id: 6,
-  //         name: "mathematics",
-  //       },
-  //       {
-  //         id: 7,
-  //         name: "supporting-faculty",
-  //       },
-
-  //       {
-  //         id: 9,
-  //         name: "physical-education",
-  //       },
-  //       {
-  //         id: 10,
-  //         name: "media-communication",
-  //       },
-  //     ],
-  //   },
-  // };
 
   const router = useRouter();
   const isLinkActive = (href, faculty) => {
@@ -188,8 +254,7 @@ const NavigationBar = () => {
   const isSubLinkActive = (main, faculty) => {
     if (!faculty) {
       const path = router.pathname.split("/")[1];
-      const section = subRoutes.sections.find((x) => x.title === main);
-      const found = section.links.find((x) => x.link === path);
+      const found = subRoutes[main].routes.find((x) => x === path);
       return found == undefined ? false : true;
     } else {
       const path = router.asPath.split("/")[2];
@@ -199,22 +264,53 @@ const NavigationBar = () => {
     }
   };
 
+  const isMyLinkActive = (href, faculty) => {
+    // console.log("href", href);
+    // console.log("pathname", router.asPath);
+    // console.log("href & pathname", router.asPath.includes(href));
+    // alert("href & pathname", router.pathname === href);
+    if (!faculty) return router.asPath.includes(href);
+    else {
+      const path = router.asPath.split("/")[2];
+
+      dynamicRoutes["leadership"].routes.findIndex(
+        (item) => `${item.id}-${item.name}` === path
+      );
+    }
+  };
+  const isMySubLinkActive = (main, faculty) => {
+    if (!faculty) {
+      const path = router.asPath;
+      console.log('path: ', path);
+      console.log('main: ', main);
+
+      const section = dynamicRoutes.sections.find((x) => x.title === main);
+      console.log('section: ', section);
+      const found = section.links.find((x) => path.includes(x.link));
+      return found == undefined ? false : true;
+    } else {
+      const path = router.asPath.split("/")[2];
+      return dynamicRoutes["leadership"].routes.find(
+        (item) => `${item.id}-${item.name}` === path
+      );
+    }
+  };
+
   return (
     <>
       <div className="lg:hidden md:hidden block ">
-        {/* <MobileNavigation
+        <MobileNavigation
           subRoutes={subRoutes}
           isSubLinkActive={isSubLinkActive}
           router={router}
           isLinkActive={isLinkActive}
-        /> */}
+        />
       </div>
-      <div className="lg:block md:block hidden ">
+      <div className="lg:block md:block hidden sticky top-0 z-40">
         <Navbar
           id="mainNav"
           className={`${style.navbar}
-      ${isScrollingUp == true ? style.scrollingUp : style.scrollingDown
-            } transition-all`}
+      ${style.scrollingUp} transition-all`}
           collapseOnSelect
           expand="sm"
           bg=""
@@ -237,69 +333,125 @@ const NavigationBar = () => {
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className={`${style.nav__bar} `}>
-              {/* <Nav.Item>
+              <Nav.Item>
                 <Nav.Link
                   className={`${style.nav__link} ${isLinkActive("/") ? style.active : ""
                     }`}
                   href="/"
                 >
-                  Home
+                  <span style={{ fontWeight: 700 }}>
+                    Home
+                  </span>
                 </Nav.Link>
-              </Nav.Item> */}
-              {
-                subRoutes && subRoutes?.sections.map((section, index) => (
-                  section.links.length >= 1 ?
-                    <CustomNavDropDown
-                      name={section.title}
-                      key={section.title}
-                      items={section.links}
-                      isLinkActive={isLinkActive}
-                      isSubLinkActive={isSubLinkActive}
-                    ></CustomNavDropDown>
-                    :
-                    <Nav.Item>
-                      <Nav.Link
-                        className={`${style.nav__link} ${isLinkActive(`${section.link}`) ? style.active : ""
-                          }`}
-                        href={section.link}
-                      >
-                        {capitalizeWords(section.title)}
-                      </Nav.Link>
-                    </Nav.Item>
-                ))
-              }
-              {/* <CustomFacultyDropDown
+              </Nav.Item>
+              <CustomNavDropDown
+                name={subRoutes.about.name}
+                key={subRoutes.about.name}
+                items={subRoutes.about.routes}
                 isLinkActive={isLinkActive}
                 isSubLinkActive={isSubLinkActive}
-                name={subRoutes.leadership.name}
-                leadership={subRoutes.leadership.routes}
-                items={subRoutes.leadership.routes}
-              ></CustomFacultyDropDown> */}
-              {/* <CustomNavDropDown
+              ></CustomNavDropDown>
+
+<MyCustomNavDropDown
+                name="Faculty"
+                items={[
+                  {
+                    text: 'Management Science',
+                    link: '/feculty/management-science',
+                  },
+                  {
+                    text: 'Science and Information Technology',
+                    link: '/feculty/science-and-information-technology',
+                  },
+                  {
+                    text: 'Engineering and Technology',
+                    link: '/feculty/engineering-and-technology',
+                  },
+                  {
+                    text: 'Education',
+                    link: '/feculty/education',
+                  }
+                ]}
+              />
+
+              {/* {
+                subRoutes.leadership.routes.length >= 1 && (
+                  <CustomFacultyDropDown
+                    pre="leadership"
+                    isLinkActive={isLinkActive}
+                    isSubLinkActive={isSubLinkActive}
+                    name={subRoutes.leadership.name}
+                    leadership={subRoutes.leadership.routes}
+                    items={subRoutes.leadership.routes}
+                  ></CustomFacultyDropDown>
+                )
+              } */}
+              <CustomFacultyDropDown
+                pre="campus"
+                isLinkActive={isLinkActive}
+                isSubLinkActive={isSubLinkActive}
+                name={subRoutes.subcampus.name}
+                leadership={subRoutes.subcampus.routes}
+                items={subRoutes.subcampus.routes}
+              />
+              {/* <Nav.Item>
+                <Nav.Link
+                  className={`${style.nav__link} ${isLinkActive("/resources") ? style.active : ""}`}
+                  href="/resources"
+                >
+                  <span style={{ fontWeight: 700 }}>
+                    Resources
+                  </span>
+                </Nav.Link>
+              </Nav.Item> */}
+              <CustomNavDropDown
                 name={subRoutes.admission.name}
                 key={subRoutes.admission.name}
                 items={subRoutes.admission.routes}
                 isLinkActive={isLinkActive}
                 isSubLinkActive={isSubLinkActive}
-              ></CustomNavDropDown> */}
-              {/* <CustomNavDropDown
+              ></CustomNavDropDown>
+              <CustomNavDropDown
                 name={subRoutes.academics.name}
                 key={subRoutes.academics.name}
                 items={subRoutes.academics.routes}
                 isLinkActive={isLinkActive}
                 isSubLinkActive={isSubLinkActive}
-              ></CustomNavDropDown> */}
+              ></CustomNavDropDown>
 
+              {/* {
+                dynamicRoutes && dynamicRoutes?.sections?.map((section, index) => (
+                  section.links.length >= 1 ?
+                    <MyCustomNavDropDown
+                      name={section.title}
+                      key={section.title}
+                      items={section.links}
+                      isLinkActive={isMyLinkActive}
+                      isSubLinkActive={isMySubLinkActive}
+                    ></MyCustomNavDropDown>
+                    :
+                    <Nav.Item>
+                      <Nav.Link
+                        className={` ${style.nav__link} ${isMyLinkActive(`${section.link}`) ? style.active : ""
+                          }`}
+                        style={{ fontWeight: "bold" }}
+                        href={`/page${section.link}`}
+                      >
+                        {capitalizeWords(section.title)}
+                      </Nav.Link>
+                    </Nav.Item>
+                ))
+              } */}
               <Nav.Item>
                 <Nav.Link className={style.nav__link} href="#">
-                  <TrippleMenu />
+                  <TrippleMenu dynamicRoutes={dynamicRoutes} />
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
+              {/* <Nav.Item>
                 <Nav.Link className={style.nav__link} href="/">
                   <BsSearch size={"25px"} />
                 </Nav.Link>
-              </Nav.Item>
+              </Nav.Item> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

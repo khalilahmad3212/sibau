@@ -4,11 +4,13 @@ import { getNewsById } from "@/apis";
 import { useRouter } from "next/router";
 import PageHeading from "@/components/newsTemp/PageHeading";
 import NavigationBar from "@/components/home/NavigationBar";
+import HeaderFooter from "@/components/global/HeaderFooter";
+import { SERVER } from "@/utils/constants";
 
 const NewsCardOne = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
+  console.log('news id: ', id);
   const [item, setItem] = useState(null);
 
   useEffect(() => {
@@ -28,37 +30,32 @@ const NewsCardOne = () => {
   }, [id]);
 
   return (
-    <main>
-      <NavigationBar />
-      <PageHeading title="News" />
-
-      <section className="st-2 section-pb">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4 col-sm-6 col-xs-12 lg:mb-10">
+    <main style={{ overflowX: "hidden" }}>
+      <HeaderFooter>
+        <PageHeading title="News" />
+        <section className="st-2 section-pb">
+          <div className="container">
+            <div>
               {item && (
                 <div className={styles.news__card}>
-                  <a href={`#`} className={styles.news__thumbnail}>
-                    <img src={item.Image} />
-                    <div className={styles.news__caption}>
-                      <h4>{item.Heading}</h4>
-                      <span className={styles.post__date}>
-                        December 29, 2020
-                      </span>
-                      <p>
-                        Effective Time Management Traditionally, most people
-                        find the norm in education to involve lectures in
-                        physical classrooms. Tutor-student interaction is
-                        perceived as being only physical.
-                      </p>
-                    </div>
-                  </a>
+                  {/* <a href={`#`} className={styles.news__thumbnail}> */}
+                  <img src={`${SERVER}/news-images/${item.Image}`} />
+                  <div className={styles.news__caption}>
+                    <h4>{item.Heading}</h4>
+                    <span className={styles.post__date}>
+                      December 29, 2020
+                    </span>
+                    <p>
+                      {item.Descripiton}
+                    </p>
+                  </div>
+                  {/* </a> */}
                 </div>
               )}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </HeaderFooter>
     </main>
   );
 };

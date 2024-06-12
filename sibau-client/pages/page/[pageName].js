@@ -13,18 +13,20 @@ const CustomPage = ({ pageData }) => {
   }, []);
 
   return (
-    <HeaderFooter>
-      <PageBanner
-        title={pageData?.name}
-        description={pageData?.description}
-        link={`http://localhost:5001/dynamic-page-images/${pageData.image}`}
-      />
-      <div className=" mt-20 min-w-full prose">
-        <div>
-          <div dangerouslySetInnerHTML={{ __html: pageData.content }} />
+    <main style={{ overflowX: "hidden" }}>
+      <HeaderFooter>
+        <PageBanner
+          title={pageData?.name}
+          description={pageData?.description}
+          link={`http://localhost:5001/dynamic-page-images/${pageData.image}`}
+        />
+        <div className=" mt-20 min-w-full px-10 prose">
+          <div>
+            <div dangerouslySetInnerHTML={{ __html: pageData.content }} />
+          </div>
         </div>
-      </div>
-    </HeaderFooter>
+      </HeaderFooter>
+    </main>
   );
 };
 

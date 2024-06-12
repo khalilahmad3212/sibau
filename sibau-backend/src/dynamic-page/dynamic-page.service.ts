@@ -44,7 +44,7 @@ export class DynamicPageService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dynamicPage`;
+  async remove(id: number) {
+    return await this.pageRepo.delete(id);
   }
 }

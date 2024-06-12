@@ -25,7 +25,7 @@ const RequestInfo = ({ footerData }) => {
       <Vission />
       <Steps />
 
-      <ApplicationFormCTA />
+      {/* <ApplicationFormCTA /> */}
       <Footer data={footerData} />
     </main>
   );

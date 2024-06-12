@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import styles from "../../styles/admission/facts.module.css";
 import { getValueByKey } from "@/apis";
+import { SERVER } from "@/utils/constants";
 // import History from '../home/History'
 
 const Facts = ({ factsData }) => {
+
+  const [factImage, setFactImage] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const factImageResult = await getValueByKey("ADMISSION_FACT_IMAGE");
+        setFactImage(JSON.parse(factImageResult.value));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
   return (
     <section className="st-1 iba-bg-black hidden lg:block md:block">
       <div className="container sm:px-0 md:px-24 lg:px-32">
         <div className="row">
           <div className={styles.fact_img_container}>
             <img
-              src="./admission-cover.webp"
+              src={`${SERVER}/file-data-images/${factImage?.Image}`}
               className={` img-responsive  ${styles.fact_img}`}
             />
           </div>

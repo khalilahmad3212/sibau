@@ -10,7 +10,9 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Department } from '../../department/entities/department.entity';
-import { Recognition } from 'src/recognition/entities/recognition.entity';
+import { Campus } from '../../campus/campus.entity';
+import { Recognition } from '../../recognition/entities/recognition.entity';
+import { Transform } from 'class-transformer';
 
 @Entity({ name: 'Employee' })
 export class Employee {
@@ -29,8 +31,8 @@ export class Employee {
   @Column({ length: 100, unique: true })
   Email: string;
 
-  // @Column({ length: 500, nullable: true })
-  // Password: string;
+  @Column({ length: 500, nullable: true, default: '1234' })
+  Password: string;
 
   @Column({ length: 50, unique: true, nullable: true })
   CMS_id: string;
@@ -46,6 +48,9 @@ export class Employee {
 
   @Column({ type: 'enum', enum: ['PERMANENT', 'CONTRACTUAL'] })
   Type: string;
+
+  @Column({ type: 'enum', enum: ['ADMIN', 'HOD', 'USER'], default: 'USER' })
+  Role: string;
 
   @Column({ length: 500 })
   Skills: string;
@@ -63,7 +68,15 @@ export class Employee {
   Message: string;
 
   @Column({ nullable: true, default: false })
+  @Transform(({ value }) => value === 'true')
   Phd: boolean;
+
+  @Column({ nullable: true, default: false })
+  @Transform(({ value }) => value === 'true')
+  Dean: boolean;
+
+  @Column({ nullable: true })
+  Faculty: string;
 
   @Column({ nullable: true })
   BPS: number;
@@ -73,6 +86,12 @@ export class Employee {
   })
   @JoinColumn({ name: 'DepartmentId' })
   Department: Department;
+
+  @ManyToOne(() => Campus, (campus) => campus, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'CampusId' })
+  Campus: Campus;
 
   @OneToMany(() => Publication, (publication) => publication.Employee, {
     nullable: true,

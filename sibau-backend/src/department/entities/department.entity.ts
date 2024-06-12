@@ -55,6 +55,9 @@ export class Department {
   @Column({ nullable: true })
   Logo: string;
 
+  @Column({ nullable: true })
+  Faculty: string;
+
   @OneToMany(() => Employee, (employee) => employee.Department, {
     nullable: true,
   })

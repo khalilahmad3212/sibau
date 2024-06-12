@@ -35,7 +35,7 @@ const NewsTemplate = ({ footerData }) => {
 
       <PageHeading title="News" />
       <NewsCard />
-      <ApplicationFormCTA />
+      {/* <ApplicationFormCTA /> */}
       <Footer data={footerData} />
     </main>
   );

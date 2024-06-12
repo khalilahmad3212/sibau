@@ -17,7 +17,7 @@ const online_education = ()=> {
             <SubLinks title="Undergraduate Classes"/>
             <Apply/>
             
-            <ApplicationFormCTA/>
+            {/* <ApplicationFormCTA/> */}
             
         </main>
     )

@@ -36,12 +36,12 @@ const DescriptionAndImageContainer = ({
               </div>
 
               <div
-                className="col-md-6 col-xs-12"
+                className="col-md-6 col-xs-12 flex items-center justify-center"
                 data-aos="fade-down"
                 data-aos-delay="900"
                 data-aos-duration="1500"
               >
-                <ImageContainer imageUrl={imageUrl}/>
+                <ImageContainer imageUrl={imageUrl} />
               </div>
             </>
           ) : (

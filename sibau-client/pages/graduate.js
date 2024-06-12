@@ -17,22 +17,19 @@ const Graduate = ({
 }) => {
 
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <HistoryContent
-          heading={historyData?.heading}
-          tagline={historyData?.tagLine}
-          content={historyData?.content}
-        />
-        <InfoPrograms key={"academics-graduate"} />
+    <>
+      <PageBanner {...bannerData} />
+      <HistoryContent
+        heading={historyData?.heading}
+        tagline={historyData?.tagLine}
+        content={historyData?.content}
+      />
+      <InfoPrograms key={"academics-graduate"} />
 
-        <div className="pb-20">
-          <Apply />
-        </div>
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+      <div className="pb-20">
+        <Apply />
+      </div>
+    </>
   );
 };
 

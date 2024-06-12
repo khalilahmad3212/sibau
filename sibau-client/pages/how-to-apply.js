@@ -11,6 +11,7 @@ import NumberInfo from "@/components/about/missionVission/NumberInfo";
 import Instruction from "@/components/admission/apply/Instruction";
 import Requirements from "@/components/admission/apply/Requirements";
 import { ApplicationFormCTA, AboutContent } from "../components/about/layout";
+import HeaderFooter from "@/components/global/HeaderFooter";
 
 const HowToApply = ({
   bannerData,
@@ -20,15 +21,13 @@ const HowToApply = ({
 }) => {
 
   return (
-    <main>
-      <NavigationBar />
+    <>
       <PageBanner {...bannerData} />
       <AboutContent about={overviewParas} />
       <Instruction admissionProcess={admissionProcess} />
       <Requirements requirements={requirements} />
-      <ApplicationFormCTA />
-      <Footer />
-    </main>
+      {/* <ApplicationFormCTA /> */}
+    </>
   );
 };
 

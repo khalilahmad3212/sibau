@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { DepartmentService } from './department.service';
 import { CreateDepartmentDto } from './dto/create-department.dto';
@@ -16,6 +17,7 @@ import { GetDepartmentDto } from './dto/get-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { deleteFile, uploadFile } from '../utils/common.util';
+import { AuthGuard } from '@nestjs/passport';
 
 const docsPath = 'department'
 @Controller('department')
@@ -44,9 +46,15 @@ export class DepartmentController {
     }
   }
 
+  // @UseGuards(AuthGuard('jwt'))
   @Get('list')
   getNames() {
     return this.departmentService.findNames();
+  }
+
+  @Get('faculty/:id')
+  facultyDepartments(@Param('id') id: string) {
+    return this.departmentService.getFacultyDepartments(id);
   }
 
   @Get()

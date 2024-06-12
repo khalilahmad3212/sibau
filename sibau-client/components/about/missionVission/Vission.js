@@ -26,7 +26,7 @@ const Vission = ({ data }) => {
               <img
                 alt="vission"
                 className="card-img-top"
-                src={`${SERVER}/file-data-images/${data?.Image}`}
+                src={data?.imageUrl ? data?.imageUrl : `${SERVER}/file-data-images/${data?.Image}`}
               />
             </div>
           </div>

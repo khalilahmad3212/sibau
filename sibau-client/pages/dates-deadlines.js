@@ -23,13 +23,11 @@ const DateDeadlines = ({
     Description: "Desc of mission",
   };
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <DateTables data={deadlineDates} />
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      <DateTables data={deadlineDates} />
+      {/* <ApplicationFormCTA /> */}
+    </>
   );
 };
 

@@ -5,17 +5,20 @@ import { FindManyOptions, Repository } from 'typeorm';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
 import { Publication } from './entities/publication.entity';
+import { Employee } from "src/employee/entities/employee.entity";
 
 @Injectable()
 export class PublicationService {
   constructor(
     @InjectRepository(Publication)
     private publicationRepository: Repository<Publication>,
+    @InjectRepository(Employee)
+    private employeeRepository: Repository<Employee>,
   ) { }
-  async create(createPublicationDto: CreatePublicationDto) {
+  async create(createPublicationDto: any) {
     return await this.publicationRepository.save(createPublicationDto);
   }
-  
+
   async findAll(getPublicationDto: GetPublicationDto): Promise<Publication[]> {
     const options: FindManyOptions<Publication> = {};
 
@@ -46,5 +49,20 @@ export class PublicationService {
 
   async remove(id: number) {
     return await this.publicationRepository.delete(id);
+  }
+
+  async findEmployeePublications(id: number) {
+    console.log('id: ', id);
+    const employee = await this.employeeRepository.findOne({
+      where: { Id: id },
+      relations: ["Publications"]
+    })
+
+    if (!employee) {
+      throw new Error('Employee not found');
+    }
+
+    console.log('employee: ', employee);
+    return employee.Publications;
   }
 }

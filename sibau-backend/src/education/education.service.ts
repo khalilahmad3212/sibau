@@ -11,7 +11,7 @@ export class EducationService {
   constructor(
     @InjectRepository(Education)
     private educationRepository: Repository<Education>,
-  ) {}
+  ) { }
 
   async create(createEducationDto: CreateEducationDto) {
     return await this.educationRepository.save(createEducationDto);
@@ -19,7 +19,7 @@ export class EducationService {
 
   async findAll(getEducationDto: GetEducationDto): Promise<Education[]> {
     const options: FindManyOptions<Education> = {};
-    
+
     if (getEducationDto.Filter) {
       options.where = getEducationDto.Filter;
     }
@@ -31,7 +31,7 @@ export class EducationService {
     if (getEducationDto.Page) {
       options.skip = getEducationDto.Limit || 10 * (getEducationDto.Page - 1);
     }
-    
+
     return this.educationRepository.find(options);
   }
 

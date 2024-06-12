@@ -8,6 +8,7 @@ import { Employee } from './entities/employee.entity';
 import { GetPhdsDto } from './dto/get-phds-dto';
 import { Department } from 'src/department/entities/department.entity';
 import { UpdateEmployeeProfileDto } from './dto/update-employee-profile.dto';
+import { Campus } from 'src/campus/campus.entity';
 
 @Injectable()
 export class EmployeeService {
@@ -21,9 +22,20 @@ export class EmployeeService {
     return employees;
   }
 
+  findByCampusId(campusId: number): Promise<Employee[]> {
+    const employees = this.employeeRepository
+      .createQueryBuilder()
+      .select('employee')
+      .from(Employee, 'employee')
+      .where('employee.CampusId = :campusId', { campusId })
+      .getMany();
+    return employees;
+  }
+
   findByEmployeeID(id: string) {
     return this.employeeRepository.findOne({
       where: { EmployeeId: id },
+      relations: ['Educations', 'Publications'],
     });
   }
 
@@ -55,7 +67,7 @@ export class EmployeeService {
     private employeeRepository: Repository<Employee>,
   ) { }
 
-  async create(dto: CreateEmployeeDto, departmentFound: Department) {
+  async create(dto: any, departmentFound: Department, campusFound: Campus) {
     const employee = new Employee();
 
     employee.FirstName = dto.FirstName;
@@ -69,16 +81,24 @@ export class EmployeeService {
     employee.Skills = dto.Skills;
     employee.Biography = dto.Biography;
     employee.Image = dto.Image;
-    employee.Phd = dto?.Phd || false;
+    employee.Phd = dto?.Phd === 'true' ? true : false;
     employee.CurrentStatus = dto.CurrentStatus;
     employee.Message = dto.Message;
     employee.BPS = dto.BPS;
     employee.EmployeeId = dto.EmployeeId;
-
+    employee.Role = dto.Role;
     // Assuming that the Department entity already exists in the database
 
-    employee.Department = departmentFound;
+    if (departmentFound) {
+      employee.Department = departmentFound;
+    }
 
+    if (campusFound) {
+      employee.Campus = campusFound;
+    }
+
+    employee.Dean = dto.Dean === 'true' ? true : false;
+    employee.Faculty = dto.Faculty;
     return await this.employeeRepository.save(employee);
   }
 
@@ -97,20 +117,28 @@ export class EmployeeService {
     //   options.skip = getEmployeeDto.Limit || 10 * (getEmployeeDto.Page - 1);
     // }
 
-    return this.employeeRepository.find({ relations: ['Department'] });
+    return this.employeeRepository.find({ relations: ['Department', 'Campus'] });
   }
 
   async findOne(id: number) {
     return await this.employeeRepository.findOne({
       where: { Id: id },
+      relations: ['Department', 'Campus', 'Publications']
+    });
+  }
+
+  async findByEmail(email: string) {
+    return await this.employeeRepository.findOne({
+      where: { Email: email },
       relations: ['Department']
     });
   }
 
   async update(
     id: number,
-    updateEmployeeDto: UpdateEmployeeDto,
+    updateEmployeeDto: any,
     departmentFound: Department,
+    campusFound: Campus
   ) {
     const employee = await this.findOne(id);
 
@@ -129,30 +157,36 @@ export class EmployeeService {
     employee.Skills = updateEmployeeDto.Skills;
     employee.Biography = updateEmployeeDto.Biography;
     employee.Image = updateEmployeeDto.Image;
-    employee.Phd = updateEmployeeDto.Phd;
+    employee.Phd = updateEmployeeDto.Phd === 'true' ? true : false;
     employee.CurrentStatus = updateEmployeeDto.CurrentStatus;
     employee.Message = updateEmployeeDto.Message;
     employee.BPS = updateEmployeeDto.BPS;
     employee.EmployeeId = updateEmployeeDto.EmployeeId;
+    employee.Role = updateEmployeeDto.Role;
 
     employee.Department = departmentFound;
+    employee.Campus = campusFound;
 
+    employee.Dean = updateEmployeeDto.Dean === 'true' ? true : false;
+    employee.Faculty = updateEmployeeDto.Faculty;
+
+    console.log('employee: ', employee);
     return await this.employeeRepository.save(employee);
   }
 
-  // async changePassword(
-  //   id: number,
-  //   changePassword: any
-  // ) {
-  //   const employee = await this.findOne(id);
+  async changePassword(
+    id: number,
+    changePassword: any
+  ) {
+    const employee = await this.findOne(id);
 
-  //   if (!employee) {
-  //     throw new NotFoundException(`Employee with ID ${id} not found.`);
-  //   }
+    if (!employee) {
+      throw new NotFoundException(`Employee with ID ${id} not found.`);
+    }
 
-  //   employee.Password = changePassword.newPassword
-  //   return await this.employeeRepository.save(employee);
-  // }
+    employee.Password = changePassword.newPassword
+    return await this.employeeRepository.save(employee);
+  }
 
   async updateProfile(
     id: number,
@@ -176,6 +210,12 @@ export class EmployeeService {
     employee.Phd = updateEmployeeDto.Phd;
 
     return await this.employeeRepository.save(employee);
+  }
+
+  async getFacultyDean(id: string) {
+    return await this.employeeRepository.findOne({
+      where: { Dean: true, Faculty: id },
+    });
   }
   async remove(id: number) {
     return await this.employeeRepository.delete(id);

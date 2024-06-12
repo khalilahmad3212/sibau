@@ -18,23 +18,20 @@ const Graduate = ({
 }) => {
 
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
+    <>
+      <PageBanner {...bannerData} />
 
-        <HistoryContent
-          heading={historyData?.heading}
-          tagline={historyData?.tagLine}
-          content={historyData?.content}
-        />
-        <InfoPrograms data={departmentsData} />
+      <HistoryContent
+        heading={historyData?.heading}
+        tagline={historyData?.tagLine}
+        content={historyData?.content}
+      />
+      <InfoPrograms data={departmentsData} />
 
-        <div className="pb-20">
-          <Apply />
-        </div>
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+      <div className="pb-20">
+        <Apply />
+      </div>
+    </>
   );
 };
 

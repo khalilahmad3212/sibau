@@ -15,6 +15,7 @@ import President from "@/components/about/leadership/President";
 import Staff from "@/components/about/leadership/Staff";
 import { useState, useEffect } from "react";
 import { getValueByKey } from "@/apis";
+import HeaderFooter from "@/components/global/HeaderFooter";
 
 const Leadership = ({ footerData }) => {
   const [banner, setBanner] = useState({});
@@ -66,15 +67,15 @@ const Leadership = ({ footerData }) => {
     }
   ];
   return (
-    <main>
-      <NavigationBar />
-      <PageBanner {...banner} />
-      <President />
-      <Staff
-        title="Senior Staff"
-        employees={employees}
-      />
-      <ApplicationFormCTA />
+    <main style={{ overflowX: 'hidden' }}>
+      <HeaderFooter>
+        <PageBanner {...banner} />
+        <President />
+        <Staff
+          title="Senior Staff"
+          employees={employees}
+        />
+      </HeaderFooter>
     </main>
   );
 };

@@ -7,7 +7,7 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import Link from "next/link";
 import { getValueByKey } from "@/apis";
 
-const TrippleMenu = () => {
+const TrippleMenu = ({ dynamicRoutes }) => {
   const [data, setData] = useState({
     giving: {
       description:
@@ -69,11 +69,14 @@ const TrippleMenu = () => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Body
           onMouseLeave={() => {
+            // handleClose();
+          }}
+          onClick={() => {
             handleClose();
           }}
         >
           <div className={` ${styles.menu__row}`}>
-            <div className={styles.col__3}>
+            {/* <div className={styles.col__3}>
               <div className={styles.menu__container}>
                 <div className={styles.heading__bx}>
                   <h4 className={styles.menu___heading}>Giving</h4>
@@ -87,7 +90,7 @@ const TrippleMenu = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className={styles.col__3}>
               <div className={styles.menu__container}>
@@ -120,6 +123,27 @@ const TrippleMenu = () => {
                         <Link href={`${item.link}`}>{item.name}</Link>
                       </li>
                     ))}{" "}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.col__3}>
+              <div className={styles.menu__container}>
+                <div className={styles.heading__bx}>
+                  <h4 className={styles.menu___heading}>Others</h4>
+                </div>
+
+                <div className={styles.menu__content}>
+                  <ul>
+                    {
+                      dynamicRoutes && dynamicRoutes?.sections && dynamicRoutes?.sections[0] && dynamicRoutes?.sections[0].links?.map((item, index) => (
+                        <div>
+                          <li key={index}>
+                            <Link href={`/page/${item.link}`}>{item.text}</Link>
+                          </li>
+                        </div>
+                      ))}{" "}
                   </ul>
                 </div>
               </div>

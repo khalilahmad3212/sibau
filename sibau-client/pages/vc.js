@@ -1,18 +1,25 @@
-import FounderData from "@/components/Founder/FounderData";
+import { getValueByKey } from "@/apis";
 import PageBanner from "@/components/PageBanner";
-import HeaderFooter from "@/components/global/HeaderFooter";
+import MainLayout from "@/components/layouts/MainLayout";
 import PersonData from "@/components/vc/PersonData";
+import { SERVER } from "@/utils/constants";
 
-const Vc = ({ bannerData, description }) => {
+const Vc = ({
+  bannerData,
+  description,
+  vcMessage
+}) => {
   return (
     <>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <PersonData description={description} />
-      </HeaderFooter>
+      <PageBanner {...bannerData} />
+      <PersonData
+        description={vcMessage.content}
+        image={`${SERVER}/file-data-images/${vcMessage.Image}`}
+      />
     </>
   );
 };
+
 export async function getStaticProps() {
   const description = `<p>
   Late Nisar Ahmed Siddiqui, the visionary founder of Sukkur IBA
@@ -54,10 +61,18 @@ Today, as Sukkur IBA continues to build upon his legacy, the spirit and vision o
     description: " of Sukkur IBA University ",
   };
 
+  let vcMessage = "";
+  try {
+    const res = await getValueByKey('VC_MESSAGE');
+    vcMessage = JSON.parse(res.value);
+  } catch (error) {
+    console.error(error);
+  }
   return {
     props: {
       description,
       bannerData,
+      vcMessage,
     },
   };
 }

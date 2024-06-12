@@ -33,9 +33,17 @@ import { EmployeeInfoModule } from './employee-info/employee-info.module';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, resolve } from 'path';
+import { CampusModule } from './campus/campus.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { FacultyModule } from './faculty/faculty.module';
+import { AdministrationModule } from './administration/administration.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ServeStaticModule.forRoot(
       { rootPath: './uploads/slider-images', serveRoot: '/slider-images' },
       (() => {
@@ -107,6 +115,13 @@ import { join, resolve } from 'path';
         const servePath = '/dynamic-page-images';
 
         return { rootPath: publicDir, serveRoot: servePath };
+      })(),
+      (() => {
+        const publicDir = resolve('./uploads/campus/');
+
+        const servePath = '/campus-images';
+
+        return { rootPath: publicDir, serveRoot: servePath };
       })()
     ),
     TypeOrmModule.forRoot(dataSourceOptions),
@@ -142,6 +157,14 @@ import { join, resolve } from 'path';
     DynamicPageModule,
 
     EmployeeInfoModule,
+
+    CampusModule,
+
+    AuthModule,
+
+    FacultyModule,
+
+    AdministrationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

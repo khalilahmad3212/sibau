@@ -34,7 +34,7 @@ const Undergraduate = () => {
       <SubLinks title="Minors" />
       <Apply />
 
-      <ApplicationFormCTA />
+      {/* <ApplicationFormCTA /> */}
     </main>
   );
 };

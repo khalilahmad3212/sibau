@@ -14,20 +14,18 @@ const UnderGraduate = ({
   historyData
 }) => {
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <HistoryContent
-          heading={historyData?.heading}
-          tagline={historyData?.tagLine}
-          content={historyData?.content}
-        />
-        <InfoPrograms key={"academics-p-graduate"} />
-        <div className="pb-20">
-          <Apply />
-        </div>
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      <HistoryContent
+        heading={historyData?.heading}
+        tagline={historyData?.tagLine}
+        content={historyData?.content}
+      />
+      <InfoPrograms key={"academics-p-graduate"} />
+      <div className="pb-20">
+        <Apply />
+      </div>
+    </>
   );
 };
 

@@ -33,9 +33,9 @@ const AboutTestimonial = ({ index }) => {
           <div className="col-md-3"></div>
           <div className="col-md-6 col-md-offset-3">
             <div className={styles.testimonialIcon}>
-              <div className={styles.iconBox}>
+              <div className={`${styles.iconBox} overflow-hidden`}>
                 <img
-                  className="card-img-top"
+                  className="card-img-top h-full w-full"
                   src={testimonial?.[index]?.image}
                   alt={testimonial?.[index]?.alt}
                 />

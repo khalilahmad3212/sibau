@@ -30,7 +30,7 @@ const NewsDetail = ({ footerData }) => {
         <NavigationBar />
         <PageBanner title="Tuition Fees" />
         <NewsDetailSection/>
-        <ApplicationFormCTA />
+        {/* <ApplicationFormCTA /> */}
         <Footer data={footerData} />
       </main>
     );

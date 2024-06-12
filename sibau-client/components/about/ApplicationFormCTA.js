@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const ApplicationFormCTA = () => {
   return (
-    <section className="bg-sky-blue pb-40 ">
+    <section className="bg-sky-blue pb-40 mt-24 ">
       <div className="container">
         <div className="row">
           <div className="col-md-12">

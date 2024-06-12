@@ -25,29 +25,25 @@ const Academics = ({
   missionData
 }) => {
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...bannerData} />
-        <HistoryContent
-          heading={historyData?.heading}
-          tagline={historyData?.tagLine}
-          content={historyData?.content}
-        />
-        <Gallery
-          img1={`${SERVER}/gallery-images/${galleryData[0]?.Name}`}
-          img2={`${SERVER}/gallery-images/${galleryData[1]?.Name}`}
-          img3={`${SERVER}/gallery-images/${galleryData[2]?.Name}`}
-          img4={`${SERVER}/gallery-images/${galleryData[3]?.Name}`}
-          img5={`${SERVER}/gallery-images/${galleryData[4]?.Name}`}
-        />
-        <OverviewContent data={overviewData} />
-        <DegreeLink />
-        <GraduateSection data={studyAreasData} />
-        <MissionValue data={missionData} />
-
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...bannerData} />
+      <HistoryContent
+        heading={historyData?.heading}
+        tagline={historyData?.tagLine}
+        content={historyData?.content}
+      />
+      <Gallery
+        img1={`${SERVER}/gallery-images/${galleryData[0]?.Name}`}
+        img2={`${SERVER}/gallery-images/${galleryData[1]?.Name}`}
+        img3={`${SERVER}/gallery-images/${galleryData[2]?.Name}`}
+        img4={`${SERVER}/gallery-images/${galleryData[3]?.Name}`}
+        img5={`${SERVER}/gallery-images/${galleryData[4]?.Name}`}
+      />
+      <OverviewContent data={overviewData} />
+      <DegreeLink />
+      <GraduateSection data={studyAreasData} />
+      <MissionValue data={missionData} />
+    </>
   );
 };
 

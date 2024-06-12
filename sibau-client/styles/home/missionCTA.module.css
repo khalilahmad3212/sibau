@@ -1,16 +1,19 @@
-.mission_links_box{
+.mission_links_box {
     padding: 0 0 0 75px;
     margin-bottom: 10px;
 }
-.mission_links{
+
+.mission_links {
     display: flex;
     align-content: center;
     align-items: center;
 }
-.mission_links a:hover{
+
+.mission_links a:hover {
     background-color: #fff;
 }
-.mission_links a{
+
+.mission_links a {
     color: #292929;
     padding: 15px 30px;
     font-size: 18px;
@@ -18,6 +21,7 @@
     text-transform: capitalize;
     text-decoration: none;
 }
-.mission_links a span{
+
+.mission_links a span {
     margin-right: 5px;
 }

@@ -25,14 +25,11 @@ const TutionFees = ({ fee }) => {
 
 
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...banner} />
-        <Fee fee={fee} />
-        <Scholarship />
-      </HeaderFooter>
-      <NavigationBar />
-    </main>
+    <>
+      <PageBanner {...banner} />
+      <Fee fee={fee} />
+      {/* <Scholarship /> */}
+    </>
   );
 };
 

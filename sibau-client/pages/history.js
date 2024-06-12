@@ -35,14 +35,15 @@ const History = () => {
     Description: "Desc of mission",
   };
   return (
-    <main>
-      <HeaderFooter>
-        <PageBanner {...banner} />
-        <HistoryContent />
-        <Leading />
-        <ApplicationFormCTA />
-      </HeaderFooter>
-    </main>
+    <>
+      <PageBanner {...banner} />
+      <HistoryContent
+        heading="35+"
+        tagline="Experience in Education"
+        content="<p>Content</p>"
+      />
+      <Leading />
+    </>
   );
 };
 

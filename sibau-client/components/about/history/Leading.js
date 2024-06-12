@@ -1,60 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { getValueByKey } from "@/apis";
+import { SERVER } from "@/utils/constants";
 
 const Leading = () => {
-  const cardData = [
-    {
-      index: 0,
 
-      image: "/history-1.webp",
-      year: 1992,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-    {
-      index: 1,
 
-      image: "/history-2.webp",
-      year: 1993,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-    {
-      index: 2,
-
-      image: "/card-1.webp",
-      year: 1994,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-    {
-      index: 3,
-
-      image: "/history-2.webp",
-      year: 1997,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-
-    {
-      index: 4,
-
-      image: "/card-2.jpg",
-      year: 1995,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-    {
-      index: 5,
-      image: "/history-1.webp",
-      year: 1996,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-    {
-      index: 6,
-
-      image: "/history-2.webp",
-      year: 1997,
-      desc: "Hundreds of students successfully graduate first master’s programs",
-    },
-  ];
-
+  const [cardData, setCardData] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % cardData.length);
@@ -86,6 +39,18 @@ const Leading = () => {
   const { startIndex, endIndex } = getRange();
   const fewImages = cardData.slice(startIndex, endIndex);
 
+  useEffect(() => {
+    const fetchCardData = async () => {
+      try {
+        const res = await getValueByKey("HISTORY_EVENTS");
+        const data = JSON.parse(res.value);
+        setCardData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchCardData();
+  }, []);
   return (
     <section className="st-1 section-pb">
       <div className="container sm:px-0 md:px-20 lg:px-28">
@@ -97,20 +62,20 @@ const Leading = () => {
                 }`}
             >
               <div className="border border-gray-200 rounded-lg shadow-md p-4">
-                <div className="relative aspect-w-4 aspect-h-1 min-h-[100px]:">
+                <div className="relative aspect-w-4 aspect-h-1 min-h-[300px]">
                   <Image
-                    className="rounded-lg"
-                    src={item.image}
+                    className="rounded-lg h-full w-full"
+                    src={`${SERVER}/file-data-images/${item.Image}`}
                     alt={item.image}
-                    height={500}
-                    width={500}
-                  // layout="fill"
+                    // height={500}
+                    // width={500}
+                    layout="fill"
                   // objectFit="cover"
                   />
                 </div>
                 <div className="mt-2">
-                  <h3 className="text-xl font-semibold">{item.year}</h3>
-                  <p className="mt-2">{item.desc}</p>
+                  <h3 className="text-xl font-semibold">{item.Name}</h3>
+                  <p className="mt-2">{item.Description}</p>
                 </div>
               </div>
             </div>

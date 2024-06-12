@@ -33,78 +33,85 @@ const Staff = (props) => {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap">
-                    {props?.employees?.map((item, index) => (
-                      <div
-                        key={index}
-                        className=" w-1/4 mx-2"
-                        onClick={() => { }}
-                      >
-                        <div className={styles.flip_box_container}>
-                          <div className={styles.staf_flip_box}>
-                            <div className={styles.staf_flip_layer}>
-                              <img
-                                className={`${styles.staff_flip_img} rounded-md`}
-                                src={`${SERVER}/employee-images/${item.Image}`}
-                              />
-                            </div>
-
-                            <div className={styles.staf_flip_overlay_layer}>
-                              <div className={styles.staf_flip_overlay}>
-                                <div className={styles.flip_bx_content}>
-                                  <p>
-                                    {item?.Biography ||
-                                      "Aenean turpis consectetur at. Donec tincidunt sem non eros dignissim, a facilisis arcu interdum. Quisque nec mauris non elit tincidunt pharetra. Nunc posuere elit at commodo facilisis."}
-                                  </p>
+                  <div>
+                    <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-black mb-5">
+                      {props.title}
+                    </h2>
+                    <div className="flex flex-wrap">
+                      {props?.employees?.map((item, index) => (
+                        <div
+                          key={index}
+                          className=" w-1/4 mx-2"
+                          onClick={() => { }}
+                        >
+                          <div className={styles.flip_box_container}>
+                            <div className={styles.staf_flip_box}>
+                              <div className={styles.staf_flip_layer}>
+                                <div className=" h-[350px]">
+                                  <img
+                                    className={`${styles.staff_flip_img} rounded-md min-h-full w-full`}
+                                    src={`${SERVER}/employee-images/${item.Image}`}
+                                  />
                                 </div>
-                                <div className="mt-4">
-                                  <p className="font-bold">Contacts:</p>
-                                  <ul className="mt-2">
-                                    <li className="flex items-center">
+                              </div>
+
+                              <div className={styles.staf_flip_overlay_layer}>
+                                <div className={styles.staf_flip_overlay}>
+                                  <div className={styles.flip_bx_content}>
+                                    <p>
+                                      {item?.Biography.substring(0, 100) ||
+                                        "Aenean turpis consectetur at. Donec tincidunt sem non eros dignissim, a facilisis arcu interdum. Quisque nec mauris non elit tincidunt pharetra. Nunc posuere elit at commodo facilisis.".substring(0, 100)}
+                                    </p>
+                                  </div>
+                                  <div className="mt-4">
+                                    <p className="font-bold">Contacts:</p>
+                                    <ul className="mt-2">
+                                      <li className="flex items-center">
+                                        <Link
+                                          href="#"
+                                          className="flex items-center  hover:text-blue-200"
+                                        >
+                                          <span className="mr-2">
+                                            <FaPhone />
+                                          </span>
+                                          {item.OfficeExtension}
+                                        </Link>
+                                      </li>
+                                      <li className="flex items-center mt-1">
+                                        <Link
+                                          href="#"
+                                          className="flex items-center  hover:text-blue-200"
+                                        >
+                                          <span className="mr-2">
+                                            <FaEnvelope />
+                                          </span>
+                                          {item.Email}
+                                        </Link>
+                                      </li>
                                       <Link
-                                        href="#"
-                                        className="flex items-center  hover:text-blue-200"
+                                        href={`/faculty/${item.EmployeeId}`}
+                                        className="flex items-center justify-center rounded-md mt-3  bg-white py-3 text-blue-900 text-center  hover:text-blue-700"
                                       >
-                                        <span className="mr-2">
-                                          <FaPhone />
-                                        </span>
-                                        {item.OfficeExtension}
+                                        <span className="mr-2"></span>
+                                        {"More"}
                                       </Link>
-                                    </li>
-                                    <li className="flex items-center mt-1">
-                                      <Link
-                                        href="#"
-                                        className="flex items-center  hover:text-blue-200"
-                                      >
-                                        <span className="mr-2">
-                                          <FaEnvelope />
-                                        </span>
-                                        {item.Email}
-                                      </Link>
-                                    </li>
-                                    <Link
-                                      href={`/faculty/${item.EmployeeId}`}
-                                      className="flex items-center justify-center rounded-md mt-3  bg-white py-3 text-blue-900 text-center  hover:text-blue-700"
-                                    >
-                                      <span className="mr-2"></span>
-                                      {"More"}
-                                    </Link>
-                                  </ul>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="mt-4">
-                            <h3 className="text-lg font-bold">
-                              {item.FirstName} {item.LastName}
-                            </h3>
-                            <p className="text-sm text-gray-500">
-                              {item.Designation}
-                            </p>
+                            <div className="mt-4">
+                              <h3 className="text-lg font-bold">
+                                {item.FirstName} {item.LastName}
+                              </h3>
+                              <p className="text-sm text-gray-500">
+                                {item.Designation}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

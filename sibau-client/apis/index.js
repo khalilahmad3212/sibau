@@ -214,6 +214,16 @@ export const getEmployeeByEmployeeId = async (id) => {
   return json;
 };
 
+export const getEmployee = async (id) => {
+  const result = await fetch(`${SERVER}/employee/${id}`, {
+    next: {
+      revalidate: 30,
+    },
+  });
+  const json = await result.json();
+  return json;
+};
+
 export const getEmployeesByDepartment = async (id) => {
   const result = await fetch(`${SERVER}/employee/department/${id}`, {
     next: {
@@ -224,8 +234,30 @@ export const getEmployeesByDepartment = async (id) => {
   return json;
 };
 
+// TODO: Need to Update it
+export const getEmployeesByCampus = async (id) => {
+  const result = await fetch(`${SERVER}/employee/campus/${id}`, {
+    next: {
+      revalidate: 30,
+    },
+  });
+  const json = await result.json();
+  return json;
+};
+
 export const getDepartmentById = async (id) => {
   const result = await fetch(`${SERVER}/department/${id}`, {
+    next: {
+      revalidate: 30,
+    },
+  });
+  const json = await result.json();
+  return json;
+};
+
+
+export const getCampusData = async (id) => {
+  const result = await fetch(`${SERVER}/campus/${id}`, {
     next: {
       revalidate: 30,
     },

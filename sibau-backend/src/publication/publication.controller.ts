@@ -11,6 +11,8 @@ import {
   UploadedFile,
   NotFoundException,
   Res,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { PublicationService } from './publication.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
@@ -22,35 +24,47 @@ import { Response } from 'express';
 
 import * as path from 'path';
 import { deleteFile, uploadFile } from '../utils/common.util';
+import { EmployeeService } from 'src/employee/employee.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 const docsPath = 'publication';
 
 @Controller('publication')
 export class PublicationController {
-  constructor(private readonly publicationService: PublicationService) { }
+  constructor(
+    private readonly publicationService: PublicationService,
+    private employeeService: EmployeeService,
+  ) { }
 
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   @Post()
-  create(
+  async create(
     @UploadedFile() file: Express.Multer.File,
+    @Request() req: any,
     @Body('year') year: string,
     @Body('type') type: string,
     @Body('title') title: string,
   ) {
 
+    const userId = req.user.userId;
+    const creator = await this.employeeService.findOne(userId);
+
+    console.log('Creator: ', creator);
     let fileName;
     if (file) {
       fileName = uploadFile(file, docsPath)
     }
     try {
 
-      const careerObject: CreatePublicationDto = {
+      const careerObject = {
         Title: title,
-        Authors: 'Sukkur IBA',
-        Year: new Date(year),
+        Authors: creator.FirstName + ' ' + creator.LastName,
+        Year: new Date(),
         Link: fileName,
         JounalName: title,
         Type: type,
+        Employee: creator.Id
       };
       return this.publicationService.create(careerObject);
     } catch (error) {
@@ -64,6 +78,12 @@ export class PublicationController {
     return this.publicationService.findAll(getPublicationDto);
   }
 
+  @Get('employee/:id')
+  async findAllByEmployee(@Param('id') id: string) {
+    // const resource = await this.employeeService.findOne(+id);
+    console.log('Hello Id: ', id);
+    return this.publicationService.findEmployeePublications(+id);
+  }
   // @Get(':filename')
   // getFile(@Param('filename') filename: string, @Res() res: Response) {
   //   const downloadPath = path.join('./uploads', 'document', docsPath, filename); // Specify the upload directory path

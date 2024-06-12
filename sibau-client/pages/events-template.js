@@ -36,7 +36,7 @@ const EventsTemplate = ({ footerData }) => {
 
       <PageHeading title="Events" />
       <EventCard />
-      <ApplicationFormCTA />
+      {/* <ApplicationFormCTA /> */}
       <Footer data={footerData} />
     </main>
   );

@@ -3,25 +3,15 @@ import Link from "next/link";
 import styles from "../../../styles/about/leadership/president.module.css";
 import { getValueByKey } from "@/apis";
 
-const President = () => {
-  const [vc, setVc] = useState(
-    {
-      name: "Dr. Syed Mir Muhammad Shah",
-      bio: "Dr. Syed Mir Muhammad Shah is the Vice Chancellor of Sukkur IBA University. He has a PhD in Computer Science from the University of Surrey, UK. He has over 20 years of experience in academia and has been associated with Sukkur IBA University since 2006. He has served as the Dean of Faculty of Science and Information Technology and has been the Director of the Institute of Information and Communication Technology. He has a strong research background and has published numerous research papers in reputed journals and conferences.",
-      image: "president.webp"
-    }
-  );
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await getValueByKey("leadership-vc");
-        setVc(JSON.parse(result.value));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    fetchData();
-  }, []);
+const President = ({
+  name,
+  bio,
+  image,
+  email,
+  faculty,
+  officeExtension
+}) => {
+
   return (
     <section className={` st-1 ${styles.pre_section} `}>
       <div className="container">
@@ -29,13 +19,22 @@ const President = () => {
           <div className="col-md-5">
             <div className={` ${styles.history_box_container} pr-40`}>
               <div className="heading-container">
-                <h2 className={styles.leadership_heading}>{vc?.name}</h2>
-                <div className={styles.tagline}>
-                  <span>Office of the President</span>
-                </div>
+                <h2 className={styles.leadership_heading}>{name}</h2>
+                {/* <div className={styles.tagline}>
+                  <span>Dean  */}
+                    {/* <span className="font-bold">{faculty.split('-').map((e) => e.substring(0, 1).toUpperCase() + e.substring(1)).join(' ')}</span> */}
+                    {/* </span>
+                </div> */}
+                <div className={styles.leadership_heading}>Dean</div>
               </div>
+    {email && (
+      <div>
+        <p><span className="font-bold">Email: </span>{email}</p>
+        <p><span className="font-bold">Office Extension: </span>{officeExtension}</p>
+      </div>
+    )}
               <div className={`sec_content ${styles.leadership_content} `}>
-                <p>{vc?.bio}</p>
+                <p>{bio}</p>
               </div>
             </div>
           </div>
@@ -44,7 +43,7 @@ const President = () => {
               <img
                 alt="vission"
                 className="card-img-top"
-                src={`../${vc?.image}`}
+                src={image}
               />
             </div>
           </div>

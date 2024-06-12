@@ -14,21 +14,19 @@ import { ApplicationFormCTA } from "../components/about/layout";
 import { useState, useEffect } from "react";
 
 import { getValueByKey } from "@/apis";
+import HeaderFooter from "@/components/global/HeaderFooter";
 
 const Mission = ({ bannerData, admissionParas, missionFactData,
   missionVissionData }) => {
 
   return (
-    <main>
-      <NavigationBar />
+    <>
       <PageBanner {...bannerData} />
       <About about={admissionParas} />
       <NumberInfo data={missionFactData[0]} />
-      <Vission data={missionVissionData}/>
+      <Vission data={missionVissionData} />
       <StepsContainer />
-      <ApplicationFormCTA />
-      <Footer />
-    </main>
+    </>
   );
 };
 
@@ -58,6 +56,8 @@ export async function getServerSideProps() {
   } catch (error) {
     console.error("Error fetching data:", error);
   }
+
+  missionVissionData.title = "Mission";
   return {
     props: {
       bannerData,

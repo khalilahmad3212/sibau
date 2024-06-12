@@ -3,14 +3,14 @@ import Aside from "../Founder/Aside";
 
 const PersonData = ({
   description,
-  caption = "ABC ",
+  caption = "Vice Chancellor",
   image = "/staff-1.jpg",
 }) => {
   return (
     <div className="st-1 container ">
-      <div className="row py-6">
-        <div className="offset-md-1 col-md-7 col-xs-12 col-sm-12">
-          <div className="container ">
+      <div className="row  py-6">
+        <div className="offset-md-1 col-md-8 col-xs-12 col-sm-12">
+          <div className="container">
             <div className="flex py-10 overflow-hidden justify-center">
               <figure>
                 <Image
@@ -23,7 +23,7 @@ const PersonData = ({
                 <figcaption className="text-center py-1">{caption}</figcaption>
               </figure>
             </div>
-            <div className="custom_container">
+            <div className="prose min-w-full ">
               <div dangerouslySetInnerHTML={{ __html: description }}></div>
             </div>
           </div>

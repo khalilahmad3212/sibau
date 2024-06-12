@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../../styles/admission/deadlines/table.module.css";
 import { NoData } from "../animated/noData";
 import { BiCopy } from "react-icons/bi";
+import { SERVER } from "@/utils/constants";
 //
 const FacultyDetails = ({
   facultyData,
@@ -50,6 +51,19 @@ const FacultyDetails = ({
 
   const [isCopied, setIsCopied] = useState(false);
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+  }
+
   return (
     <section className="st-1 section-pb">
       <div className=" sm:px-0 md:px-20 lg:px-32">
@@ -69,16 +83,23 @@ const FacultyDetails = ({
           >
             <div className="profile flex lg:flex-row flex-col">
               <div className="lg:w-1/2 w-full">
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center gap-4 items-center">
                   <img
                     className={`${styles.staff_flip_img} h-40 w-40 rounded-full`}
-                    src={basicInfo.Image}
+                    src={`${SERVER}/employee-images/${facultyData?.Image}`}
                     alt="Profile Image"
                   />
+                  {/* for showing Name */}
+                  <div className="flex flex-col">
+                    <h2 className="text-3xl">
+                      {facultyData?.FirstName} {facultyData?.LastName}
+                    </h2>
+                    <h3 className="text-xl">{facultyData?.Designation}</h3>
+                  </div>
                 </div>
                 <h2 className="text-center text-3xl my-5">Biography</h2>
                 <div className="flex justify-center items-center px-16">
-                  <p>{facultyData?.biography}</p>
+                  <p>{facultyData?.Biography}</p>
                 </div>
               </div>
               <div className="lg:w-1/2 lg:pt-28 w-full">
@@ -89,7 +110,7 @@ const FacultyDetails = ({
                     handleCopyClick();
                   }}
                 >
-                  <h3>E-mail : {basicInfo.Email}</h3>
+                  <h3>E-mail : {facultyData?.Email}</h3>
                   <span className="flex cursor-pointer px-2">
                     <BiCopy />
                     {isCopied && (
@@ -99,8 +120,8 @@ const FacultyDetails = ({
                     )}
                   </span>
                 </div>
-                <h3>Office Extension : {basicInfo.OfficeExtension}</h3>
-                <h3>Office Address : {basicInfo.OfficeAddress}</h3>
+                <h3>Office Extension : {facultyData?.OfficeExtension}</h3>
+                <h3>Office Address : {facultyData?.OfficeAddress}</h3>
               </div>
             </div>
 
@@ -113,7 +134,7 @@ const FacultyDetails = ({
                 marginRight: "0px",
               }}
             >
-              <div className="lg:w-1/2 w-full">
+              {/* <div className="lg:w-1/2 w-full">
                 <h2 className="text-center text-3xl my-5">Overview</h2>
                 <div className="lg:px-20 px-10">
                   <ul className="bg-slate-50  p-2 list-disc">
@@ -140,7 +161,7 @@ const FacultyDetails = ({
                       )}
                   </ul>
                 </div>
-              </div>
+              </div> */}
 
               <h2 className="text-center text-3xl my-5">Qualifications</h2>
 
@@ -156,7 +177,7 @@ const FacultyDetails = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {facultyData?.qualifications &&
+                      {/* {facultyData?.qualifications &&
                         JSON.parse(facultyData.qualifications).map(
                           (qualification, index) => (
                             <tr key={index}>
@@ -166,7 +187,17 @@ const FacultyDetails = ({
                               <td>{qualification.Year}</td>
                             </tr>
                           )
-                        )}
+                        )} */}
+                      {
+                        facultyData?.Educations?.map((qualification, index) => (
+                          <tr key={qualification.Id}>
+                            <td>{qualification.Degree}</td>
+                            <td>{qualification.From}</td>
+                            <td>{qualification.Major}</td>
+                            <td>{qualification.Year}</td>
+                          </tr>
+                        ))
+                      }
                     </tbody>
                   </table>
                 </div>
@@ -191,7 +222,7 @@ const FacultyDetails = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {facultyData?.qualifications &&
+                      {/* {facultyData?.qualifications &&
                         JSON.parse(facultyData.qualifications).map(
                           (qualification, index) => (
                             <tr key={index}>
@@ -201,7 +232,17 @@ const FacultyDetails = ({
                               <td>{qualification.Year}</td>
                             </tr>
                           )
-                        )}
+                        )} */}
+                      {
+                        facultyData?.Educations?.map((qualification, index) => (
+                          <tr key={qualification.Id}>
+                            <td>{qualification.DegreeType}</td>
+                            <td>{formatDate(qualification.StartDate)}</td>
+                            <td>{qualification.Major}</td>
+                            <td>{formatDate(qualification.EndDate)}</td>
+                          </tr>
+                        ))
+                      }
                     </tbody>
                   </table>
                 </div>
@@ -221,7 +262,7 @@ const FacultyDetails = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {facultyData?.publications &&
+                      {/* {facultyData?.publications &&
                         JSON.parse(facultyData.publications).map(
                           (publication, index) => (
                             <tr key={index}>
@@ -230,7 +271,16 @@ const FacultyDetails = ({
                               <td>{publication.Authors}</td>
                             </tr>
                           )
-                        )}
+                        )} */}
+                      {
+                        facultyData?.Publications?.map((publication, index) => (
+                          <tr key={publication.Id}>
+                            <td>{index + 1}</td>
+                            <td>{publication.Title}</td>
+                            <td>{publication.Authors}</td>
+                          </tr>
+                        ))
+                      }
                     </tbody>
                   </table>
                 </div>
@@ -256,16 +306,15 @@ const FacultyDetails = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {facultyData?.publications &&
-                        JSON.parse(facultyData.publications).map(
-                          (publication, index) => (
-                            <tr key={index}>
-                              <td>{index + 1}</td>
-                              <td>{publication.Title}</td>
-                              <td>{publication.Authors}</td>
-                            </tr>
-                          )
-                        )}
+                      {facultyData?.Publications?.map(
+                        (publication, index) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{publication.Title}</td>
+                            <td>{publication.Authors}</td>
+                          </tr>
+                        )
+                      )}
                     </tbody>
                   </table>
                 </div>

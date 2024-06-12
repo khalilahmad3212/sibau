@@ -18,7 +18,7 @@ const EventTemplateDetail = ({ footerData }) => {
         <main>
             <NavigationBar />
             <EventDetail/>
-            <ApplicationFormCTA />
+            {/* <ApplicationFormCTA /> */}
             <Footer data={footerData} />
         </main>
     );

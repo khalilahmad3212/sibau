@@ -19,7 +19,7 @@ export class DepartmentService {
   constructor(
     @InjectRepository(Department)
     private departmentRepository: Repository<Department>,
-  ) {}
+  ) { }
   async create(createDepartmentDto: CreateDepartmentDto) {
     return await this.departmentRepository.save(createDepartmentDto);
   }
@@ -50,6 +50,13 @@ export class DepartmentService {
 
   async update(id: number, updateDepartmentDto: UpdateDepartmentDto) {
     return await this.departmentRepository.update(id, updateDepartmentDto);
+  }
+
+  async getFacultyDepartments(id: string) {
+    return await this.departmentRepository.find({
+      where: { Faculty: id },
+      select: ['Id', 'Name', 'Logo']
+    });
   }
 
   async remove(id: number) {

@@ -13,7 +13,7 @@ const faculty = ()=> {
             <AboutContent />
             <EventsList/>
             <EventListV/>
-            <ApplicationFormCTA/>
+            {/* <ApplicationFormCTA/> */}
             
         </main>
     )
