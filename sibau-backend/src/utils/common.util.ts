@@ -11,13 +11,13 @@ export function uploadFile(file, docsPath) {
 
   const currentDateTime = new Date().toISOString().replace(/[:\-T.]/g, '');
   const newFileName = `${fileNameWithoutExtension}_${currentDateTime}${fileExtension}`;
-  const uploadPath = path.join('./uploads', docsPath); // Specify the upload directory path
+  const uploadPath = path.join('uploads', docsPath); // Specify the upload directory path
   const filePath = path.join(uploadPath, newFileName);
 
   // Create the directory if it doesn't exist
-  // if (!fs.existsSync(uploadPath)) {
-  //   fs.mkdirSync(uploadPath, { recursive: true });
-  // }
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
 
   // Write the file to the specified path
   fs.writeFileSync(filePath, file.buffer);
